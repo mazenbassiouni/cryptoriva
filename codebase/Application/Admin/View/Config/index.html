@@ -1,0 +1,276 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">Basic configuration</span>
+		</div>
+		<div class="tab-wrap">
+			<div class="tab-content">
+				<form id="form" action="{:U('Config/edit')}" method="post" class="form-horizontal" enctype="multipart/form-data">
+					<div id="tab" class="tab-pane in tab">
+						<div class="form-item cf">
+							<table>
+								<tr class="controls">
+									<td class="item-label">Site Name :</td>
+									<td>
+										<input type="text" class="form-control  input-10x" name="web_name" value="{$data['web_name']}">
+									</td>
+									<td class="item-note"></td>
+								</tr>
+							
+								<tr class="controls">
+									<td class="item-label">Main Logo :</td>
+									<td>
+										<div id="addpicContainer" style="background:rgba(0,0,255,20%)">
+											<!-- Usemultiple="multiple"Property implementationAdd toMore map features -->
+											<!-- position: absolute;left: 10px;top: 5px;Only for thisuseThe casesinputHidden toimageunder.-->
+											<!-- height:0;width:0;z-index: -1;In order to hideinput,becauseChromeYou can not use lowerdisplay:noneOtherwise, notAdd tofile -->
+											<!-- onclick="getElementById('inputfile').click()" Click onimageWhen click onAdd tofilePush button -->
+											<notempty name="data.web_logo">
+												<!--Noimagedisplaydefaultimage-->
+												<img id="up_img" onclick="getElementById('inputfile').click()" style="cursor:pointer;max-width:400px;" title="Click Add Picture" alt="Click Add Picture" src="/Upload/public/{$data.web_logo}">
+												<else/>
+												<!--Noimagedisplaydefaultimage-->
+												<img id="up_img" onclick="getElementById('inputfile').click()" style="cursor:pointer;max-width:400px;" title="Click Add Picture" alt="Click Add Picture" src="__PUBLIC__/Admin/images/addimg.png">
+											</notempty>
+											<input type="hidden" id="img" name="web_logo" value="{$data.web_logo}">
+											<input type="file" id="inputfile" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
+										</div>
+									</td>
+									<td class="item-note">250px*34px</td>
+								</tr>
+														<tr class="controls">
+									<td class="item-label">Website Footer logo :</td>
+									<td>
+										<div id="addpicContainer" style="background:rgba(0,0,255,20%)">
+											<!-- Usemultiple="multiple"Property implementation Add to More map features -->
+											<!-- position: absolute;left: 10px;top: 5px;Only for thisuseThe casesinputHidden toimageunder.-->
+											<!-- height:0;width:0;z-index: -1;In order to hideinput,becauseChromeYou can not use lowerdisplay:noneOtherwise, notAdd tofile -->
+											<!-- onclick="getElementById('inputfile').click()" Click onimageWhen click onAdd tofilePush button -->
+											<notempty name="data.footer_logo">
+												<!--Noimagedisplaydefaultimage-->
+												<img id="up_imgb" onclick="getElementById('inputfileb').click()" style="cursor:pointer;max-width:400px;" title="Click Add Picture" alt="Click Add Picture" src="/Upload/public/{$data.footer_logo}">
+												<else/>
+												<!--Noimagedisplaydefaultimage-->
+												<img id="up_imgb" onclick="getElementById('inputfileb').click()" style="cursor:pointer;max-width:400px;" title="Click Add Picture" alt="Click Add Picture" src="__PUBLIC__/Admin/images/addimg.png">
+											</notempty>
+											<input type="hidden" id="imgb" name="footer_logo" value="{$data.footer_logo}">
+											<input type="file" id="inputfileb" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
+										</div>
+									</td>
+									<td class="item-note">Trading interface display 168px*22px</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Meta title :</td>
+									<td>
+										<input type="text" class="form-control  input-10x" name="web_title" value="{$data['web_title']}">
+									</td>
+									<td class="item-note"></td>
+								</tr><tr class="controls">
+									<td class="item-label">Meta Description :</td>
+									<td>
+										<textarea name="web_description" class="form-control  input-10x">{$data['web_description']}</textarea>
+									</td>
+									<td class="item-note"></td>
+								</tr>
+																<tr class="controls">
+									<td class="item-label">Meta Keyword :</td>
+									<td>
+										<textarea name="web_keywords" class="form-control  input-10x">{$data['web_keywords']}</textarea>
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Site Status :</td>
+									<td><select name="web_close" class="form-control  input-10x">
+										<option value="1"
+										<eq name="data['web_close']" value="1">selected</eq>
+										>Open</option>
+										<option value="0"
+										<eq name="data['web_close']" value="0">selected</eq>
+										>No Access</option>
+									</select></td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">No Access reason :</td>
+									<td>
+										<textarea name="web_close_cause" class="form-control  input-10x">{$data['web_close_cause']}</textarea>
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Footer Copyright :</td>
+									<td>
+									<textarea name="web_icp" class="form-control  input-10x">{$data['web_icp']}</textarea>
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Footer HTML code:</td>
+									<td>
+										<textarea name="web_html_footer" class="form-control input-10x">{$data['web_html_footer']}</textarea>
+									</td>
+									<td class="item-note">Code will be added just above end body tag</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">User Registration Agreement :</td>
+									<td>
+										<textarea name="web_reg" class="form-control input-10x">{$data['web_reg']}</textarea>
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label"></td>
+									<td>
+										<div class="form-item cf">
+											<button class= "btn submit-btn ajax-post"  target-form="form-horizontal" id="submit" type="submit">Submit</button>
+											<a class="btn btn-return" href="{$Think.server.HTTP_REFERER}">Back</a>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</form>
+				<script type="text/javascript">
+					//submit Form
+					$('#submit').click(function () {
+						$('#form').submit();
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		//The response file Add to success event
+		$("#inputfile").change(function () {
+			//createFormDataObjects
+			var data = new FormData();
+			//forFormDataAdding Data Object
+			$.each($('#inputfile')[0].files, function (i, file) {
+				data.append('upload_file' + i, file);
+			});
+
+
+			//send data
+			$.ajax({
+				url: '/Admin/Config/image',
+				type: 'POST',
+				data: data,
+				cache: false,
+				contentType: false,		//Essential parameters
+				processData: false,		//Essential parameters
+				success: function (data) {
+					if (data) {
+						$('#up_img').attr("src", '/Upload/public/' + data);
+						$('#img').val(data);
+						$('#up_img').show();
+					}
+				},
+				error: function () {
+					alert('Upload error');
+					$(".loading").hide();	//plusUpload failedshiftexceptplusLoadimage
+				}
+			});
+
+		});
+	});
+
+
+	$(document).ready(function () {
+		//The response fileAdd tosuccessevent
+		$("#inputfileb").change(function () {
+			//createFormDataObjects
+			var data = new FormData();
+			//forFormDataAdding Data Object
+			$.each($('#inputfileb')[0].files, function (i, file) {
+				data.append('upload_file' + i, file);
+			});
+
+
+			//send data
+			$.ajax({
+				url: '/Admin/Config/image',
+				type: 'POST',
+				data: data,
+				cache: false,
+				contentType: false,		//Essential parameters
+				processData: false,		//Essential parameters
+				success: function (data) {
+					if (data) {
+						$('#up_imgb').attr("src", '/Upload/public/' + data);
+						$('#imgb').val(data);
+						$('#up_imgb').show();
+					}
+				},
+				error: function () {
+					alert('Upload error');
+					$(".loading").hide();	//plusUpload failedshiftexceptplusLoadimage
+				}
+			});
+
+		});
+	});
+
+	$(document).ready(function () {
+		//The response fileAdd tosuccessevent
+		$("#inputfilea").change(function () {
+			//createFormDataObjects
+			var data = new FormData();
+			//forFormDataAdding Data Object
+			$.each($('#inputfilea')[0].files, function (i, file) {
+				data.append('upload_file' + i, file);
+			});
+
+
+			//send data
+			$.ajax({
+				url: '/Admin/Config/image',
+				type: 'POST',
+				data: data,
+				cache: false,
+				contentType: false,		//Essential parameters
+				processData: false,		//Essential parameters
+				success: function (data) {
+					if (data) {
+						$('#up_imga').attr("src", '/Upload/public/' + data);
+						$('#imga').val(data);
+						$('#up_imga').show();
+					}
+				},
+				error: function () {
+					alert('Upload error');
+					$(".loading").hide();	//plusUpload failedshiftexceptplusLoadimage
+				}
+			});
+
+		});
+	});
+</script>
+<script type="text/javascript" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript">
+	var editor;
+	KindEditor.ready(function (K) {
+		editor = K.create('textarea[name="web_reg"]', {
+			width: '500px',
+			height: '100px',
+			allowPreviewEmoticons: false,
+			allowImageUpload: true,
+			items: [
+				'source', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+				'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+				'insertunorderedlist', '|', 'emoticons', 'link', 'fullscreen'],
+			afterBlur: function () {
+				this.sync();
+			}
+		});
+	});
+</script>
+<include file="Public:footer"/>

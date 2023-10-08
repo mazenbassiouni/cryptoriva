@@ -1,0 +1,99 @@
+<include file="Public:header" />
+<div id="main-content" class="col-sm-10">
+ <div id="top-alert" class="fixed alert alert-error" style="display: none;">
+  <button class="close fixed" style="margin-top: 4px;">&times;</button>
+  <div class="alert-content">Warnings</div>
+ </div>
+ <div id="main" class="main">
+  <div class="main-title-h">
+   <span class="h1-title">IEO record</span>
+  </div>
+  <div class="cf">
+   <div class="search-form fr cf">
+    <div class="sleft">
+     <form name="formSearch" id="formSearch" method="get" name="form1">
+      <select style=" width: 160px; float: left; margin-right: 10px;" name="field" class="form-control">
+       <option value="username"
+       <eq name="Think.get.field" value="username">selected</eq>
+       >Username</option>
+      </select>
+      <input type="text" name="name" class="search-input form-control  " value="{$Think.get.name}" placeholder="Enter text to search" style="">
+      <a class="sch-btn" href="javascript:;" id="search"> <i class="btn-search"></i> </a>
+     </form>
+     <script>
+						//Search function
+						$(function(){
+							$('#search').click(function(){
+								$('#formSearch').submit();
+							});
+						});
+						//Enter search
+						$(".search-input").keyup(function(e){
+							if(e.keyCode===13){
+								$("#search").click();
+								return false;
+							}
+						});
+					</script>
+    </div>
+   </div>
+  </div>
+  <div class="data-table table-striped">
+   <table class="">
+    <thead>
+     <tr>
+      <th class="row-selected row-selected"><input class="check-all" type="checkbox" /></th>
+      <th class="">ID</th>
+      <th class="">Username</th>
+      <th class="">IEO name</th>
+      <th class="">IEO currency</th>
+      <th class="">Payment Currency</th>
+      <th class="">IEO Price</th>
+      <th class="">Number of IEO</th>
+      <th class="">The total IEO</th>
+      <th class="" style="display:none;">Thawing times</th>
+      <th class="" style="display:none;">Thaw interval</th>
+      <th class="">IEO time</th>
+      <th class="" style="display:none;">Thawed</th>
+      <th class="" style="display:none;">Last thaw</th>
+      <th class="" style="display:none;">Status</th>
+     </tr>
+    </thead>
+    <tbody>
+     <notempty name="list"> <volist name="list" id="vo">
+     <tr>
+      <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+      <td>{$vo.id}</td>
+      
+      <td>{$vo['username']}</td>
+      <td>{$vo.name}</td>
+      <td>{$C['coin'][$vo['coinname']]['title']}</td>
+      <td>{$C['coin'][$vo['buycoin']]['title']}</td>
+      <td>{$vo['price']*1}</td>
+      <td>{$vo['num']*1}</td>
+      <td>{$vo['mum']*1}</td>
+      <td style="display:none;">{$vo['ci']}</td>
+      <td style="display:none;">{$vo['jian']}</td>
+      <td>{$vo.addtime|addtime}</td>
+      <td style="display:none;"><eq name="vo['unlock']" value="$vo['ci']">completed<else />{$vo.unlock}/{$vo.ci}</eq></td>
+      <td style="display:none;">{$vo.endtime|addtime}</td>
+      <td style="display:none;"><eq name="vo.status" value="1">carry out<else />Thawing</eq></td>
+     </tr>
+     </volist> <else />
+     <td colspan="12" class="text-center">No contents!</td>
+     </notempty>
+    </tbody>
+   </table>
+   <div class="page">
+    <div>{$page}</div>
+   </div>
+  </div>
+ </div>
+</div>
+<include file="Public:footer" />
+<block name="script">
+ <script type="text/javascript" charset="utf-8">
+  //Highlight navigation
+  highlight_subnav("{:U('IEO/log')}");
+ </script>
+</block>

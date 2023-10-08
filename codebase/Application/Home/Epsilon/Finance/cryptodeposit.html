@@ -1,0 +1,226 @@
+<include file="Public:header" />
+	<div class="page-jumbotron grey-bg">
+		<div class="container">
+			<div class="row align-items-center">
+				<h1 class="title">Crypto Deposit</h1>
+				<a href="deposit-money-bank.html" class="btn-1 float-right">Fiat Deposit<i class="ion ion-md-arrow-forward ml-2"></i> </a>
+				</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row justify-content-center inner-wrapper">
+
+			<div class="col-12">
+				<div class="deposit-crypto-alert alert grey-bg alert-dismissible fade show row" role="alert">
+
+					<div class="col-lg-3">
+						<span class="number">1</span>
+						<div class="title">copy address</div>
+						<div class="desc">On this page select the crypto and its network and copy the deposit address.</div>
+					</div>
+					<div class="col-lg-3">
+						<span class="number">2</span>
+						<div class="title">Start the shooting process</div>
+						<div class="desc">Start a shooting operation on the shooting platform.</div>
+					</div>
+					<div class="col-lg-3">
+						<span class="number">3</span>
+						<div class="title">Network confirmation</div>
+						<div class="desc">Wait for the blockchain network to confirm your transfer.</div>
+					</div>
+					<div class="col-lg-3">
+						<span class="number">4</span>
+						<div class="title">Deposit completed</div>
+						<div class="desc">After network confirmation, {:SHORT_NAME} will deposit the crypto into your account.</div>
+					</div>
+
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+			</div>
+			<div class="col-lg-6">
+	
+
+					<div class="form-group">
+						<label> Select Coin</label>
+						<select id="depositCyrpto" class="bootstrap-select" data-live-search="true" data-live-search-placeholder={:l("Search")} data-width="100%">
+						<volist name="coin_list" id="kolist">
+											<eq name="xnb" value="$key">
+												<option selected="selected" value="{$kolist['name']}" data-value="{$kolist['name']}" data-content="<img src='{$kolist['img']}' height='20px'/> {$kolist['name'] |strtoupper}"></option>
+											<else/>
+													<option value="{$kolist['name']}" data-value="{$kolist['name']}" data-content="<img src='{$kolist['img']}' height='20px'/> {$kolist['name'] |strtoupper}"></option>
+											</eq>
+								
+							</volist>
+							
+						</select>
+					</div>
+						<div class="form-group">
+						<label> Deposit To</label>
+						
+						<select id="selectNetwork" class="bootstrap-select" data-live-search="true" data-live-search-placeholder={:l("Search")} data-width="100%">
+						
+						<volist name="infocoin" id="network">
+							<eq name="xnb" value="$key">
+							<option selected="selected" value="{$network.name}" data-value="{$network.name}" data-content="{$network.name|strtoupper} <span>{$network.title}</span>"></option>
+							<else/>
+							<option value="{$network.name}" data-value="{$network.name}" data-content="{$network.name|strtoupper} <span>{$network.title}</span>"></option>
+							</eq>
+						</volist>
+						</select>
+						<small>Make sure the network you choose for the deposit matches the withdrawal network or your assets may be lost.</small>
+					</div>
+
+
+					<div class="alert alert-warning alert-dismissible fade show" role="alert" id="networkMessage">
+						
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+
+					<ul class="form-info row" id="walletinfo">
+						<li class="col-12">
+							<label>Address</label>
+							<span id="copyAddress">--</span>
+							<a role="button" data-toggle="popover" data-placement="top" data-content="Copied" trigger="hover" onclick="copyToClipboard('#copyAddress')" class="btn btn-1" data-original-title="" title=""><i class="fa fa-copy"></i></a>
+
+							<a role="button" class="btn btn-1" id="qr1" data-toggle="popover" data-placement="top" title="" data-content="" data-original-title=""> 
+								 <i class="fa fa-qrcode"></i>
+							</a>
+						</li>
+						
+						<if condition="$infocoin[$coin]['dest_tag']">
+						<li class="col-12" id="dest_tag" style="display:none">
+							<label>MEMO</label>
+							<span id="networkMemo"></span>
+							<a role="button" data-toggle="popover" id="qr2" data-placement="top" data-content="{:('Copied')}" trigger="hover" onclick="copyToClipboard('#networkMemo')" class="btn btn-1"><i class="fa fa-copy"></i></a>
+							<a role="button" 
+								class="btn btn-1" 
+								data-toggle="popover" 
+								data-placement="top"
+								title="" 
+								data-content="<div><span id='qrcodeMemo'>&nbsp;</span></div>">							
+								 <i class="fa fa-qrcode"></i>
+							</a>
+							<div class="d-inline p-5 f-s-12 alert alert-warning" role="alert">
+							  MEMO is required or you will lose your funds
+							</div>
+
+						</li>
+						</if>
+						<li class="col-6">
+							<label>Expected Arrival</label>
+							<label class="text-bold"><span id="networkConfirmations">--</span> network confirmation/s</label>
+						</li>
+					
+						<li class="col-12"><i class="fa fa-circle f-s-8 mr-1"></i>Only send <span id="networkName">-</span> to this Deposit address</li>
+						<li class="col-12"><i class="fa fa-circle f-s-8 mr-1"></i>Make sure the network <span id="networkTitle">-</span></li>
+
+					</ul>
+
+			</div>
+			<div class="col-lg-4 info-area">
+				<div class="card">
+					<h6>
+						Didn't the deposited amount arrive?
+					</h6>
+					<div>
+						If you encounter the following issues during the deposit process, you can go to the Deposit Status Inquiry to search for your current deposit status or retrieve your assets via the self-service application.
+						<ul>
+							<li>The amount deposited did not arrive even after a long time.</li>
+							<li>You did not enter the MEMO/Label correctly</li>
+							<li>You deposited unlisted coins</li>
+						</ul>
+					</div>
+				</div>
+				<div class="card">
+					<h6 class="sss-title">FAQ</h6>
+					<a href="faq-detail.html" class="sss-link">View More <i class="ion ion-md-arrow-forward ml-2"></i></a>
+					<ul>
+						<li><a href="">Video Guide</a></li>
+						<li><a href="">Step-by-Step Crypto Deposit Guide</a></li>
+						<li><a href="">Cryptocurrencies Deposited with Wrong or Missing Aktifet/Memo</a></li>
+						<li><a href="">How to buy Cryptocurrency</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<span style="display:none">
+			<span id="qrcode1"></span>
+			<span id="qrcode2"></span>
+	</span>
+	<script type="text/javascript" src="__PUBLIC__/Home/js/jquery.qrcode.min.js"></script>
+    <script>
+
+	jQuery(document).ready(function ($) {
+	var selectNetwork=$('select#selectNetwork').find(":selected").val();
+	console.log(selectNetwork);
+	changeAddress(selectNetwork);
+	});
+	
+	document.querySelector('select#selectNetwork').onchange = function(){   
+		var selectNetwork=this.selectedOptions[0].getAttribute('data-value'); 
+		console.log(selectNetwork);
+		changeAddress(selectNetwork);
+	};
+	document.querySelector('select#depositCyrpto').onchange = function(){   
+   var value=this.selectedOptions[0].getAttribute('data-value'); 
+	var prefix="coin";
+	var location=window.location.href;
+	var url = new URL(location);
+	url.searchParams.append(prefix, value);
+	url.searchParams.set(prefix, value);
+    window.location.href =url;
+};
+function changeAddress(coin){
+    var networkCoins = '{$infocoin|json_encode}';
+	console.log(networkCoins);
+	const obj = JSON.parse(networkCoins);
+	var coininfo=obj[coin];
+	console.log(coininfo);
+	$("#networkName").html(coininfo.name);
+	$("#networkName2").html(coininfo.name);
+	$("#networkTitle").html(coininfo.title);
+	$("#networkTitle2").html(coininfo.title);
+	$("#networkConfirmations").html(coininfo.confirmations);
+	$("#copyAddress").html(coininfo.wallet);
+	if(coininfo.wallet==false){
+	 
+		$("#walletinfo").hide();
+		$("#networkMessage").html(coininfo.message);
+	}else{
+	
+		$('#qrcode1').qrcode({
+                        render: "table", //table
+                        size: 150,
+                        text: coininfo.wallet, //Any content
+						background: "#ffffff"
+                    }); 
+			let imgcontent	=$('#qrcode1').html();
+			let content= '<div>Scan QR code for deposit address <br/>  imghere</div>	<ul><li>Only send <span id="networkName2"></span> to this deposit address.</li><li>Make sure the network is <span id="networkTitle2"></span>.</li></ul>';	
+			let newcontent =content.replace(/imghere/g, imgcontent);
+			$("#qr1").attr('data-content',newcontent);
+
+		$("#walletinfo").show();
+		$("#networkMessage").hide();
+	}
+	if(coininfo.dest_tag!=null){
+	
+	$('#qrcodeMemo').qrcode({
+                        render: "table", //table
+                        size: 150,
+                        text: coininfo.dest_tag, //Any content
+						background: "#ffffff"
+                    }); 
+		$("#dest_tag").show();
+		$("#networkMemo").html(coininfo.dest_tag);
+	}
+	
+}
+	</script>
+	<!-- Wallet Content End -->
+<include file="Public:footer_minimal"/>

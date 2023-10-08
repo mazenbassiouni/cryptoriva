@@ -1,0 +1,102 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">User coins</span>
+		</div>
+		<div class="cf">
+			<div class="fl">
+							<a class="btn btn-sm btn-info " href="{:U('User/user_coin_download')}" target="_blank">Excel this Page
+				</a>
+			<a class="btn btn-success  " href="{:U('User/coinEditLog')}">User Coin Edit Logs</a>
+			</div>
+			<div class="search-form fr cf">
+				<div class="sleft">
+					<form name="formSearch" id="formSearch" method="get" name="form1">
+
+						<select style=" width: 160px; float: left; margin-right: 10px;" name="field" class="form-control">
+							<option value="username"
+							<eq name="Think.get.field" value="username">selected</eq>
+							>Username</option>
+							<option value="userid"<eq name="Think.get.field" value="userid">selected</eq>
+							>Userid</option>
+						</select>
+						<input type="text" name="name" class="search-input form-control  " value="{$Think.get.name}" placeholder="Enter text to search" style="">
+						<a class="sch-btn" href="javascript:;" id="search"> <i class="btn-search"></i> </a>
+					</form>
+					<script>
+						//Search function
+						$(function () {
+							$('#search').click(function () {
+								$('#formSearch').submit();
+							});
+						});
+						//Enter search
+						$(".search-input").keyup(function (e) {
+							if (e.keyCode === 13) {
+								$("#search").click();
+								return false;
+							}
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+		<div class="data-table table-responsive">
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+					<th class="">UserID</th>
+					<th class="">Username</th>
+					<th class="">Option</th>
+					<volist name=":C('coin')" id="v">
+						<th class="">{$v['name'] |strtoupper}</th>
+					</volist>
+				</tr>
+				</thead>
+				<tbody>
+				<notempty name="list">
+					<volist name="list" id="vo">
+						<tr>
+							<td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+							<td>{$vo.userid}</td>
+							<td>{$vo['username']}</td>
+							<td><a href="{:U('User/coinEdit?id='.$vo['id'])}" class="btn btn-danger btn-xs">Edit</a><br/> Available :
+								<br>Freeze :
+								<br>Total :
+								<br></td>
+							<volist name=":C('coin')" id="v">
+								<td>
+								<a href="{:U('User/coinLog?coinname='.$v['name'].'&userid='.$vo['userid'])}" class="btn btn-secondary btn-xs">Info</a><br/>
+								<b><php>echo TrimTrailingZeroes($vo[$v['name']])</php></b>
+								<br><php>echo TrimTrailingZeroes($vo[$v['name'].'d']);</php>
+								<br><php>echo TrimTrailingZeroes(bcadd($vo[$v['name'].'d']  ,$vo[$v['name']],8)) ;</php>
+								
+								
+								</td>
+							</volist>
+						</tr>
+					</volist>
+					<else/>
+					<td colspan="12" class="text-center">No contents!</td>
+				</notempty>
+				</tbody>
+			</table>
+			<div class="page">
+				<div>{$page}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/>
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		//Highlight navigation
+		highlight_subnav("{:U('User/coin')}");
+	</script>
+</block>

@@ -1,0 +1,78 @@
+<include file="Public:header" />
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">Recharge Configuration</span>
+		</div>
+
+		<div class="tab-wrap">
+
+			<div class="tab-content">
+				<form id="form" action="{:U('Config/save')}" method="post" class="form-horizontal" enctype="multipart/form-data">
+					<div id="tab" class="tab-pane in tab">
+						<div class="form-item cf">
+							<table>
+								
+							
+								<tr class="controls">
+									<td class="item-label">The minimum recharge amount :</td>
+									<td><input type="text" class="form-control" name="mycz_min" value="{$C['mycz_min']}"></td>
+									<td class="item-note">The minimum recharge amount</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">The maximum amount of recharge :</td>
+									<td><input type="text" class="form-control" name="mycz_max" value="{$C['mycz_max']}"></td>
+									<td class="item-note">The maximum amount of recharge</td>
+								</tr>
+
+								<tr class="controls">
+									<td class="item-label">Top tips :</td>
+									<td><textarea name="mycz_text_index" class="textarea input-8x" style="height: 80px; margin-top: 24px;">{$C['mycz_text_index']}</textarea></td>
+									<td class="item-note"></td>
+								</tr>
+					
+
+								<tr class="controls">
+									<td class="item-label"></td>
+									<td>
+										<div class="form-item cf">
+											<button class= "btn submit-btn ajax-post"  target-form="form-horizontal"  id="submit" type="submit">Submit</button>
+											<a class="btn btn-return" href="{$Think.server.HTTP_REFERER}">Back</a>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</form>
+				<script type="text/javascript">
+					//submit Form
+					
+					$('#submit').click(function(){
+						$('#form').submit();
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript">
+	var editor;
+	KindEditor.ready(function(K){
+		editor=K.create('textarea',{width:'465px',height:'60px',items:['source','fontname','fontsize','|','forecolor','hilitecolor','bold','italic','underline','removeformat','|','justifyleft','justifycenter','justifyright','insertorderedlist','insertunorderedlist','|','emoticons','link','fullscreen'],afterBlur: function () { this.sync(); }});
+	});
+</script>
+<script type="text/javascript">
+	$(function(){
+		//Highlight the main navigation
+		$('.mycz-box').addClass('current');
+		//Highlight side navigation
+		$('.mycz-config').addClass('current');
+	});
+</script>
+<include file="Public:footer" />

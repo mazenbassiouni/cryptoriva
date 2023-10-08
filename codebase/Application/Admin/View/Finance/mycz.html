@@ -1,0 +1,137 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">USD recharge</span>
+		</div>
+		<div class="cf">
+			<div class="fl">
+				<button class="btn ajax-post confirm btn-danger" url="{:U('Finance/myczStatus',array('type'=>'del'))}" target-form="ids">Delete</button>
+			</div>
+			<div class="search-form fr cf">
+				<div class="sleft">
+					<form name="formSearch" id="formSearch" method="get" name="form1">
+						<select style="width: 160px; float: left; margin-right: 10px;" name="status" class="form-control">
+							
+							<option value="6"
+							<eq name="Think.get.status" value="6">selected</eq>
+							>All [Except Cancel]</option>
+							<option value="1"
+							<eq name="Think.get.status" value="1">selected</eq>
+							>Unpaid</option>
+							<option value="2"
+							<eq name="Think.get.status" value="2">selected</eq>
+							>Success</option>
+							<option value="3"
+							<eq name="Think.get.status" value="3">selected</eq>
+							>Marked as paid</option>
+							<option value="5"
+							<eq name="Think.get.status" value="5">selected</eq>
+							>Cancelled</option>
+						</select>
+						<select style=" width: 160px; float: left; margin-right: 10px;" name="field" class="form-control">
+							<option value="username"
+							<eq name="Think.get.field" value="username">selected</eq>
+							>Username</option>
+							<option value="tradeno"
+							<eq name="Think.get.field" value="tradeno">selected</eq>
+							>order number</option>
+						</select>
+						<input type="text" name="name" class="search-input form-control  " value="{$Think.get.name}" placeholder="Enter text to search" style="">
+						<a class="sch-btn" href="javascript:;" id="search"> <i class="btn-search"></i> </a>
+					</form>
+					<script>
+						//Search function
+						$(function () {
+							$('#search').click(function () {
+								$('#formSearch').submit();
+							});
+						});
+						//Enter search
+						$(".search-input").keyup(function (e) {
+							if (e.keyCode === 13) {
+								$("#search").click();
+								return false;
+							}
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+		<div class="data-table table-striped">
+			<table class="">
+				<thead>
+				<tr>
+					<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+					<th class="">ID</th>
+					<th class="">Username</th>
+					<th class="">Deposit amount</th>
+					<th width="">Amount</th>
+					<th width="">Method</th>
+					<th width="">Order</th>
+					<th class="">Time</th>
+					<th class="">Remark</th>
+					<th width="">Status</th>
+					<th width="">Option</th>
+				</tr>
+				</thead>
+				<tbody>
+				<notempty name="list">
+					<volist name="list" id="vo">
+						<tr>
+							<td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+							<td>{$vo.id}</td>
+							<td>{$vo['username']}
+							</td>
+							<td>{$vo.coin|strtoupper} {$vo.num}</td>
+							<td><if condition="$vo['mum']">{$vo.coin|strtoupper} {$vo.mum}<else/>--</if></td>
+							<td>{$vo.type}</td>
+							<td>{$vo.tradeno}</td>
+							<td>{$vo.addtime|addtime}</td>
+							<td>{$vo.remark}</td>
+							<td>
+								<eq name="vo.status" value="0">Unpaid</eq>
+								<eq name="vo.status" value="1">Successful Deposit</eq>
+								<eq name="vo.status" value="2">Manual Deposit</eq>
+								<eq name="vo.status" value="3">Marked as Paid</eq>
+								<eq name="vo.status" value="4">GatewayPaid</eq>
+							</td>
+							<td>
+								<eq name="vo.status" value="0">
+									<a href="{:U('Finance/myczConfirm?id='.$vo['id'])}" class="ajax-get btn btn-primary btn-xs">Confirm Deposit </a>
+								</eq>
+								<eq name="vo.status" value="3">
+									<a href="{:U('Finance/myczConfirm?id='.$vo['id'])}" class="ajax-get btn btn-danger btn-xs">Confirm Deposit </a>
+								</eq>
+								<eq name="vo.status" value="4">
+									<a href="{:U('Finance/myczConfirm?id='.$vo['id'])}" class="ajax-get btn btn-primary btn-xs">Confirm Deposit </a>
+								</eq>
+							</td>
+						</tr>
+					</volist>
+					<else/>
+					<td colspan="12" class="text-center">No contents!</td>
+				</notempty>
+				</tbody>
+			</table>
+			<div class="page">
+				<div>{$page}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/>
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		//Highlight navigation
+		highlight_subnav("{:U('Finance/mycz')}");
+	</script>
+</block>
+<style>
+.payment-list ul {
+    padding-left: 0px !important;
+}</style>

@@ -1,0 +1,102 @@
+	<!-- Graph Start -->
+	<div class="graph graph-main-section graph-padding d-none d-md-block hide-mobile">
+		<div class="container-fluid">
+			<div class="row margin-balance">
+			<volist name="top5markets" id="top">
+				<div class="col-lg-2 col-6">
+					<a href="{:U('Trade/index',array('market'=>$top['name']))}" class="graph-item-block">
+						<div class="graph-item">
+							<div class="graph-heading">
+								<div class="icon" style="background-image: url('__UPLOAD__/coin/{$top.xnbimg}')"></div>
+								<h5>{$top.pairname}</h5>
+								<div class="rate {$top.change-class}">{$top.change}%</div>
+							</div>
+							<div class="graph-content">
+								<div class="left-side">
+									<div class="lastprice">
+										<span class="price-change">{$top['new_price']|NumToStr}</span>
+									</div>
+									<span class="volume">Vol {$top['volume']|NumToStr}</span>
+								</div>
+								<div class="graph-chart">
+									<span class="{$top.chart-class}">{$top.string}</span>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				</volist>
+			</div>
+		</div>
+	</div>
+	<!-- Graph End -->
+	
+<style>
+.graph-main-section {
+    background-color: #131723;
+    padding: 33px 10px;
+    margin: 80px 0;
+}
+.read-more.ml-auto {
+    position: absolute;
+    right: 0;
+    min-width: auto;
+}
+.container {
+    width: 100%;
+    max-width: 1260px;
+    padding: 0 30px;
+    margin: 0 auto;
+}
+#dark .home-markets .nav-pills .nav-link, #dark .swap-form-inner, #dark .swap-from label, #dark .announcements-block, #dark thead th, #dark .markets-pair-list .nav-link {
+    color: rgba(197, 197, 197, 1);
+    background: transparent;
+    box-shadow: none;
+    font-size: 18px;
+}
+#dark .table thead th {
+    font-size: 14px;
+    color: rgba(197, 197, 197, 1);
+}
+div#market-tab-box {
+    border-bottom: 1px solid rgba(78, 78, 78, 1);
+}
+#dark, #dark .modal-content, #dark section.guide, #dark section.apps, #dark section.blog, #dark .swap-form-wrapper .swap-from, #dark .swap-form-inner, #dark .announcements-block, #dark .easytrade-form-wrapper .easytrade-form-inner {
+    border: 0;
+}
+.announcements-block .icon {
+    background-color: transparent;
+    color: inherit;
+}
+i.ion.ion-md-megaphone:before{
+    color: rgba(197, 197, 197, 1);
+}
+.read-more.ml-auto a {
+    color: #ffbe40 !important;
+}
+.slick-dots li button:before{
+    color: #ffbe40;
+}
+#dark .slip-limit-container .limit-input, #dark .slip-limit-container .limit-button, #dark .card-header, #dark .card, #dark .home-markets > .tab-content {
+    background-color: transparent;
+    color: #fff;
+    border: 0;
+    box-shadow: none;
+}
+#dark .home-markets .nav.nav-pills .nav-link.current {
+    background-color: transparent;
+    border-bottom: 2px solid #ffbe40;
+    color: #fff !important;
+    box-shadow: none;
+}
+#dark .coin-pnl-modal-summary ul li, #dark .table td, #dark .table th{
+    border: 0;
+}
+#dark #daily-top-winners .coin-list .btn-2, .codono-distribution-table.table .btn-2, .p2p-list-table .btn-2 {
+    background-color: transparent;
+    border-color: #ffbe40;
+    color: #fff!important;
+    border: 1px solid rgba(78, 78, 78, 1);
+    border-radius: 6px;
+}
+</style>

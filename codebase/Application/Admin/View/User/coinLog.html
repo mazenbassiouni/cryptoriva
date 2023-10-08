@@ -1,0 +1,142 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+    <div id="top-alert" class="fixed alert alert-error" style="display: none;">
+        <button class="close fixed" style="margin-top: 4px;">&times;</button>
+        <div class="alert-content">Warnings</div>
+    </div>
+    <div id="main" class="main">
+        <div class="main-title-h">
+            <span class="h1-title">Details</span>
+        </div>
+        <div class="tab-wrap">
+            <div class="tab-content">
+                <form id="form" class="form-horizontal">
+                    <div id="tab" class="tab-pane in tab">
+                        <div class="form-item cf">
+                            <table>
+                                <tr class="controls">
+                                    <td class="item-label">User ID :</td>
+                                    <td>{$data['userid']}</td>
+                                    <td class="item-note"></td>
+                                </tr>
+                                <tr class="controls">
+                                    <td class="item-label">Username :</td>
+                                    <td>{$data['username']} </td>
+                                    <td class="item-note"></td>
+                                </tr>
+                                <tr class="controls">
+                                    <td class="item-label">Statistical currency :</td>
+                                    <td>{$data['coinname']}</td>
+                                    <td class="item-note"></td>
+                                </tr>
+								
+								<tr class="controls">
+                                    <td class="item-label">Blockchain address :</td>
+                                    <td>{$data['address']}</td>
+                                    <td class="item-note"></td>
+                                </tr>
+								
+                                <tr class="controls">
+                                    <td class="item-label"></td>
+                                    <td></td>
+                                    <td class="item-note"> </td>
+                                </tr>
+
+
+                                <tr class="controls">
+                                    <td class="item-label">Available balance :</td>
+                                    <td>{$data['zhengcheng']}</td>
+                                    <td class="item-note">User Balance</td>
+                                </tr>
+                                <tr class="controls">
+                                    <td class="item-label">Freeze Balance :</td>
+                                    <td>{$data['dongjie']}</td>
+                                    <td class="item-note">User Balance</td>
+                                </tr>
+
+                                <tr class="controls">
+                                    <td class="item-label">Total Balance :</td>
+                                    <td>{$data['zongji']}</td>
+                                    <td class="item-note">  User Balance</td>
+                                </tr>
+
+                                <tr class="controls">
+                                    <td class="item-label"></td>
+                                    <td></td>
+                                    <td class="item-note"> </td>
+                                </tr>
+                                <tr class="controls">
+                                    <td class="item-label">Total Recharge:</td>
+                                    <td>{$data['chongzhiusd']}</td>
+                                    <td class="item-note">Fiat Recharge</td>
+                                </tr>
+
+
+                                <tr class="controls">
+                                    <td class="item-label">Total withdraw USD:</td>
+                                    <td>{$data['tixianusd']}</td>
+                                    <td class="item-note">Withdraw Success</td>
+                                </tr>
+                                <tr class="controls">
+                                    <td class="item-label">Withdraw Freeze USD :</td>
+                                    <td>{$data['tixianusdd']}</td>
+                                    <td class="item-note">Pending</td>
+                                </tr>
+                                <tr class="controls">
+                                    <td class="item-label"></td>
+                                    <td></td>
+                                    <td class="item-note"> </td>
+                                </tr>
+                                <tr class="controls">
+                                    <td class="item-label">Total Coins Deposit :</td>
+                                    <td>{$data['chongzhi']}</td>
+                                    <td class="item-note">Crypto Deposit</td>
+                                </tr>
+
+
+                                <tr class="controls">
+                                    <td class="item-label">Total Coin Withdraw assets :</td>
+                                    <td>{$data['tixian']}</td>
+                                    <td class="item-note">Crypto Withdraw</td>
+                                </tr>
+
+
+
+
+                            </table>
+                        </div>
+                    </div>
+                </form>
+                <script type="text/javascript">
+                    //submit Form
+                    $('#submit').click(function () {
+                        $('#form').submit();
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //Search function
+    $(function () {
+        $('#search').click(function () {
+            $('#formSearch').submit();
+        });
+    });
+    //Enter search
+    $(".search-input").keyup(function (e) {
+        if (e.keyCode === 13) {
+            $("#search").click();
+            return false;
+        }
+    });
+</script>
+
+<include file="Public:footer"/>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+        //Highlight navigation
+        highlight_subnav("{:U('User/coin')}");
+    </script>
+</block>

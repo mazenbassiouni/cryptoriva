@@ -1,0 +1,223 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">User Management   </span>
+		</div>
+		<div class="cf">
+			<div class="fl">
+			<a class="btn btn-success  " href="{:U('User/edit')}">Add</a>
+
+				<button class="ajax-post btn  btn-info " url="{:U('User/status',array('type'=>'idauth'))}" target-form="ids">Certify KYC</button>
+				<button class="ajax-post btn  btn-warning  ajax-post" url="{:U('User/status',array('type'=>'notidauth'))}" target-form="ids">Reject KYC</button>
+
+				<button class="ajax-post btn  btn-info " url="{:U('User/status',array('type'=>'resume'))}" target-form="ids">Enable</button>
+				<button class="ajax-post btn  btn-warning  ajax-post" url="{:U('User/status',array('type'=>'forbid'))}" target-form="ids">Disable</button>
+				<button class="btn ajax-post confirm btn-danger " url="{:U('User/status',array('type'=>'del'))}" target-form="ids">Delete</button>
+				
+			</div>
+
+			<div class="search-form fr cf">
+				<div class="sleft">
+					<form name="formSearch" id="formSearch" method="get" name="form1">
+						<select style="width: 160px; float: left; margin-right: 10px;" name="status" class="form-control">
+							<option value=""
+							<empty name="Think.get.status">selected</empty>
+							>All states</option>
+
+							<option value="7"
+							<eq name="Think.get.status" value="7">selected</eq>
+							>KYC Not Submitted</option>
+							<option value="6"
+							<eq name="Think.get.status" value="6">selected</eq>
+							>KYC Pending Review </option>
+							<option value="5"
+							<eq name="Think.get.status" value="5">selected</eq>
+							>KYC Approved</option>
+							<option value="8"
+							<eq name="Think.get.status" value="8">selected</eq>
+							>KYC Rejected</option>
+							<option value="1"
+							<eq name="Think.get.status" value="1">selected</eq>
+							>Disabled Status</option>
+							<option value="2"
+							<eq name="Think.get.status" value="2">selected</eq>
+							>Enabled status</option>
+						</select>
+						<select style=" width: 160px; float: left; margin-right: 10px;" name="field" class="form-control">
+							<option value="email"
+							<eq name="Think.get.field" value="email">selected</eq>
+							>Email</option>
+							<option value="username"
+							<eq name="Think.get.field" value="username">selected</eq>
+							>Username</option>
+							<option value="cellphone"
+							<eq name="Think.get.field" value="cellphone">selected</eq>
+							>{:l('PHONE_NUMBER')}</option>
+							<option value="truename"
+							<eq name="Think.get.field" value="truename">selected</eq>
+							>Truename</option>
+							<option value="id"
+							<eq name="Think.get.field" value="id">selected</eq>
+							>UserID</option>
+						</select>
+						<input type="text" name="name" class="search-input form-control  " value="{$Think.get.name}" placeholder="Enter text to search" style="">
+						<a class="sch-btn" href="javascript:;" id="search"> <i class="btn-search"></i> </a>
+					</form>
+					<script>
+						//Search function
+						$(function () {
+							$('#search').click(function () {
+								$('#formSearch').submit();
+							});
+						});
+						//Enter search
+						$(".search-input").keyup(function (e) {
+							if (e.keyCode === 13) {
+								$("#search").click();
+								return false;
+							}
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+		<div class="data-table table-striped">
+			<table class="">
+				<thead>
+				<tr>
+					<th class="row-selected row-selected">
+						<input class="check-all" type="checkbox"/>
+					</th>
+					<th class="">UID</th>
+					<th class="">Username</th>
+					<th class="">Email</th>
+					<th class="">Full Name</th>
+					<th class="">KYC</th>
+			
+					<th class="">Docs</th>
+					<th class="">Status</th>
+					<th class="">IP</th>
+					<th class="">Option</th>
+				</tr>
+				</thead>
+				<tbody>
+				<notempty name="list">
+					<volist name="list" id="vo">
+						<tr>
+							<td>
+								<input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/>
+							</td>
+							<td>{$vo.id}</td>
+							<td>{$vo.username}</td>
+							<td><if condition="$vo['email']">{$vo.email}<else/>-</if></td>
+														<td>{$vo.truename}</td>
+																					<td>
+								<eq name="vo.idcardauth" value="0"><font color='black'><span class="glyphicon glyphicon-warning-sign" aria-hidden="true" title="Not Submitted"></span></font></eq>
+								<eq name="vo.idcardauth" value="1"><font color='green'><span class="glyphicon glyphicon-ok-sign" aria-hidden="true" title="Passed"></span></font></eq>
+								<eq name="vo.idcardauth" value="2"><font color='orange'><span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="Pending Review"></span></font></eq>
+								<eq name="vo.idcardauth" value="3"><font color='red'><span class="glyphicon glyphicon-remove-sign" aria-hidden="true" title="Rejected"></span></font></eq>
+							</td>
+							<td>
+								<neq name="vo.idcardimg1" value="">
+									<span style="color:green" class="glyphicon glyphicon-ok" aria-hidden="true" title="UPLOADED"></span> <notempty name="vo"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" title="{$vo.idcardinfo}"></span></notempty>
+									
+								<else/>
+									<font color='red'>---</font>
+								</neq>
+							</td>
+
+
+							<td>
+								<eq name="vo.status" value="0"><span style="color:red" class="glyphicon glyphicon-remove" aria-hidden="true" title="Disabled"></span></eq>
+								<eq name="vo.status" value="1"><span style="color:green" class="glyphicon glyphicon-ok" aria-hidden="true" title="Enabled"></span></eq>
+							</td>
+							<td>
+								<span class="glyphicon glyphicon-info-sign" aria-hidden="true" title="from {$vo.addip} on {$vo.addtime|addtime} "></span></td>
+							<td>
+		<div class="btn-group">
+  
+  <button type="button" class="btn btn-danger dropdown-toggle btn-xs" data-toggle="dropdown">
+    More <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="{:U('User/coin?field=username&name='.$vo['username'])}">Balances</a></li>
+	<li><a href="{:U('User/log?field=username&name='.$vo['username'])}">Logins</a></li>
+    <li><a href="{:U('User/wallet?field=username&name='.$vo['username'])}">CryptoOut Address</a></li>
+	<li><a href="{:U('User/bank?field=username&name='.$vo['username'])}">FiatOut Address </a></li>
+	<li class="divider"></li>
+	<li><a href="{:U('Finance/index?field=username&name='.$vo['username'])}">Finance Activity </a></li>
+	<li><a href="{:U('Finance/mycz?field=username&name='.$vo['username'])}">Fiat Deposit </a></li>
+    <li><a href="{:U('Finance/mytx?field=username&name='.$vo['username'])}">Fiat Withdrawal </a></li>
+	<li><a href="{:U('Finance/myzr?field=username&name='.$vo['username'])}">Crypto Deposit </a></li>
+    <li><a href="{:U('Finance/myzc?field=username&name='.$vo['username'])}">Crypto Withdrawal</a></li>
+	
+
+  </ul>
+</div>
+
+		<div class="btn-group">
+  
+  <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown">
+    Trade & ICO <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="{:U('Trade/index?field=username&name='.$vo['username'])}">Open Orders </a></li>
+	<li><a href="{:U('Trade/index?field=username&name='.$vo['username'])}">Closed Orders </a></li>
+	<li><a href="{:U('Issue/log?field=username&name='.$vo['username'])}">ICO Logs</a></li>
+  </ul>
+</div>
+							
+								<a href="{:U('User/edit?id='.$vo['id'])}" class="btn btn-primary btn-xs" >Edit</a>
+								<a href="javascript:apikeys({$vo.id});" class="btn btn-warning btn-xs" >API</a>
+							</td>
+						</tr>
+					</volist>
+					<else/>
+					<td colspan="12" class="text-center">No contents!</td>
+				</notempty>
+				</tbody>
+			</table>
+			<div class="page">
+				<div>{$page}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/>
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+	function apikeys(userid){
+	
+	$.get('/Admin/User/apikeys/userid/'+userid,  function (jsonresult) {
+			var data = JSON.parse(jsonresult);
+
+			if (data.status == 1) {
+			htmlcontent="<table class='table table-responsive table-striped'><tr><td>Username:</td><td>"+data.username+"</td></tr><tr><td>ID:</td><td>"+data.id+"</td></tr><tr><td>TOKEN</td><td>"+data.apikey+"</td></tr></table>";
+                        layer.open({
+							title: 'API Keys',	
+                            type: 1,
+                            skin: 'layui-layer-demo', //styleclassname
+                            closeBtn: 0, //Close button does not show
+                            shift: 2,
+                            shadeClose: true, //Open mask Close
+                            content: htmlcontent
+                        });
+			}
+			else {
+				layer.msg(data.info, {icon: 2});
+				if (data.url) {
+					window.location = data.url;
+				}
+			}
+			
+		  });
+}
+		//Highlight navigation
+		highlight_subnav("{:U('User/index')}");
+	</script>
+</block>

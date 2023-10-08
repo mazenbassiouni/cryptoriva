@@ -1,0 +1,70 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">Fiat Withdraw Configuration</span>
+		</div>
+		<div class="tab-wrap">
+			<div class="tab-content">
+				<form id="form" method="post" class="form-horizontal" enctype="multipart/form-data">
+					<div id="tab" class="tab-pane in tab">
+						<div class="form-item cf">
+							<table>
+								<table>
+									<tr class="controls">
+										<td class="item-label">Min Withdrawal :</td>
+										<td>
+											<input type="text" class="form-control input-10x" name="mytx_min" value="{$C['mytx_min']}">
+										</td>
+										<td class="item-note">minimum withdrawal amount</td>
+									</tr>
+									<tr class="controls">
+										<td class="item-label">Max Withdrawal :</td>
+										<td>
+											<input type="text" class="form-control input-10x" name="mytx_max" value="{$C['mytx_max']}">
+										</td>
+										<td class="item-note">Maximum amount of withdrawals</td>
+									</tr>
+									<tr class="controls">
+										<td class="item-label">Integer multiple :</td>
+										<td>
+											<input type="text" class="form-control input-10x" name="mytx_bei" value="{$C['mytx_bei']}">
+										</td>
+										<td class="item-note">Integer multiple withdrawals</td>
+									</tr>
+									<tr class="controls">
+										<td class="item-label">Withdrawal fee :</td>
+										<td>
+											<input type="text" class="form-control input-10x" name="mytx_fee" value="{$C['mytx_fee']}">
+										</td>
+										<td class="item-note">Withdrawal fee in %</td>
+									</tr>
+									<tr class="controls">
+										<td class="item-label"></td>
+										<td>
+											<div class="form-item cf">
+												<button class="btn submit-btn ajax-post" target-form="form-horizontal" id="submit" type="submit">Submit</button>
+												<a class="btn btn-return" href="{$Think.server.HTTP_REFERER}">Back</a>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</table>
+						</div>
+					</div>
+				</form>
+				<script type="text/javascript">
+					//submit Form
+					$('#submit').click(function () {
+						$('#form').submit();
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/>

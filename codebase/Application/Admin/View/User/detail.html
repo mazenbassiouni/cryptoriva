@@ -1,0 +1,158 @@
+<include file="Public:header" />
+
+<link href="__PUBLIC__/Admin/index_css/style.css" rel="stylesheet">
+<link href="__PUBLIC__/Admin/index_js/morris-js/morris.css" rel="stylesheet">
+
+<script src="__PUBLIC__/Admin/index_js/morris-js/morris.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Admin/index_js/morris-js/raphael-min.js" type="text/javascript"></script>
+
+<div id="main-content" class="col-sm-10">
+
+
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<section class="wrapper">
+		<div class="main-title-h">
+			<span class="h1-title">User Details</span>
+
+		</div>
+
+		<nav role="navigation" class="navbar  navbar-default">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">systemevery daysetWhen statistics report(Generation time:2016/3/26 20:00:05)</a></li>
+			</ul>
+			<div class="collapse navbar-collapse">
+				<select id="search_field" name="field" class="navbar-btn navbar-right  form-control select select-default select-sm">
+					<option value="username"<empty name="field">selected</empty> >Username</option>
+					<option value="cellphone"<eq name="field" value="cellphone">selected </eq>>{:l('PHONE_NUMBER')}</option>
+					<option value="truename"<eq name="field" value="truename">selected </eq>>Truename</option>
+					<option value="idcard"<eq name="field" value="idcard">selected </eq>>ID number</option>
+					<option value="alipay"<eq name="field" value="alipay">selected </eq>>Alipay</option>
+					<option value="bankcard"<eq name="field" value="bankcard">selected </eq>>Bank card number</option>
+				</select>
+			</div>
+		</nav>
+
+		<div class="row state-overview">
+			<div class="col-lg-3 col-sm-6">
+				<section class="panel">
+					<div class="symbol all-coin-wealth">
+						<i class="glyphicon glyphicon-bold"></i>
+					</div>
+					<div class="value">
+						<h1 class="count">495 USD</h1>
+						<p>The total value of a certain currency</p>
+					</div>
+				</section>
+			</div>
+			<div class="col-lg-3 col-sm-6">
+				<section class="panel">
+					<div class="symbol all-coin-transe">
+						<i class="glyphicon glyphicon-transfer"></i>
+					</div>
+					<div class="value">
+						<h1 class=" count2">947</h1>
+						<p>Trading volume</p>
+					</div>
+				</section>
+			</div>
+			<div class="col-lg-3 col-sm-6">
+				<section class="panel">
+					<div class="symbol all-coin-fee">
+						<i class="glyphicon glyphicon-tower"></i>
+					</div>
+					<div class="value">
+						<h1 class=" count3">328 USD</h1>
+						<p>Total fee</p>
+					</div>
+				</section>
+			</div>
+			<div class="col-lg-3 col-sm-6">
+				<section class="panel">
+					<div class="symbol all-coin-more">
+						<i class="glyphicon glyphicon-list-alt"></i>
+					</div>
+					<div class="value">
+						<h1 class=" count4">30%</h1>
+						<p>Increase</p>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<div id="morris">
+			<div class="row">
+				<div class="col-lg-12">
+					<section class="panel">
+						<header class="panel-heading text-warning">
+							Market Asset Allocation
+						</header>
+						<div class="panel-body">
+							<div id="hero-bar" class="graph"></div>
+						</div>
+					</section>
+				</div>
+				<div class="col-lg-12">
+					<section class="panel">
+						<header class="panel-heading text-success">
+							System Recharge/Withdraw summary graph
+						</header>
+						<div class="panel-body">
+							<div id="hero-graph" class="graph"></div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<script>
+	var Script = function () {
+
+		//morris chart
+		$(function () {
+			//Currency statistics
+			Morris.Bar({
+				element: 'hero-bar',
+				data: [
+					{x: 'BTC', sum: 5, gold: 3, fz: 2},
+					{x: 'EOS', sum: 6, gold: 1, fz: 5},
+					{x: 'LTC', sum: 9, gold: 2, fz: 7},
+				],
+				xkey: 'x',
+				ykeys: ['sum', 'gold', 'fz'],
+				labels: ['Total', 'Available', 'Freeze'],
+				stacked: true
+			});
+		});
+
+		//Market Transactions Report
+		Morris.Area({
+			element: 'hero-graph',
+			data: [
+				{date: '2016-02-24', btc: 2666, eos: null, ltc: 2647},
+				{date: '2016-02-25', btc: 2778, eos: 2294, ltc: 2441},
+				{date: '2016-02-26', btc: 4912, eos: 1969, ltc: 2501},
+				{date: '2016-02-27', btc: 3767, eos: 3597, ltc: 5689},
+			],
+
+			xkey: 'date',
+			ykeys: ['btc', 'eos', 'ltc'],
+			labels: ['Bitcoin', 'EOS', 'Litecoin'],
+			hideHover: 'auto',
+			lineWidth: 1,
+			pointSize: 5,
+			lineColors: ['#4a8bc2', '#ff6c60', '#a9d86e'],
+			fillOpacity: 0.5,
+			smooth: true,
+			postUnits:' USD',
+			xLabels:'day',
+		});
+
+	}();
+
+</script>
+
+<include file="Public:footer" />

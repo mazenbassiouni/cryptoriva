@@ -1,0 +1,559 @@
+<head>
+  <link rel="stylesheet" href="/Public/template/epsilon/css/icon-park.css" />
+  <style>
+    .nav__item a {
+      text-decoration: none;
+      cursor: pointer;
+      color: white !important;
+    }
+
+    .m-logo {
+      display: none;
+    }
+    .nav-mobile {
+      display: none !important;
+      z-index: 10;
+      position: absolute;
+      top: 48px;
+      overflow-y: auto;
+      width: 248px;
+      height: calc(100% - 48px);
+      background-color: #000;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+      /* display: none !important; */
+    }
+    .nav__overview {
+      border-bottom: 1px solid #ccc;
+      background-color: #fafafa;
+      font-size: 14px;
+      color: #0288d1;
+      height: 54px;
+      padding: 20px 25px;
+      margin-bottom: 12px;
+    }
+    .nav__overview i {
+      display: flex;
+      justify-content: center;
+      width: 15px;
+      margin-right: 20px;
+    }
+    .nav__label {
+      font-weight: 300;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 12px;
+      color: #b5b5b5;
+      padding: 15px 24px;
+    }
+    .nav__item {
+      font-weight: 400;
+      display: block;
+      font-size: 14px;
+      color: #757575;
+      padding: 11px 25px;
+      display: flex;
+      align-items: center;
+    }
+    .nav__item.overview {
+      color: #fff;
+      border-bottom: 1px solid #e4e4e4;
+      background-color: #e0a800;
+      height: 54px;
+      margin-bottom: 12px;
+    }
+    .nav__item:hover {
+      background-color: #e0a800;
+      cursor: pointer;
+    }
+    .nav__item i {
+      display: flex;
+      justify-content: center;
+      width: 15px;
+      margin-right: 20px;
+    }
+
+    .main {
+      position: absolute;
+      left: 248px;
+      width: calc(100% - 248px);
+      height: calc(100% - 48px);
+    }
+    .main .title-bar {
+      background-color: #039be5;
+      height: 54px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+    .main .title-bar h2 {
+      font-size: 20px;
+      font-weight: 300;
+      margin-left: 24px;
+    }
+    .main .content-area {
+      position: relative;
+      height: calc(100% - 54px);
+      color: #999;
+      display: flex;
+      justify-content: center;
+    }
+    .main .content-area p {
+      align-self: center;
+    }
+
+    .nav__toggle {
+      display: none !important;
+    }
+    @media only screen and (max-width: 991px) {
+      .nav__toggle {
+        display: block !important;
+      }
+
+      .m-logo {
+        height: 48px;
+        display: flex;
+        align-items: center;
+        padding: 0px 10px;
+        border-bottom: 1px solid #e4e4e4;
+      }
+      .m-logo .logo__icon {
+        display: inline-block;
+        height: 28px;
+        margin: 10px;
+      }
+      .m-logo .logo__text {
+        display: inline-block;
+        height: 18px;
+        opacity: 0.6;
+      }
+      .mobile-mask.show {
+        display: block;
+        z-index: 25;
+        background: #000;
+        opacity: 0.5;
+        top: 0;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+      }
+      .nav-mobile {
+        display: none;
+      }
+      .nav-mobile.show {
+        display: block !important;
+        z-index: 30;
+        position: fixed;
+        top: 0px;
+        overflow-y: auto;
+        width: 248px;
+        height: 100%;
+        background-color: #000;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+          0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        right: 0;
+      }
+      .nav-mobile.show__overview {
+        border-bottom: 1px solid #e4e4e4;
+        background-color: #fafafa;
+        font-size: 14px;
+        color: #0288d1;
+        height: 52px;
+        padding: 20px 25px;
+        margin-bottom: 12px;
+      }
+      .nav-mobile.show__overview i {
+        display: flex;
+        justify-content: center;
+        width: 15px;
+        margin-right: 20px;
+      }
+      .nav-mobile.show__label {
+        font-weight: 300;
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 12px;
+        color: #b5b5b5;
+        padding: 15px 24px;
+      }
+      .nav-mobile.show__item {
+        font-weight: 400;
+        display: block;
+        font-size: 14px;
+        color: #757575;
+        padding: 11px 25px;
+        display: flex;
+        align-items: center;
+      }
+      .nav-mobile.show__item.overview {
+        color: #0288d1;
+        border-bottom: 1px solid #ccc;
+        background-color: #fafafa;
+        height: 54px;
+        margin-bottom: 12px;
+      }
+      .nav-mobile.show__item:hover {
+        background-color: red;
+        cursor: pointer;
+      }
+      .nav-mobile.show__item i {
+        display: flex;
+        justify-content: center;
+        width: 15px;
+        margin-right: 20px;
+      }
+      .main {
+        position: absolute;
+        left: 0px;
+        width: 100%;
+      }
+      .main .title-bar {
+        background-color: #039be5;
+        height: 54px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+      .main .title-bar h2 {
+        font-size: 20px;
+        font-weight: 300;
+        margin-left: 24px;
+      }
+    }
+  </style>
+</head>
+
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" href="/"
+    ><img alt="{:SHORT_NAME}" src="__UPLOAD__/public/{$C['web_logo']}"
+  /></a>
+  <!-- navbar-toggler  -->
+  <!-- aria-controls="headerNavMenu"
+  aria-expanded="false"
+  aria-label="Toggle Menu"
+  data-target="#headerNavMenu"
+    data-toggle="collapse"
+    type="button" -->
+  <button
+    class="nav__toggle fa fa-bars fa-1x p-5 border bg-dark text-warning f-s-24 rounded"
+  >
+    <!-- <i class="icon ion-md-menu"></i> -->
+  </button>
+  <div class="collapse navbar-collapse" id="headerNavMenu">
+    <ul class="navbar-nav mr-auto">
+      <volist name="navigation" id="vo">
+        <if condition="$vo.dropdown eq 1">
+          <li
+            class="nav-item dropdown icon-flex-wrapper ml-3"
+            id="{$vo['name']}_box"
+          >
+            <if condition="$vo['ico']">
+              <div class="nav-icon">
+                <i class="icon-size {$vo['ico']}"></i>
+              </div>
+              <else />
+              <div class="nav-noicon"></div>
+            </if>
+            <a
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              >{:l($vo['title'])}
+              <if condition="$vo['featured']"
+                ><span class="featured">{:l($vo['featured'])}</span></if
+              ></a
+            >
+            <div class="dropdown-menu">
+              <div class="dropdown-body">
+                <volist name="vo.submenu" id="submenu">
+                  
+                  <a class="dropdown-item" href="/{$submenu.url}">
+                    <if condition="$submenu['ico']">
+                      <div class="nav-icon">
+                        <i class="icon-size {$submenu['ico']}"></i>
+                      </div>
+                      <else />
+                      <div class="nav-noicon"></div>
+                    </if>
+
+                    <div class="content text-white">{$submenu.title}
+                      <if condition="$submenu['featured']"
+                        ><p class="featured">{:l($submenu['featured'])}</p>
+                      </if>
+                      <if condition="$submenu['subtext']"
+                        ><span class="subtext">{:l($submenu['subtext'])}</span>
+                      </if>
+                    </div>
+                  </a>
+                </volist>
+              </div>
+            </div>
+          </li>
+          <else />
+          <li id="{$vo['name']}_box" class="nav-item ml-3">
+            <if condition="$vo['is_external']">
+							<a href="{$vo['url']}" class="nav-link icon-flex-wrapper">
+							<else/>
+							<a href="/{$vo['url']}" class="nav-link icon-flex-wrapper">
+							</if>
+
+            
+              <if condition="$vo['ico']">
+                <div class="nav-icon">
+                  <i class="icon-size {$vo['ico']}"></i>
+                </div>
+                <else />
+                <div class="nav-noicon"></div>
+              </if>
+              {:l($vo['title'])}
+              <if condition="$vo['featured']"
+                ><span class="featured">{:l($vo['featured'])}</span></if
+              ></a
+            >
+          </li>
+        </if>
+      </volist>
+    </ul>
+    <ul class="navbar-nav ml-auto align-items-center">
+      <neq name="Think.session.userId" value="0">
+      <li class="nav-item dropdown">
+        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">Wallet</a>
+        <div class="dropdown-menu">
+          <div class="dropdown-body">
+            <a class="dropdown-item" href="{:U('Finance/index')}">
+              <div class="icon">
+                <i class="fa fa-history"></i>
+              </div>
+              <div class="content">
+                {:l('Spot Wallet')}  
+              </div>
+            </a>
+
+            <a class="dropdown-item" href="{:U('Wallet/cryptodeposit')}">
+              <div class="icon">
+                <i class="fa fa-download"></i>
+              </div>
+              <div class="content">
+                {:l('Deposit')}
+              </div>
+            </a>
+            <a class="dropdown-item" href="{:U('Wallet/cryptowithdrawal')}">
+              <div class="icon">
+                <i class="fa fa-upload"></i>
+              </div>
+              <div class="content">
+                {:l('Withdraw')} 
+              </div>
+            </a>
+ 
+          </div>
+        </div>
+      </li>
+    </neq>
+      <li class="nav-item header-custom-icon ml-3">
+        <a class="nav-link" href="#" id="clickFullscreen">
+          <i class="icon ion-md-expand"></i>
+        </a>
+      </li>
+
+      <li class="nav-item dropdown header-custom-icon ml-3">
+        <a
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="nav-link dropdown-toggle"
+          data-toggle="dropdown"
+          href="#"
+          role="button"
+        >
+          <i class="icon ion-md-download"></i
+        ></a>
+        <div class="dropdown-menu">
+          <div class="dropdown-body">
+            <img src="__UPLOAD__/public/{$C['contact_app_img']}" class="img-fluid" />
+          </div>
+          <div
+            class="dropdown-footer d-flex align-items-center justify-content-center f-s-12 text-center"
+          >
+            Scan to Download iOS and Android App
+          </div>
+        </div>
+      </li>
+      
+      <eq name="Think.session.userId" value="0">
+        <li class="nav-item header-custom-icon login-menu ml-3">
+          <a class="cd-signin nav-link" href="/login/login">
+            <i class="icon ion-ios-log-in"></i> {:l('LOG_IN')}</a
+          >
+        </li>
+        <li class="nav-item header-custom-icon login-menu ml-3">
+          <a class="cd-signup nav-link" href="/login/register">
+            <i class="icon ion-ios-person-add"></i> {:l('FREE_REGISTRATION')}</a
+          >
+        </li>
+      </eq>
+      <include file="Public:lang_bar" />
+      <gt name="Think.session.userId" value="0">
+        <li class="nav-item dropdown userMenu header-custom-icon ml-3">
+          <a
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="nav-link dropdown-toggle cret-after-nav-item"
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            >
+            {$Think.session.userName|substr_replace='****',3,-3}
+           
+
+          </a>
+          <div class="dropdown-menu">
+            <div
+              class="dropdown-header d-flex align-items-center justify-content-between"
+            >
+              <p class="font-weight-medium">{$emailaddress}</p>
+            </div>
+            <div class="dropdown-body">
+              <a class="dropdown-item" href="{:U('User/index')}">
+                <span>{:l("User Center")}</span></a
+              >
+              <a class="dropdown-item" href="{:U('User/authentication')}">
+                <span>{:l("KYC")}</span></a
+              >
+              <a class="dropdown-item" href="{:U('User/log')}"
+                ><span>{:l("User Actions")}</span></a
+              >
+              <a class="dropdown-item" href="{:U('Finance/mytj')}"
+                ><span>{:l("Invite a Friend")}</span></a
+              >
+              <a class="dropdown-item" href="{:U('Transfer/giftcard')}"
+                ><span>{:l("Gift Card")}</span></a
+              >
+              <a class="dropdown-item" href="{:U('Login/loginout')}"
+                ><span>{:l("Logout")}</span>
+              </a>
+            </div>
+          </div>
+        </li>
+        <else />
+      </gt>
+      <li class="nav-item header-custom-icon ml-3">
+        <a class="nav-icon changeThemeLight bg-transparent" href="#!">
+          <i class="icon-size moon"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="mobile-mask"></div>
+<div class="nav-mobile pt-2">
+  <div class="">
+    <gt name="Think.session.userId" value="0">
+      <p class="text-white w-100 text-center mb-0">
+        {:l("Welcome")}, <span> {$Think.session.userName}!</span>
+      </p>
+      <div class="nav__item">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+        <a href="{:U('/user/index')}">Account settings</a>
+      </div>
+      <div class="nav__item">
+        <a
+          class="btn btn-outline-warning btn-sm text-dark"
+          href="{:U('Login/loginout')}"
+          >{:l("Logout")}</a
+        >
+      </div>
+    </gt>
+    <div class="nav__item">
+      <i class="fa fa-language" aria-hidden="true"></i>
+      <a
+        aria-expanded="false"
+        aria-haspopup="true"
+        data-toggle="dropdown"
+        href="#"
+        role="button"
+      >
+        English
+      </a>
+      <div class="dropdown-menu">
+        <div class="dropdown-body">
+          <a class="dropdown-item" href="#">English</a>
+          <a class="dropdown-item" href="#">Turkish</a>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-around align-items-center w-100">
+      <eq name="Think.session.userId" value="0">
+        <div class="nav__item">
+          <a
+            class="btn btn-outline-warning btn-sm text-dark"
+            href="{:U('Login/login')}"
+            >{:l('LOG_IN')}</a
+          >
+        </div>
+        <div class="nav__item">
+          <a
+            class="btn btn-outline-warning btn-sm text-dark"
+            href="{:U('Login/register')}"
+            >{:l('FREE_REGISTRATION')}</a
+          >
+        </div>
+      </eq>
+    </div>
+  </div>
+  <div class="nav__item overview">
+    <i class="fa fa-home" aria-hidden="true"></i>
+    <a href="/">Home</a>
+  </div>
+  <volist name="navigation" id="vo">
+    <if condition="$vo.dropdown eq 1">
+      <if condition="$vo['title'] neq ' '">
+        <label class="nav__label">{:l($vo['title'])}</label>
+      </if>
+      <volist name="vo.submenu" id="submenu">
+        <div class="nav__item">
+          <if condition="$submenu['ico']">
+            <i class="fa fa-{$submenu['mobile_ico']}" aria-hidden="true"></i>
+            <else />
+            <i class="fa fa-power-off" aria-hidden="true"></i>
+          </if>
+          	<if condition="$submenu['is_external']">
+							<a href="{$submenu.url}">
+							<else/>
+							<a href="/{$submenu.url}">
+							</if>
+            {$submenu.title}</a>
+        </div>
+      </volist>
+      <else />
+      <div class="nav__item">
+        <if condition="$vo['ico']">
+          <i class="fa fa-{$vo['ico']}" aria-hidden="true"></i>
+          <else />
+          <i class="fa fa-power-off" aria-hidden="true"></i>
+        </if>
+        <if condition="$vo['is_external']">
+          <a href="{$vo['url']}">
+          <else/>
+          <a href="/{$vo['url']}">
+          </if>{:l($vo['title'])}</a>
+      </div>
+    </if>
+  </volist>
+</div>
+<script>
+  //display flyout mobile-menu
+  $(".nav__toggle").on("click", function () {
+    $(".nav-mobile, .mobile-mask").toggleClass("show");
+  });
+
+  $(".mobile-mask").on("click", function () {
+    $(".nav-mobile, .mobile-mask").removeClass("show");
+  });
+</script>

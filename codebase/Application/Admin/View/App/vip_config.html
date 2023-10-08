@@ -1,0 +1,120 @@
+<include file = "Public:header" />
+<div id = "main-content" >
+    <div id = "top-alert" class = "fixed alert alert-error" style = "display: none;" >
+        <button class = "close fixed" style = "margin-top: 4px;" >&times;</button >
+        <div class = "alert-content" >Warnings</div >
+    </div >
+    <div id = "main" class = "main" >
+        <div class = "main-title-h" >
+            <span class = "h1-title" >VIP Config</span >
+        </div >
+        <div class = "tab-wrap" >
+            <div class = "tab-content" >
+                <form id = "form" action = "{:U('App/config')}" method = "post" class = "form-horizontal" >
+                    <input type = "hidden" class = "form-control" name = "id" value = "{$appCon['id']}" >
+                    <div style="position: absolute;top: 170px;">
+                        <div class="span3" style="min-width: 300px;float: left;">
+                            <h3 class="demo-panel-title">VIP2</h3>
+                            <div class="share mrl">
+                                <ul>
+                                    <li>
+                                        <label class="share-label">For upgrade</label>
+                                    </li>
+                                    <li>
+                                        <label class="share-label">EOS</label>
+                                        <label class="toggle-radio">100 More</label>
+                                    </li>
+                                    <li>
+                                        <label class="share-label">XRP</label>
+                                        <label class="toggle-radio">100 More</label>
+                                    </li>
+                                    <li>
+                                        <label class="share-label">XRP</label>
+                                        <label class="toggle-radio">100 More</label>
+                                    </li>
+                                    <li>
+                                        <label class="share-label">XRP</label>
+                                        <label class="toggle-radio">100 More</label>
+                                    </li>
+                                </ul>
+                                <a href="#" class="btn btn-warning btn-block btn-large">delete</a>
+                            </div> <!-- /share -->
+                        </div>
+                        <div class="span3" style="min-width: 300px;float: left;">
+                            <h3 class="demo-panel-title">VIP2</h3>
+                            <div class="share mrl">
+                                <ul>
+                                    <li>
+                                        <label class="share-label">For upgrade</label>
+                                    </li>
+                                    <li>
+                                        <label class="share-label">EOS</label>
+                                        <label class="toggle-radio">100 More</label>
+                                    </li>
+                                    <li>
+                                        <label class="share-label">XRP</label>
+                                        <label class="toggle-radio">100 More</label>
+                                    </li>
+                                    <li>
+                                        <label class="share-label">XRP</label>
+                                        <label class="toggle-radio">100 More</label>
+                                    </li>
+                                </ul>
+                                <a href="#" class="btn btn-warning btn-block btn-large">Delete</a>
+                            </div> <!-- /share -->
+                        </div>
+                        <div class="span3" style="float: left;min-height: 500px;">
+                            <h3 class="demo-panel-title">&nbsp;</h3>
+                            <div class="share mrl">
+                                <button onclick="add_vip()" type="button" class="btn btn-primary btn-block btn-large" style="    width: 50px;
+    margin: 0;
+    text-align: center;
+    height: 200px;
+    /* padding-top: 128%; */
+    position: static;
+    vertical-align: middle;
+    display: table-cell;">New</button>
+                            </div> <!-- /share -->
+                        </div>
+                    </div>
+                </form >
+                <script type = "text/javascript" >
+
+                    function add_vip(){
+                        //Custom Page
+                        layer.open({
+                            type: 1,
+                            skin: 'layui-layer-demo', //styleclassname
+                            closeBtn: 0, //Close button does not show
+                            shift: 2,
+                            shadeClose: true, //Open mask Close
+                            content: 'content'
+                        });
+                    }
+
+
+                    //submit Form
+                    $('#submit').click(function () {
+                        $('#form').submit();
+                    });
+                </script >
+            </div >
+        </div >
+    </div >
+</div >
+
+<div>
+    New
+</div>
+
+
+
+<script type = "text/javascript" >
+    $(function () {
+        //Highlight the main navigation
+        $('.config-box').addClass('current');
+        //Highlight side navigation
+        $('.config-index').addClass('current');
+    });
+</script >
+<include file = "Public:footer" />

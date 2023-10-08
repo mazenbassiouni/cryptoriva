@@ -1,0 +1,142 @@
+<include file="Public:header"/>
+<script type="text/javascript" src="__PUBLIC__/layer/laydate/laydate.js"></script>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+<div id="main" class="main">
+        <div class="main-title-h" style="font-size: 24px;">
+            <span class="h1-title">Add Activity</span>
+                        <i class="ca"></i>[<a href="/Admin/Activity/index"> List</a> ]        </div>
+        <div class="tab-wrap">
+            <div class="tab-content">
+                <form id="form" class="form-horizontal">
+                    <div id="tab" class="tab-pane in tab">
+                        <div class="form-item cf">
+                            <table>
+                                <tbody>		
+											<input type="hidden" name="hash" value="{$hash}" class="text input-large">
+											<tr class="controls">
+                                                <td class="item-label">UserID :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="userid" value="{$userid}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Title</td>
+                                            </tr>
+											
+
+											<tr class="controls">
+                                                <td class="item-label">Type :</td>
+                                                <td>
+                                                    <select name="type" class="form-control" style="min-width: 400px;">
+                                                        <option value="1" selected="">Income</option>
+														<option value="2" >Spend</option>
+													 </select>
+                                                </td>
+                                                <td class="item-note">*Income adds deposit to user & Spend will withdraw</td>
+                                            </tr>
+											<tr class="controls">
+											    <td class="item-label">Coin :</td>
+                                                  <td><select name="coin" class="form-control input-10x">
+											<volist name="C['coin_list']" id="v">
+										
+											<option value="{$v['name']}"
+											<eq name="data['coin']" value="$v['name']">selected</eq>
+											>{$v['name']|strtoupper} [{$v['title']}]</option>
+											</volist>
+											</select></td>
+                                                
+                                                <td class="item-note">Currencies</td>
+                                            </tr>
+											
+											<tr class="controls">
+                                                <td class="item-label">Amount :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="amount" value="{$amount}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Enter amount to add /reduce</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Txid :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="memo" value="{$memo}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Enter Txid from blockchain [or leave blank if not available] </td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Internal  Note :</td>
+                                                <td>
+                                               <input type="text" class="form-control" name="internal_note" value="{$internal_note}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Note for internal team</td>
+                                            </tr>
+											
+											
+											
+											<tr class="controls" style="margin: 10px 0px;height: 80px;">
+                                    <td class="item-label"></td>
+                                    <td>
+								<span class="btn btn-info " id="submitnow"  onclick="submitnow();">Submit</span>
+										
+                                        <a class="btn btn-return" href="{:U('Admin/Invest/')}">Back</a>
+                                    </td>
+                                    <td class="item-note"></td>
+                                </tr>
+                            </tbody></table>
+                        </div>
+                    </div>
+                </form>
+                <script type="text/javascript">
+                    //submit Form
+					
+					function submitnow(){
+					//alert('This will change user balance instantly Use carefully!');
+						var userid = document.getElementsByName("userid")[0].value;
+						var type = document.getElementsByName("type")[0].value;;
+						var coin = document.getElementsByName("coin")[0].value;;
+						var amount = document.getElementsByName("amount")[0].value;
+						var memo = document.getElementsByName("memo")[0].value;
+						var internal_note = document.getElementsByName("internal_note")[0].value;
+						
+						if(amount=='' || userid =='' || coin=='' || memo =='' || internal_note ==''){
+						alert('Fill all inputs');
+						return false;
+						}
+						if(type==1){
+						var action ='add';
+						}else{
+						var action ='spend';
+						}
+						var msg = 'You want '+action+' '+amount+' '+coin+' to userid '+userid;
+				     layer.confirm(msg, {
+						btn: ['Confirm','Cancel'] //PUSH_BUTTON
+   	}, function(){
+        $.post("/Admin/Activity/add",{userid:userid,amount:amount,coin:coin,type:type,memo:memo,internal_note:internal_note} , function (data) {
+            layer.closeAll('loading');
+            trans_lock = 0;
+            if (data.status == 1) {
+
+                layer.msg(data.info, {icon: 1});
+						
+            } else {
+                layer.msg(data.info, {icon: 2});
+            }
+			window.location.href = "/Admin/Activity/index";
+        }, 'json');
+		});	
+		}
+			
+                </script>
+            </div>
+        </div>
+    	</div>
+</div>
+
+<include file="Public:footer"/>
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		//Highlight navigation
+		highlight_subnav("{:U('Activity/index')}");
+	</script>
+</block>

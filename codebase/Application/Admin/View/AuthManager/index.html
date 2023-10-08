@@ -1,0 +1,78 @@
+<include file="Public:header" />
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">Manage Permissions</span>
+		</div>
+		<nav role="navigation" class="cf">
+			<div class="fl">
+				<a id="add-group" class="btn btn-success navbar-btn btn-sm" href="{:U('createGroup')}">Edit</a>
+				<a url="{:U('changestatus',array('method'=>'resumeGroup'))}" class="btn ajax-post btn-info navbar-btn btn-sm" target-form="ids" >Enable</a>
+				<a url="{:U('changestatus',array('method'=>'forbidGroup'))}" class="btn ajax-post btn-warning navbar-btn btn-sm" target-form="ids" >Disable</a>
+				<a url="{:U('changestatus',array('method'=>'deleteGroup'))}" class="btn ajax-post confirm btn-danger navbar-btn btn-sm" target-form="ids" >Delete</a>
+
+			</div>
+		</nav>
+		<!-- Datasheets -->
+		<div class="data-table table-striped">
+			<table class="">
+				<thead>
+				<tr>
+					<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+					<th class="">User group</th>
+					<th class="">Description</th>
+
+					<th class="">Authorization</th>
+					<th class="">Status</th>
+					<th class="">Option</th>
+				</tr>
+				</thead>
+				<tbody>
+				<notempty name="_list">
+					<volist name="_list" id="vo">
+						<tr>
+							<td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+							<td><a href="{:U('AuthManager/editgroup?id='.$vo['id'])}">{$vo.title}</a> </td>
+							<td><span>{:mb_strimwidth($vo['description'],0,60,"...","utf-8")}</span></td>
+
+
+							<td><a class="btn btn-warning btn-xs" href="{:U('AuthManager/access?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >Access authorization</a>
+								<a class="btn btn-info btn-xs" href="{:U('AuthManager/user?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >Members of the authorized</a>
+							</td>
+							<td
+								<eq name="vo.status" value="0">
+								class="text-warning">{$vo.status_text}
+							</eq>
+								<eq name="vo.status" value="1">
+									class="text-success">{$vo.status_text}
+								</eq>
+
+							</td>
+
+							<td><eq name="vo.status" value="1">
+								<a href="{:U('AuthManager/changeStatus?method=forbidGroup&id='.$vo['id'])}" class="ajax-get btn btn-warning btn-xs">Disable</a>
+								<else/>
+								<a href="{:U('AuthManager/changeStatus?method=resumeGroup&id='.$vo['id'])}" class="ajax-get btn btn-primary btn-xs">Enable</a>
+							</eq>
+								<a href="{:U('AuthManager/changeStatus?method=deleteGroup'.$vo['id'])}" class="confirm ajax-get btn btn-danger btn-xs">delete</a>
+							</td>
+						</tr>
+					</volist>
+					<else/>
+					<td colspan="6" class="text-center"> No contents! </td>
+				</notempty>
+				</tbody>
+			</table>
+
+		</div>
+		<div class="page">
+			{$_page}
+		</div>
+	</div>
+</div>
+
+<include file="Public:footer" />

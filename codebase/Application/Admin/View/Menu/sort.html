@@ -1,0 +1,42 @@
+<include file="Public:header" />
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">Sort menu [ <a href="{:U('index',array('pid'=>I('pid')))}">Back to list</a> ]</span>
+		</div>
+
+		<div class="sort">
+			<form action="{:U('sort')}" method="post">
+				<!-- 			<div class="sort_top">
+                                Find：<input type="text"><button class="btn search" type="button">Find</button>
+                            </div> -->
+				<div class="sort_center">
+					<div class="sort_option">
+						<select value="" size="8">
+							<volist name="list" id="vo">
+								<option class="ids" title="{$vo.title}" value="{$vo.id}">{$vo.title}</option>
+							</volist>
+						</select>
+					</div>
+					<div class="sort_btn">
+						<button class="top btn" type="button">The first one</button>
+						<button class="up btn" type="button">Up shift</button>
+						<button class="down btn" type="button">Down shift</button>
+						<button class="bottom btn" type="button">most Rear</button>
+					</div>
+				</div>
+				<div class="sort_bottom">
+					<input type="hidden" name="ids">
+					<button class="sort_confirm btn submit-btn" type="button">Submit</button>
+					<button class="sort_cancel btn btn-return" type="button" url="{$Think.cookie.__forward__}">Back</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<include file="Public:footer" />

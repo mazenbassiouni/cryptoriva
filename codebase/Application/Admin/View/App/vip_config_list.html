@@ -1,0 +1,78 @@
+<include file="Public:header" />
+<div id="main-content" class="col-sm-10">
+    <div id="main" class="main">
+        <div class="main-title-h">
+            <span class="h1-title">VIPLevel Management</span>
+        </div>
+        <div id="top-alert" class="alert">
+            <div class="alert-content" style="color: #2ecc71;font-size: 14px;">
+                Tips:<br>
+                1.Unequallevelpleasestrictly followCurrenciesQuantityPassincreaseformfill inEscalation rules,Or likely to cause, etc.levelConfused.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;(The higher the level,RequiredCurrenciesQuantityKen and numbersetPreviousoneMoreWaitlevelmany)<br>
+                2.After setting level,Please do not operate during themodify,Otherwise it will causememberWaitlevelMisfit.<br>
+                3.The default ratingvip0,Improve data and in accordance withvip1rulethenauto updateforvip1,Follow-up and so on.
+            </div>
+        </div>
+        <div class="cf">
+            <div class="fl">
+                <a class="btn btn-success navbar-btn btn-sm" href="{:U('App/vip_config_edit')}">Add</a>
+                <button class="btn ajax-post btn-info navbar-btn btn-sm" url="{:U('App/vip_config_edit_status',array('method'=>'resume'))}" target-form="ids">Enable</button>
+                <button class="btn ajax-post btn-warning navbar-btn btn-sm" url="{:U('App/vip_config_edit_status',array('method'=>'forbid'))}" target-form="ids">Disable</button>
+                <button class="btn ajax-post confirm btn-danger navbar-btn btn-sm" url="{:U('App/vip_config_edit_status',array('method'=>'delete'))}" target-form="ids">Delete</button>
+            </div>
+        </div>
+        <div class="data-table table-striped">
+            <table class="">
+                <thead>
+                <tr>
+                    <th class="row-selected row-selected"><input class="check-all" type="checkbox" /></th>
+                    <th class="">ID</th>
+                    <th class="">order</th>
+                    <th class="">VIPLevel Name</th>
+                    <th class="">Time allowed Next</th>
+                    <th class="">reward</th>
+                    <th class="">Escalation rules</th>
+                    <th class="">add time</th>
+                    <th class="">Status</th>
+                    <th class="">Option</th>
+                </tr>
+                </thead>
+                <tbody>
+                <notempty name="list"> <volist name="list" id="vo">
+                    <tr>
+                        <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.tag}</td>
+                        <td>{$vo.name}</td>
+                        <td>{$vo.times}Secondary</td>
+                        <td>{$coinMap[$vo['price_coin']]}:{$vo.price_num}More</td>
+                        <td>
+                            <volist name="vo.rule" id="sub_rule">
+                                {$coinMap[$sub_rule['id']]}:{$sub_rule.num}More<br>
+                            </volist>
+                        </td>
+                        <td>{$vo.addtime|addtime}</td>
+                        <td><eq name="vo.status" value="1">Available<else/>Disable</eq></td>
+                        <td>
+                            <a href="{:U('App/adsblock_edit?id='.$vo['id'])}" class="btn btn-warning btn-xs">{$vo.name}member</a>
+                            <a href="{:U('App/vip_config_edit?id='.$vo['id'])}" class="btn btn-primary btn-xs">Edit</a>
+                    </tr>
+                </volist> <else />
+                    <td colspan="12" class="text-center">No contents!</td>
+                </notempty>
+                </tbody>
+            </table>
+            <div class="page">
+                <div>{$page}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //Highlight the main navigation
+    //	$('.Appads-box').addClass('current');
+    //	//Highlight side navigation
+    //	$('.Appads-index').addClass('current');
+</script>
+<!-- /Content Area -->
+<include file="Public:footer" />

@@ -1,0 +1,67 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">Manage Permissions</span>
+		</div>
+		<nav role="navigation" class="cf">
+			<div class="fl">
+				<a id="add-group" class="btn btn-success " href="{:U('User/authEdit')}">Add New</a>
+				<a url="{:U('User/authStatus',array('type'=>'resume'))}" class="btn ajax-post btn-info " target-form="ids">Enable</a>
+				<a url="{:U('User/authStatus',array('type'=>'forbid'))}" class="btn ajax-post btn-warning " target-form="ids">Disable</a>
+				<a url="{:U('User/authStatus',array('type'=>'del'))}" class="btn ajax-post confirm btn-danger " target-form="ids">Delete</a>
+				<a url="{:U('User/authStart')}" class="btn ajax-post confirm btn-primary" target-form="ids">Reset Permissions</a>
+
+			</div>
+		</nav>
+		<!-- Datasheets -->
+		<div class="data-table table-striped">
+			<table class="">
+				<thead>
+				<tr>
+					<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+					<th class="">User group</th>
+					<th class="">Description</th>
+					<th class="">Authorization</th>
+					<th class="">Status</th>
+					<th class="">Option</th>
+				</tr>
+				</thead>
+				<tbody>
+				<notempty name="_list">
+					<volist name="_list" id="vo">
+						<tr>
+							<td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+							<td>{$vo.title}</td>
+							<td><span>{:mb_strimwidth($vo['description'],0,60,"...","utf-8")}</span></td>
+							<td>
+								<a class="btn btn-warning btn-xs" href="{:U('User/authAccess?group_name='.$vo['title'].'&group_id='.$vo['id'])}">Access authorization</a>
+								<a class="btn btn-info btn-xs" href="{:U('User/authUser?group_id='.$vo['id'])}">Backend Users</a>
+							</td>
+							<td>
+							<eq name="vo.status" value="0">
+								{$vo.status_text}
+							</eq>
+							<eq name="vo.status" value="1">
+								{$vo.status_text}
+							</eq>
+							</td>
+							<td>
+								<a href="{:U('User/authEdit?id='.$vo['id'])}" class="btn btn-primary btn-xs">Edit</a>
+							</td>
+						</tr>
+					</volist>
+					<else/>
+					<td colspan="6" class="text-center"> No contents!</td>
+				</notempty>
+				</tbody>
+			</table>
+		</div>
+	
+	</div>
+</div>
+<include file="Public:footer"/>

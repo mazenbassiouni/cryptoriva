@@ -1,0 +1,219 @@
+<include file="Public:header"/>
+<script type="text/javascript" src="__PUBLIC__/layer/laydate/laydate.js"></script>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+<div id="main" class="main">
+        <div class="main-title-h" style="font-size: 24px;">
+            <span class="h1-title">Investbox</span>
+                        <i class="ca"></i>[<a href="/Admin/Invest/index"> List</a> ]        </div>
+        <div class="tab-wrap">
+            <div class="tab-content">
+                <form id="form" action="/Admin/Invest/edit" method="post" class="form-horizontal">
+                    <div id="tab" class="tab-pane in tab">
+                        <div class="form-item cf">
+                            <table>
+                                <tbody><tr class="controls">
+                                                <td class="item-label">ID :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="id" value="{$id}" disabled="disabled" style="background-color: #ECECEC;min-width: 400px;color: red;">
+													
+                                                </td>
+                                                <td class="item-note"></td>
+                                            </tr><input type="hidden" name="id" value="{$id}" class="text input-large">
+											
+											<tr class="controls">
+                                                <td class="item-label">Title of Investment :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="title" value="{$title}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Title</td>
+                                            </tr>
+											
+											<tr class="controls">
+											    <td class="item-label">Coin :</td>
+                                                  <td><select name="coinname" class="form-control input-10x">
+										<volist name="C['coin_list']" id="v">
+										
+											<option value="{$v['name']}"
+											<eq name="data['coinname']" value="$v['name']">selected</eq>
+											>{$v['title']}</option>
+										</volist>
+									</select></td>
+                                                </td>
+                                                <td class="item-note">Currencies</td>
+                                            </tr><tr class="controls">
+                                                <td class="item-label">% :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="percentage" value="{$percentage}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">ex 5.0</td>
+                                            </tr><tr class="controls">
+                                                <td class="item-label">Period in days :</td>
+                                                <td>
+                                                    
+													<div style="width: 500px;text-align: left">
+														<div style="width: 500px;text-align: left">
+                                            <volist name = "appCon.period" id = "period" >
+                                                <label style="margin-left: 15px;"><input name="period[]" type = "checkbox"
+                                                    <eq name = "period.flag" value = "1" >checked</eq >
+                                                    value="{$period['value']}"/>{$period['value']} </label >
+                                            </volist >
+                                        </div>
+													</div>
+													
+                                                </td>
+                                                <td class="item-note">Integer in days</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Minvest :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="minvest" value="{$minvest}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Double</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Maxvest :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="maxvest" value="{$maxvest}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Double</td>
+                                            </tr><tr class="controls">
+                                                <td class="item-label">creatorid :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="creatorid" value="{$creatorid}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">userid integrer</td>
+                                            </tr><tr class="controls">
+                                                <td class="item-label">Coin Conditions :</td>
+                                                <td>
+                                                   	<input type="text" class="form-control" name="actionxcoinname" value=
+													'{$actionx.coin.name}' style="min-width: 200px;" placeholder="Coin name required ">
+													<input type="text" class="form-control" name="actionxcoinvalue" value=
+													'{$actionx.coin.value}' style="min-width: 200px;" placeholder="Coin Balance required">
+                                                </td>
+                                                <td class="item-note">Allow people to stack only if they have above coin balance
+												</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Market Conditions :</td>
+                                                <td>
+                                                   	<input type="text" class="form-control" name="actionxmarketname" value=
+													'{$actionx.market.name}' style="min-width: 400px;" placeholder="Marketname">
+													<input type="text" class="form-control" name="actionxmarketbuy" value=
+													'{$actionx.market.buy}' style="min-width: 400px;" placeholder="Number of buy orders">
+													<input type="text" class="form-control" name="actionxmarketsell" value=
+													'{$actionx.market.sell}' style="min-width: 400px;" placeholder="Number of sell orders">
+                                                </td>
+                                                <td class="item-note">Market,	# of Buy orders,# of Sell orders
+												</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Status :</td>
+                                                <td>
+                                                    <select name="status" class="form-control" style="min-width: 400px;">
+                                                        <option value="0">Submitted</option><option value="1" selected="">Approved</option><option value="2">Reject</option><option value="3">Completed</option><option value="4">Upcoming</option>                                                    </select>
+                                                </td>
+                                                <td class="item-note">status</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Allow withdrawal :</td>
+                                                <td>
+                                                    <select name="allow_withdrawal" class="form-control" style="min-width: 400px;">
+                                                        <option value="0" selected="">Do not allow</option>
+														<option value="1" >Allow</option>
+													 </select>
+                                                </td>
+                                                <td class="item-note">If allowed users can do premature withdrawals</td>
+                                            </tr>
+											
+											<tr class="controls" style="margin: 10px 0px;height: 80px;">
+                                    <td class="item-label"></td>
+                                    <td>
+                                        <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal" autocomplete="off">Submit</button>
+                                        <a class="btn btn-return" href="{:U('Admin/Invest/')}">Back</a>
+                                    </td>
+                                    <td class="item-note"></td>
+                                </tr>
+                            </tbody></table>
+                        </div>
+                    </div>
+                </form>
+                <script type="text/javascript">
+                    //submit Form
+                    $('#submit').click(function () {
+                        $('#form').submit();
+                    });
+                </script>
+            </div>
+        </div>
+    	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript">
+	var editor;
+	KindEditor.ready(function (K) {
+		editor = K.create('textarea[name="content"]', {
+			width: '500px',
+			height: '250px',
+			allowPreviewEmoticons: false,
+			allowImageUpload: true,
+			items: [
+				'source', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+				'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+				'insertunorderedlist', '|', 'emoticons',  'link', 'fullscreen'],
+			afterBlur: function () {
+				this.sync();
+			}
+		});
+	});
+	
+	
+	
+	
+	$(document).ready(function () {
+		//The response fileAdd tosuccessevent
+		$("#inputfile").change(function () {
+			//createFormDataObjects
+			var data = new FormData();
+			//forFormDataAdding Data Object
+			$.each($('#inputfile')[0].files, function (i, file) {
+				data.append('upload_file' + i, file);
+			});
+
+
+			//send data
+			$.ajax({
+				url: '/Admin/Issue/issueimage',
+				type: 'POST',
+				data: data,
+				cache: false,
+				contentType: false,		//Essential parameters
+				processData: false,		//Essential parameters
+				success: function (data) {
+					if (data) {
+						$('#up_img').attr("src", '/Upload/issue/' + data);
+						$('#image').val(data);
+						$('#up_img').show();
+					}
+				},
+				error: function () {
+					alert('Upload error');
+					$(".loading").hide();	//plus Upload failedshiftexceptplusLoadimage
+				}
+			});
+
+		});
+	});
+	
+	
+</script>
+<include file="Public:footer"/>
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		//Highlight navigation
+		highlight_subnav("{:U('Invest/index')}");
+	</script>
+</block>

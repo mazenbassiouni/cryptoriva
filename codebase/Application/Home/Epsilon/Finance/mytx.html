@@ -1,0 +1,220 @@
+<include file="Public:header" />
+<div class="container">
+	<div class="container">
+		<div class="row mt-3 mb-3">
+			<include file="User:top_bar" />
+			<div class="col-12 col-md-6 order-1 order-md-2 float-right">
+			  <ul class="text-right breadcrumbs list-unstyle">
+				<li>
+				  <a class="btn btn-warning btn-sm" href="{:U('/')}">Home</a>
+				</li>
+				<li>
+				  <a href="{:U('/finance/index')}" class="btn btn-warning btn-sm"
+					>Finance</a
+				  >
+				</li>
+				<li class="btn btn-warning btn-sm active">Fiat Withdrawal</li>
+			  </ul>
+			</div>
+		</div>	
+	</div>
+	<div class="col-12">			
+		<div class="row">
+			<div class="col-12">
+		<ul id="withdraw-money-tabs" class="nav nav-pills" role="tablist">
+			<li class="nav-item white-bg">
+				<a aria-selected="true" class="nav-link active" data-toggle="pill" href="#money" data-target=".money" role="tab">{:l("Fiat")} </a>
+			</li>
+			<li class="nav-item white-bg">
+				<a aria-selected="false" class="nav-link " href="/wallet/cryptowithdrawal">{:l('Crypto')} </a>
+			</li>
+		</ul>
+			</div>
+	
+		</div>
+		<div class="col-12 white-bg">
+	
+			<div class="tab-content withdraw-tab white-bg">
+
+									<div class="col-lg-6">
+										<div class="form-group">
+		<label>Network</label>
+					
+					<select id="coin-select" class="bootstrap-select" data-live-search="true" data-live-search-placeholder={:l("Search")} data-width="100%">
+					<volist name="fiatcoins" id="vo">
+						<eq name="vo['name']" value="$coin">
+							<option value="{$vo.name}" selected="selected">{$vo.name|strtoupper}</option>
+							<else/>
+								<option value="{$vo.name}">{$vo.name|strtoupper}</option>
+							</eq>
+						 </volist>
+					
+					</select>
+					
+											<small>Make sure the network you choose for the deposit matches the withdrawal network or your assets may be lost.</small>
+										</div>
+
+									<div class="form-group">
+										<label for="">{$xnb |strtoupper} {:L('OUT_ADDRESS')}</label>
+										
+										<select id="out_bank" class="bootstrap-select" data-live-search="true" data-live-search-placeholder="Search" data-width="100%" title="{:l('SELECT_WITHDRAWALS_ADDRESS')}">
+											<volist name="userBankList" id="vo">
+												<option value="{$vo.id}" data-bank="{$vo.bankcard} @ {$vo.bank}">{$vo.name}</option>
+											</volist>
+											
+											 
+										
+											<option value="addnew" class="green">{:l('ADD_A_NEW_ADDRESS_TO_CASH')}</option>		
+										</select>
+									</div>
+									
+										<div class="form-group">
+											<label>Amount</label> 
+											<input type="text" class="form-control" id="out_num" maxlength="12" value="" required="">
+							
+												<div class="label-block">
+													<span class="label label-primary"><notempty name="C['mytx_fee']">{:l('WITHDRAWAL_FEE')} {$C['mytx_fee']}%</notempty></span>
+												</div>
+										</div>
+										<div class="form-group">
+											<label>{:l('TRANSACTION_PASSWORD')} </label> <input type="password" id="out_paypassword" name="fundpassword" class="form-control" value="" required>
+											<a href="{:U('findpwd/findpwd')}" class="green m-t-5 d-inline-block">I forgot my password?</a>
+										</div>
+										<empty name="zc_jz">
+										<button class="btn btn-4 text-center" onclick="out_up()">Send</button>
+										<else/>
+										<button class="btn btn-4 text-center">Withdrawals are disabled </button>
+										</empty>
+									</div>
+								</div>
+						
+
+			</div>
+		</div>						
+		</div>
+
+
+	</div>
+
+<script>
+	$("#out_bank").change(function () {
+		var type = $("#out_bank option:selected").val();
+		if (type == 'addnew') {
+			window.location = "{:U('Finance/bank')}";
+		}
+	});
+	function send_new() {
+		$(".step6").hide();
+		$(".step5").show();
+	}
+	function send_cellphone_out(type) {
+		$.post("{:U('Verify/mytx')}", {
+			type: type,
+		}, function (data) {
+			if (data.status == 1) {
+				layer.msg(data.info, {icon: 1});
+				$(".step5").hide();
+				$(".step6").show();
+				$("#out_cellphone_verify").focus();
+				$('#cellphone_new').attr("disabled", "disabled");
+				var obj      = $('#reg_cellphone_new');
+				var wait     = 60;
+				var interval = setInterval(function () {
+					obj.html(wait + "{:l('SEC_CAN_BE_SENT_AGAIN')}");
+					wait--;
+					if (wait < 0) {
+						clearInterval(interval);
+						$(".reloadverify_new").click();
+						$("#verify_new").val('');
+						obj.html('<a class="move" onclick="send_new()">{:l('DID_NOT_RECEIVE_RESEND')}</a>');
+					}
+					;
+				}, 1000);
+			} else {
+				layer.msg(data.info, {icon: 2});
+				if (data.url) {
+					window.location = data.url;
+				}
+			}
+		}, "json");
+	}
+	function out_up() {
+		console.log("I ran", 373)
+		var num          = $("#out_num").val();
+		var paypassword  = $("#out_paypassword").val();
+		var cellphone_verify = $("#out_cellphone_verify").val();
+		var bank         = $('#out_bank option:selected').val();
+		var coinname         = $('#coin-select option:selected').val();
+		<eq name="M_ONLY" value="1">
+			console.log("I ran", 380)
+		if (cellphone_verify == "" || cellphone_verify == null) {
+			layer.msg('Enter SMS verification code', {
+				icon: 2
+			});
+			console.log("I ran", 385)
+			return false;
+		}
+		
+		</eq>
+		if (num == "" || num == null) {
+			console.log("I ran", 391)
+			layer.tips('Withdrawal Amount', '#out_num', {tips: 2});
+			return false;
+		}
+		if (bank == "" || bank == null) {
+			console.log("I ran", 396)
+			layer.tips('Choose withdraw address', '#out_bank', {tips: 2});
+			return false;
+		}
+		if (paypassword == "" || paypassword == null) {
+			console.log("I ran", 401)
+			layer.tips('Provide Trans Password', '#out_paypassword', {tips: 2});
+			return false;
+		}
+		
+		{
+			$.post("{:U('Finance/mytxUp')}", {
+				num: num,
+				paypassword: paypassword,
+				cellphone_verify: cellphone_verify,
+				type: bank,
+				coinname:coinname,
+			}, function (data) {
+				console.log("I ran", 414)
+				if (data.status == 1) {
+					layer.msg(data.info, {icon: 1});
+					window.location = '/Finance/outlog';
+				} else {
+					layer.msg(data.info, {icon: 2});
+					if (data.url) {
+						window.location = data.url;
+					}
+				}
+			}, "json");
+		}
+	}
+</script>
+<script>
+$("#coin-select").change(function () {
+		var coin        = $("#coin-select option:selected").val();
+		window.location = '/Finance/mytx/coin/' + coin + '';
+	});
+	
+	$('.finan_out').addClass('active');
+	$("#out_bank").change(function() {
+    $("#bank_info_hint").html($(this).find("option:selected").attr('data-bank'));
+	
+	//alert($(this).find('option:selected').attr('data-bank'));
+
+});
+</script>
+
+<script>
+	var hints = "0";
+	if(hints == 1){
+		$('#hints').show();
+	}
+	$('#finance_box').addClass('active');
+	$('.finan_out').addClass('active');
+</script>	
+<include file="Public:footer_minimal"/>

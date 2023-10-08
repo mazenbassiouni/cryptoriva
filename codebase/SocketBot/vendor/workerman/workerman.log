@@ -1,0 +1,189 @@
+2022-03-26 14:09:55 pid:1 Error: Class 'Timer' not found in C:\dev\www\codonov6\task.php:37
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2413): {closure}(Object(Workerman\Worker))
+#1 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#2 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#4 C:\dev\www\codonov6\task.php(45): Workerman\Worker::runAll()
+#5 {main}
+2022-03-26 14:09:56 pid:1 Worker process terminated
+2022-03-26 14:10:08 pid:1 Error: Class 'Timer' not found in C:\dev\www\codonov6\task.php:37
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2413): {closure}(Object(Workerman\Worker))
+#1 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#2 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#4 C:\dev\www\codonov6\task.php(45): Workerman\Worker::runAll()
+#5 {main}
+2022-03-26 14:10:09 pid:1 Worker process terminated
+2022-03-26 14:10:36 pid:1 Error: Class 'Timer' not found in C:\dev\www\codonov6\task.php:37
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2413): {closure}(Object(Workerman\Worker))
+#1 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#2 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#4 C:\dev\www\codonov6\task.php(45): Workerman\Worker::runAll()
+#5 {main}
+2022-03-26 14:10:37 pid:1 Worker process terminated
+2022-03-26 14:10:46 pid:1 Error: Class 'Timer' not found in C:\dev\www\codonov6\task.php:37
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2413): {closure}(Object(Workerman\Worker))
+#1 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#2 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#4 C:\dev\www\codonov6\task.php(45): Workerman\Worker::runAll()
+#5 {main}
+2022-03-26 14:10:47 pid:1 Worker process terminated
+2022-03-26 14:11:39 pid:1 Error: Class 'Timer' not found in C:\dev\www\codonov6\task.php:37
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2413): {closure}(Object(Workerman\Worker))
+#1 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#2 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#4 C:\dev\www\codonov6\task.php(45): Workerman\Worker::runAll()
+#5 {main}
+2022-03-26 14:11:40 pid:1 Worker process terminated
+2022-04-07 05:41:36 pid:1 Error: Call to a member function get() on null in C:\dev\www\codonov6\SocketBot\SocketCode\start_huobiv3.php:81
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Connection\TcpConnection.php(660): {closure}(Object(Workerman\Connection\AsyncTcpConnection), '\x1F\x8B\x08\x00\x00\x00\x00\x00\x00\x00\xABV\xCALQ...')
+#1 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(245): Workerman\Connection\TcpConnection->baseRead(Resource id #39)
+#2 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(212): React\EventLoop\StreamSelectLoop->waitForStreamActivity(179015)
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(254): React\EventLoop\StreamSelectLoop->run()
+#4 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(137): Workerman\Events\React\Base->run()
+#5 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2428): Workerman\Events\React\Base->loop()
+#6 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#7 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#8 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#9 C:\dev\www\codonov6\socketbot.php(48): Workerman\Worker::runAll()
+#10 {main}
+2022-04-07 05:41:36 pid:1 Worker process terminated
+2022-04-07 05:42:03 pid:1 Error: Call to a member function get() on null in C:\dev\www\codonov6\SocketBot\SocketCode\start_huobiv3.php:81
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Connection\TcpConnection.php(660): {closure}(Object(Workerman\Connection\AsyncTcpConnection), '\x1F\x8B\x08\x00\x00\x00\x00\x00\x00\x00\xABV\xCALQ...')
+#1 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(245): Workerman\Connection\TcpConnection->baseRead(Resource id #39)
+#2 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(212): React\EventLoop\StreamSelectLoop->waitForStreamActivity(959210)
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(254): React\EventLoop\StreamSelectLoop->run()
+#4 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(137): Workerman\Events\React\Base->run()
+#5 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2428): Workerman\Events\React\Base->loop()
+#6 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#7 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#8 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#9 C:\dev\www\codonov6\socketbot.php(48): Workerman\Worker::runAll()
+#10 {main}
+2022-04-07 05:42:03 pid:1 Worker process terminated
+2022-04-07 05:42:15 pid:1 Error: Call to a member function get() on null in C:\dev\www\codonov6\SocketBot\SocketCode\start_huobiv3.php:79
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2413): {closure}(Object(Workerman\Worker))
+#1 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#2 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#4 C:\dev\www\codonov6\socketbot.php(48): Workerman\Worker::runAll()
+#5 {main}
+2022-04-07 05:42:16 pid:1 Worker process terminated
+2022-04-07 05:42:58 pid:1 Error: Call to a member function get() on null in C:\dev\www\codonov6\SocketBot\SocketCode\start_huobiv3.php:81
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Connection\TcpConnection.php(660): {closure}(Object(Workerman\Connection\AsyncTcpConnection), '\x1F\x8B\x08\x00\x00\x00\x00\x00\x00\x00\xABV\xCALQ...')
+#1 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(245): Workerman\Connection\TcpConnection->baseRead(Resource id #44)
+#2 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(212): React\EventLoop\StreamSelectLoop->waitForStreamActivity(995806)
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(254): React\EventLoop\StreamSelectLoop->run()
+#4 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(137): Workerman\Events\React\Base->run()
+#5 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2428): Workerman\Events\React\Base->loop()
+#6 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#7 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#8 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#9 C:\dev\www\codonov6\socketbot.php(48): Workerman\Worker::runAll()
+#10 {main}
+2022-04-07 05:42:58 pid:1 Worker process terminated
+2022-04-07 05:50:58 pid:1 RedisException: read error on connection to 127.0.0.1:6379 in C:\dev\www\codonov6\SocketBot\SocketCode\SocketRedis.class.php:45
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\SocketCode\SocketRedis.class.php(45): Redis->hMset('newprice', Array)
+#1 C:\dev\www\codonov6\SocketBot\SocketCode\start_huobiv3.php(194): SocketRedis->write('newprice', Array)
+#2 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Connection\TcpConnection.php(660): {closure}(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(245): Workerman\Connection\TcpConnection->baseRead(Resource id #39)
+#4 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(212): React\EventLoop\StreamSelectLoop->waitForStreamActivity(21670)
+#5 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(254): React\EventLoop\StreamSelectLoop->run()
+#6 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(137): Workerman\Events\React\Base->run()
+#7 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2428): Workerman\Events\React\Base->loop()
+#8 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#9 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#10 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#11 C:\dev\www\codonov6\socketbot.php(48): Workerman\Worker::runAll()
+#12 {main}
+2022-04-07 05:50:58 pid:1 Worker process terminated
+2022-04-07 05:56:26 pid:1 Error: Call to a member function get() on null in C:\dev\www\codonov6\SocketBot\SocketCode\start_huobiv3.php:42
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Connection\AsyncTcpConnection.php(345): {closure}(Object(Workerman\Connection\AsyncTcpConnection))
+#1 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(253): Workerman\Connection\AsyncTcpConnection->checkConnection(Resource id #44)
+#2 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(212): React\EventLoop\StreamSelectLoop->waitForStreamActivity(996385)
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(254): React\EventLoop\StreamSelectLoop->run()
+#4 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(137): Workerman\Events\React\Base->run()
+#5 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2428): Workerman\Events\React\Base->loop()
+#6 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#7 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#8 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#9 C:\dev\www\codonov6\socketbot.php(48): Workerman\Worker::runAll()
+#10 {main}
+2022-04-07 05:56:26 pid:1 Worker process terminated
+2022-04-07 05:58:59 pid:1 Error: Call to a member function send() on null in C:\dev\www\codonov6\SocketBot\SocketCode\start_huobiv3.php:43
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\redis\src\Client.php(398): {closure}('[{"id":"5","nam...', Object(Workerman\Redis\Client))
+#1 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Connection\TcpConnection.php(660): Workerman\Redis\Client->Workerman\Redis\{closure}(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#2 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(245): Workerman\Connection\TcpConnection->baseRead(Resource id #42)
+#3 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(212): React\EventLoop\StreamSelectLoop->waitForStreamActivity(889901)
+#4 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(254): React\EventLoop\StreamSelectLoop->run()
+#5 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(137): Workerman\Events\React\Base->run()
+#6 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2428): Workerman\Events\React\Base->loop()
+#7 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#8 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#9 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#10 C:\dev\www\codonov6\socketbot.php(48): Workerman\Worker::runAll()
+#11 {main}
+2022-04-07 05:58:59 pid:1 Worker process terminated
+2022-04-07 14:31:01 pid:1 Error: Call to a member function send() on null in C:\dev\www\codonov6\SocketBot\SocketCode\start_huobiv3.php:43
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\redis\src\Client.php(398): {closure}('["eth_usdt"]', Object(Workerman\Redis\Client))
+#1 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Connection\TcpConnection.php(660): Workerman\Redis\Client->Workerman\Redis\{closure}(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#2 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(245): Workerman\Connection\TcpConnection->baseRead(Resource id #42)
+#3 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(212): React\EventLoop\StreamSelectLoop->waitForStreamActivity(714502)
+#4 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(254): React\EventLoop\StreamSelectLoop->run()
+#5 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(137): Workerman\Events\React\Base->run()
+#6 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2428): Workerman\Events\React\Base->loop()
+#7 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#8 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#9 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#10 C:\dev\www\codonov6\socketbot.php(48): Workerman\Worker::runAll()
+#11 {main}
+2022-04-07 14:31:01 pid:1 Worker process terminated
+2022-04-08 12:14:19 pid:1 ArgumentCountError: Too few arguments to function {closure}(), 1 passed in C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php on line 2413 and at least 2 expected in C:\dev\www\codonov6\task3.php:38
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2413): {closure}(Object(Workerman\Worker))
+#1 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#2 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1357): Workerman\Worker::forkWorkersForWindows()
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(542): Workerman\Worker::forkWorkers()
+#4 C:\dev\www\codonov6\task3.php(61): Workerman\Worker::runAll()
+#5 {main}
+2022-04-08 12:14:20 pid:1 Worker process terminated
+2022-04-08 12:15:07 pid:1 Worker process terminated
+2022-04-08 12:15:26 pid:1 Worker process terminated
+2022-04-08 12:15:34 pid:1 Worker process terminated
+2022-04-08 12:20:12 pid:1 Worker process terminated
+2022-04-08 12:25:20 pid:1 Worker process terminated
+2022-04-08 12:27:58 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught ArgumentCountError: Too few arguments to function {closure}(), 0 passed in C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php on line 79 and exactly 1 expected in C:\dev\www\codonov6\task3.php:44
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(79): {closure}()
+#1 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\Timer\Timers.php(96): Workerman\Events\React\Base->Workerman\Events\React\{closure}(Object(React\EventLoop\Timer\Timer))
+#2 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(184): React\EventLoop\Timer\Timers->tick()
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(254): React\EventLoop\StreamSelectLoop->run()
+#4 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(137): Workerman\Events\React\Base->run()
+#5 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2428): Workerman\Events\React\Base->loop()
+#6 C:\d in C:\dev\www\codonov6\task3.php on line 44"
+2022-04-08 12:28:17 pid:1 Worker process terminated with ERROR: E_ERROR "Uncaught Error: Object of class Workerman\Worker could not be converted to string in C:\dev\www\codonov6\task3.php:46
+Stack trace:
+#0 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(79): {closure}()
+#1 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\Timer\Timers.php(96): Workerman\Events\React\Base->Workerman\Events\React\{closure}(Object(React\EventLoop\Timer\Timer))
+#2 C:\dev\www\codonov6\SocketBot\vendor\react\event-loop\src\StreamSelectLoop.php(184): React\EventLoop\Timer\Timers->tick()
+#3 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(254): React\EventLoop\StreamSelectLoop->run()
+#4 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Events\React\Base.php(137): Workerman\Events\React\Base->run()
+#5 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(2428): Workerman\Events\React\Base->loop()
+#6 C:\dev\www\codonov6\SocketBot\vendor\workerman\workerman\Worker.php(1414): Workerman\Worker->run()
+#7 C:\dev\www\codono in C:\dev\www\codonov6\task3.php on line 46"

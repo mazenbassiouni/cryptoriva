@@ -1,0 +1,297 @@
+<include file="Public:header"/>
+<script type="text/javascript" src="__PUBLIC__/layer/laydate/laydate.js"></script>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title"><a href="{:U('User/index')}">User Management</a> >></span>
+			 <span class="h1-title"><empty name="data">Add user<else/>Edit User</empty></span>
+		</div>
+		<div class="tab-wrap">
+			<div class="tab-content">
+				<form autocomplete="off" id="form" action="{:U('User/edit')}" method="post" class="form-horizontal">
+					<div id="tab" class="tab-pane in tab">
+						<div class="form-item cf">
+							<table>
+								<tr class="controls">
+									<td class="item-label">Username :</td>
+									<td>
+										{$data.username}
+									</td>
+									<td class="item-note"></td>
+								</tr>
+						
+								<tr class="controls">
+                                    <td class="item-label">User Level:</td>
+                                    <td><select name="usertype" class="input-small">
+                                        <option value="0"
+                                        <eq name="data.usertype" value="0">selected</eq>
+                                        >Basic</option>
+                                        <option value="1"
+                                        <eq name="data.usertype" value="1">selected</eq>
+                                        >Premium</option>
+										 <option value="1"
+                                        <eq name="data.usertype" value="2">selected</eq>
+                                        >Premium Plus</option>
+                                    </select></td>
+                                    <td class="item-note"></td>
+                                </tr>
+								
+								
+								
+								<tr class="controls">
+									<td class="item-label">Password :</td>
+									<td><input type="text" class="form-control input-10x" name="passwd" value="" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');"></td>
+									<td class="item-note">Leave Blank for no change</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Fund Pwd:</td>
+									<td><input type="text" class="form-control input-10x" name="paypassword" value="" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');">
+									</td>
+									<td class="item-note">Leave Blank for no change</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Email :</td>
+									<td>
+										<input type="text" class="form-control input-10x" name="emailx" value="{$data.email}" disabled autocomplete="false" readonly onfocus="this.removeAttribute('readonly');">
+									</td>
+									<td class="item-note"></td>
+								</tr>
+									<tr class="controls">
+									<td class="item-label">CountryCode :</td>
+									<td>
+										<input type="text" class="form-control input-10x" name="cellphones" value="{$data.cellphones}" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');">
+									</td>
+									<td class="item-note">Always keep a plus in front</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Mobile :</td>
+									<td>
+										<input type="text" class="form-control input-10x" name="cellphone" value="{$data.cellphone}" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');">
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Mobile Verify Time :</td>
+									<td>
+										<input type="text" class="form-control input-10x" name="cellphonetime" value="{$data['cellphonetime']|addtime}" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								
+								<tr class="controls">
+									<td class="item-label">Referrer LV1:</td>
+									<td>
+										<input type="text" class="form-control input-10x" name="invit_1" value="{$data.invit_1}">
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Referrer LV2:</td>
+									<td>
+										<input type="text" class="form-control input-10x" name="invit_2" value="{$data.invit_2}">
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Referrer LV3:</td>
+									<td>
+										<input type="text" class="form-control input-10x" name="invit_3" value="{$data.invit_3}">
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								                                <tr class="controls">
+                                    <td class="item-label">AccountType:</td>
+                                    <td><select name="accounttype" class="input-small">
+                                        <option value="1"
+                                        <eq name="data.accounttype" value="1">selected</eq>
+                                        >Individual</option>
+										 <option value="2"
+                                        <eq name="data.accounttype" value="2">selected</eq>
+                                        >Institutional</option>
+                                    </select></td>
+                                    <td class="item-note"></td>
+                                </tr>
+
+								<tr class="controls">
+									<td class="item-label">Truename :</td>
+									<td>
+										<input type="text" class="form-control input-10x" name="truename" value="{$data.truename}" autocomplete="false">
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">ID card :</td>
+									<td>
+										<input type="text" class="form-control input-10x" name="idcard" value="{$data.idcard}" autocomplete="false">
+										
+										
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td colspan="3">
+										{$userimg}               <div class="set_upload_img" style="display:none;">
+
+									</td>
+								</tr>
+								<tr class="controls">
+								<td></td>
+									<td>
+									<div class="alert alert-info" ><span id="up_img"><i class="fa fa-image"></i>Hint: Upload Document Front</span> 
+                              <input type="file" accept="image/gif, image/jpeg, image/jpg, image/png,application/pdf" id="inputfile"  value=""/>
+							  </div>
+									</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">KYC Comment:</td>
+									<td>
+										<input type="text" class="form-control input-10x" name="kyc_comment" value="{$data.kyc_comment}" autocomplete="false">
+									</td>
+									<td class="item-note">Enter reason for rejection/Or any message</td>
+								</tr>
+								
+								<tr class="controls">
+									<td class="item-label">KYC Status :</td>
+									<td><select name="idcardauth" class="form-control input-10x">
+										<option value="0"
+										<eq name="data.idcardauth" value="0">selected</eq>
+										>KYC Not Submitted</option>
+										<option value="1"
+										<eq name="data.idcardauth" value="1">selected</eq>
+										>KYC  Approved</option>
+										
+										<option value="2"
+										<eq name="data.idcardauth" value="2">selected</eq>
+										>KYC Being Review</option>
+										<option value="3"
+										<eq name="data.idcardauth" value="3">selected</eq>
+										>KYC Rejected</option>
+									</select></td>
+									<td class="item-note">Choose KYC status</td>
+								</tr>
+								<!--<tr class="controls">
+									<td class="item-label">Award Winning :</td>
+									<td><select name="awardstatus" class="form-control input-10x">
+										<option value="1"
+										<eq name="data.awardstatus" value="1">selected</eq>
+										>Already in</option>
+										<option value="0"
+										<eq name="data.awardstatus" value="0">selected</eq>
+										>Not in</option>
+									</select></td>
+									<td class="item-note"></td>
+								</tr>-->
+								
+								
+								<tr class="controls">
+									<td class="item-label">Status :</td>
+									<td><select name="status" class="form-control input-10x">
+										<option value="1"
+										<eq name="data.status" value="1">selected</eq>
+										>Enabled</option>
+										<option value="0"
+										<eq name="data.status" value="0">selected</eq>
+										>Disabled</option>
+									</select></td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label"></td>
+									<td>
+										<div class="form-item cf">
+											<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">Submit</button>
+											<a class="btn btn-return" href="{$Think.server.HTTP_REFERER}">Back</a>
+											<notempty name="data.id"><input type="hidden" name="id" value="{$data.id}"/>
+											</notempty>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function () {
+       //ADD_AN_EVENT_SUCCESSFUL_RESPON
+   		if($('#imagesubmited').find('embed').length >= 4){
+   			alert("You have successfully uploaded 4 docs , Please fill in other details and submit for KYC");
+   		//	$("#updatebutton").show();
+   		}
+       $("#inputfile").change(function () {
+           //CREATE FormData OBJECTS
+           var data = new FormData();
+           //FormData ADDING DATA OBJECT
+           $.each($('#inputfile')[0].files, function (i, file) {
+               data.append('upload_file' + i, file);
+           });
+   //SEND_DATA
+           $.ajax({
+               url: '/Admin/User/imgUser/id/{$data.id}',
+               type: 'POST',
+               data: data,
+               cache: false,
+               contentType: false,		//ESSENTIAL_PARAMETERS
+               processData: false,		//ESSENTIAL_PARAMETERS
+               success: function (resp) {
+                   if (resp) {
+   		if(resp=="error"){
+   			alert("Please select the correct file type and size!");
+   			return false;
+   		}
+   		if(resp=="error2"){
+   			alert("Invalid number of documents");
+   			return false;
+   		}
+   	
+   		  $('<embed />', {
+   			src : '/Upload/idcard/' + resp,
+   			width : "150px",
+   			height  : "auto",
+   		  }).appendTo($('.set_upload_img'));
+   		$('.set_upload_img').show();
+   
+   		if($('.set_upload_img').find('embed').length == 1){
+   			$('#up_img').html('Upload  Document Rear');
+   		}
+   		if($('.set_upload_img').find('embed').length == 2){
+   			$('#up_img').html('Upload Selfie with Document near');
+   		}
+		if($('.set_upload_img').find('embed').length == 3){
+   			$('#up_img').html('Upload Proof of Residence');
+   		}
+   		if($('.set_upload_img').find('embed').length >= 4){
+   			//$('#shang_qq_chuandiv').hide();
+   			alert("You have successfully uploaded All 4 files , make sure to fill in other details and submit for KYC");
+   			//$("#updatebutton").show();
+   		}
+                   }
+               },
+               error: function () {
+                   alert('Uploading Error');
+   	$('.set_upload_img').hide();
+                   //$(".loading").hide();	//load failed remove picture
+               }
+           });
+   
+       });
+   });
+	//submit Form
+	$('#submit').click(function () {
+		$('#form').submit();
+	});
+</script>
+<include file="Public:footer"/>
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		//Highlight navigation
+		highlight_subnav("{:U('User/index')}");
+	</script>
+</block>

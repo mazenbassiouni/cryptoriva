@@ -1,0 +1,74 @@
+<include file="Public:header" />
+<link rel="stylesheet" href="__PUBLIC__/static/css/article.css"/>
+<div class="">
+    <main class="wrapper blog-page ">
+        <!-- Account Heading Start -->
+        <div class="page-top-banner">
+            <div class="filter" style="background-image: url('__EPSILON__/img/redesign/slider/filter2-min.png');">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-8 mt-3">
+                            <h1>{$page_title}</h1>
+                            <notempty name="prompt_text">
+                                <h2>{$prompt_text}</h2>
+                            </notempty>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container p-t-30">
+            
+            <h2 class="f-s-30 f-w-700 m-b-30">
+                <a href="{:U('Article/Index')}"><i class="ion ion-md-arrow-round-back"></i> {$data['type']}</a>
+            </h2>
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-12 card p-20">
+                <div >
+                    
+                    <span class="date f-w-600 text-muted f-s-14">{:l('RELEASE_TIME')}:{$data.addtime|date="Y-m-d H:i:s",###}</span>
+                    <h1 class="f-s-24 f-w-600 m-b-15">{$data.title}</h1>
+                    <figure>
+                        <img class="img-fluid" src="/Upload/article/{$data['img']}"  >
+                    </figure>
+                    <div class="articletext" ><p>{$data['content']}</p></div>
+                </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <div class="filter-group white-bg">
+                        <h5 class="filter-title">Search</h5>
+                        <form action="#">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="" type="text">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon ion-ios-search"></i></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="filter-group white-bg">
+                        <h5 class="filter-title">Categories</h5>
+                        <div class="caregorie-list">
+                            <ul>
+                                <volist name="ArticleTypeList" id="atl">
+
+                                <li><a href="{:U('Article/index',array('id'=>$atl['id']))}">{$atl.title}</a></li>
+                                </volist>
+                            </ul>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+
+
+<include file="Public:footer_minimal"/>
+

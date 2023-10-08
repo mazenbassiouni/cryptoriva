@@ -1,0 +1,168 @@
+<div
+  class="modal fade"
+  id="Buyingform_{$vo.id}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="Buyingform_Label_{$vo.id}"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Buyingform_Label_{$vo.id}">
+          {$vo['name']}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+		<div class="row">
+			<div class="col-8">
+				<div class="form-group">
+				  <div class="row">
+					<div class="col-6">
+					  <input
+						type="text"
+						id="investtype"
+						name="investtype_{$vo.id}"
+						value="Available {$vo['stocks']}"
+						disabled
+						placeholder="Available {$vo['stocks']}"
+						class="form-control"
+					  />
+					</div>
+				  </div>
+				</div>
+	
+				<div class="form-group">
+				  <div class="row">
+					<div class="col-6">
+					  <span class="small"><b>Price </b> </span>
+					  <label class="text-right small col-xs-7"
+						><b>Available </b>
+					</div>
+	
+					<div class="col-6">
+					  <span class="small text-right"
+						>{$vo['price']*1} {$vo['coinname'] |strtoupper}</span
+					  >
+					</div>
+				  </div>
+				</div>
+	
+				<div class="form-group">
+					<div class="row">
+					  <div class="col-6">
+						<input
+						  type="text"
+						  class="form-control"
+						  placeholder="Please enter the amount"
+						  id="pool_box{$vo.id}"
+						  value="1"
+						/>
+					  </div>
+	  
+					  <div class="col-6">
+						<span class="input-group-btn">
+							<button
+							  class="btn btn-info"
+							  type="button"
+							  onclick="plusone({$vo.id})"
+							>
+							  <small>+ 1</small>
+							</button>
+						  </span>
+					  </div>
+					</div>
+				  </div>
+	
+				<div class="form-group">
+				  <div class="row">
+					<div class="col-6">
+					  <span class="small"
+						><b>{$user_balances[$vo['coinname']] * 1}</b></span
+					  >
+					</div>
+	
+					<div class="col-6">
+					  <span class="small text-right"
+						>{$vo['coinname'] |strtoupper}</span
+					  >
+					</div>
+				  </div>
+				</div>
+			  </div>
+	
+			  <div class="col-4">
+				<div class="form-group">
+				  <div class="row">
+					<div class="col-6">
+					  <span class="small"><b>Duration</b></span>
+					</div>
+					<div class="col-6">
+					  <span class="small text-right">{$vo['days']} days</span>
+					</div>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <div class="row">
+					<div class="col-6">
+					  <span class="small"><b>Gain {$vo['getcoin']}</b></span>
+					</div>
+					<div class="col-6">
+					  <span class="small text-right"
+						>{$vo['daily_profit']*1}%/ {:l('day')}
+					  </span>
+					</div>
+				  </div>
+				</div>
+	
+				<div class="form-group">
+				  <div class="row">
+					<div class="col-6">
+					  <span class="small"><b>Addtime</b></span>
+					</div>
+					<div class="col-6">
+					  <span class="small text-right">{$vo['addtime']|addtime}</span>
+					</div>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <div class="row">
+					<div class="col-6">
+					  <span class="small"> <b>Power</b> </span>
+					</div>
+					<div class="col-6">
+					  <span class="small text-right">{$vo['power']}</span>
+					</div>
+				  </div>
+				</div>
+				<div class="">
+				  <button
+					type="submit"
+					class="btn btn-primary"
+					onclick="buypool({$vo.id},{$vo.days});"
+				  >
+					Confirm Purchase
+				  </button>
+				</div>
+			  </div>
+		</div>
+
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

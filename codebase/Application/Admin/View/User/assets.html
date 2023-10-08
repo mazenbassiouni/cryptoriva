@@ -1,0 +1,104 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">User coins</span>
+		</div>
+		<div class="cf">
+			<div class="fl">
+				
+			</div>
+			<div class="search-form fr cf">
+				<div class="sleft">
+					<form name="formSearch" id="formSearch" method="get" name="form1">
+						<select style="width: 160px; float: left; margin-right: 10px;" name="account" class="form-control">
+							<option value=""
+							<empty name="Think.get.account">selected</empty>
+							>All states</option>
+							<option value="1"
+							<eq name="Think.get.account" value="1">selected</eq>
+							>P2P</option>
+							<option value="2"
+							<eq name="Think.get.account" value="2">selected</eq>
+							>NFT</option>
+						</select>
+						<select style=" width: 160px; float: left; margin-right: 10px;" name="field" class="form-control">
+							<option value="username"
+							<eq name="Think.get.field" value="username">selected</eq>
+							>Username</option>
+							<option value="userid"<eq name="Think.get.field" value="userid">selected</eq>
+							>Userid</option>
+						</select>
+						<input type="text" name="name" class="search-input form-control  " value="{$Think.get.name}" placeholder="Enter text to search" style="">
+						<a class="sch-btn" href="javascript:;" id="search"> <i class="btn-search"></i> </a>
+					</form>
+					<script>
+						//Search function
+						$(function () {
+							$('#search').click(function () {
+								$('#formSearch').submit();
+							});
+						});
+						//Enter search
+						$(".search-input").keyup(function (e) {
+							if (e.keyCode === 13) {
+								$("#search").click();
+								return false;
+							}
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+		<div class="data-table table-striped">
+			<table class="">
+				<thead>
+				<tr>
+					<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+					<th class="">UserID</th>
+					<th class="">Username</th>
+					<th class="">Coin</th>
+					<th class="">Available</th>
+					<th class="">Freeze</th>
+					<th class="">Type</th>
+				</tr>
+				</thead>
+				<tbody>
+				<notempty name="list">
+					<volist name="list" id="vo">
+						<tr>
+							<td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+							<td>{$vo.uid}</td>
+							<td>{$vo['username']}</td>
+							<td>{$vo['coin']}</td>
+							<td>{$vo['balance'] * 1}</td>
+							<td>{$vo['freeze'] * 1}</td>
+							<td>
+							<switch name="vo.account">
+							<case value="1">P2P</case>
+							<case value="2">NFT</case>
+							<default /><span class="text-red">Invalid</span></switch>
+						</tr>
+					</volist>
+					<else/>
+					<td colspan="12" class="text-center">No contents!</td>
+				</notempty>
+				</tbody>
+			</table>
+			<div class="page">
+				<div>{$page}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/>
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		//Highlight navigation
+		highlight_subnav("{:U('User/coin')}");
+	</script>
+</block>

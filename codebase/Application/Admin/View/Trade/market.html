@@ -1,0 +1,123 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+    <div id="top-alert" class="fixed alert alert-error" style="display: none;">
+        <button class="close fixed" style="margin-top: 4px;">&times;</button>
+        <div class="alert-content">Warnings</div>
+    </div>
+    <div id="main" class="main">
+        <div class="main-title-h">
+            <span class="h1-title">market place</span>
+        </div>
+
+        <div class="cf">
+            <div class="fl">
+                <a class="btn btn-success " href="{:U('Trade/marketEdit')}">Add</a>
+                <button class="btn ajax-post btn-info"
+                        url="{:U('Trade/marketStatus',array('type'=>'resume'))}" target-form="ids">Enable
+                </button>
+                <button class="btn ajax-post btn-warning "
+                        url="{:U('Trade/marketStatus',array('type'=>'forbid'))}" target-form="ids">Disable
+                </button>
+                <button class="btn ajax-post confirm btn-danger "
+                        url="{:U('Trade/marketStatus',array('type'=>'del'))}" target-form="ids">Delete
+                </button>
+            </div>
+            <div class="search-form fr cf">
+                <div class="sleft">
+                    <form name="formSearch" id="formSearch" method="get" name="form1" >
+                        <select style=" width: 160px; float: left; margin-right: 10px;" name="field" class="form-control">
+                            <option value="name"
+                            <eq name="Think.get.field" value="name">selected</eq>
+                            >Select Market</option>
+                        </select>
+                        <input type="text" name="name" class="search-input form-control  " value="{$Think.get.name}" placeholder="Enter text to search" style="">
+                        <a class="sch-btn" href="javascript:;" id="search"> <i class="btn-search"></i> </a>
+                    </form>
+                    <script>
+                        //Search function
+                        $(function () {
+                            $('#search').click(function () {
+                                $('#formSearch').submit();
+                            });
+                        });
+                        //Enter search
+                        $(".search-input").keyup(function (e) {
+                            if (e.keyCode === 13) {
+                                $("#search").click();
+                                return false;
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="data-table table-striped">
+            <table class="">
+                <thead>
+                <tr>
+                    <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+                    <th class="">ID</th>
+                    <th class="">Market Name</th>
+                    <th class="">Decimals</th>
+                    <th class="">BUY fee</th>
+                    <th class="">Sell fees</th>
+                    <th class="">Min Buy</th>
+                    <th class="">Max Buy</th>
+                    <th class="">Min Sale Price</th>
+                    <th class="">Max Sale Price</th>
+                    <th class="">Open trading</th>
+                    <th class="">Status</th>
+                    <th class="">Option</th>
+                </tr>
+                </thead>
+                <tbody>
+                <notempty name="list">
+                    <volist name="list" id="vo">
+                        <tr>
+                            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+                            <td>{$vo.id}</td>
+                            <td>{$vo.name}</td>
+                            <td>{$vo.round}</td>
+                            <td>{$vo.fee_buy}</td>
+                            <td>{$vo.fee_sell}</td>
+                            <td>{$vo.buy_min}</td>
+                            <td>{$vo.buy_max}</td>
+                            <td>{$vo.sell_min}</td>
+                            <td>{$vo.sell_max}</td>
+							<td>
+                                <eq name="vo.trade" value="1">Open trading
+                                    <else/>
+                                    Trading Closed
+                                </eq>
+                            </td>
+                            <td>
+                                <eq name="vo.status" value="1">Enabled
+                                    <else/>
+                                    Disable
+                                </eq>
+                            </td>
+
+                            <td>
+                                <neq name="vo.name" value="usd"><a href="{:U('Trade/marketEdit?id='.$vo['id'])}"
+                                                                   class="btn btn-primary btn-xs">Edit</a></neq>
+                            </td>
+                        </tr>
+                    </volist>
+                    <else/>
+                    <td colspan="12" class="text-center">No contents!</td>
+                </notempty>
+                </tbody>
+            </table>
+            <div class="page">
+                <div>{$page}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+        //Highlight navigation
+        highlight_subnav("{:U('Trade/market')}");
+    </script>
+</block>

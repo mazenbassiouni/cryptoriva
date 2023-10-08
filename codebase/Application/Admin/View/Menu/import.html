@@ -1,0 +1,41 @@
+<include file="Public:header" />
+
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">Batch Import [{$data.title|default='Top Menu'}]</span>
+		</div>
+		<!-- Tab navigation -->
+		<div class="tab-wrap">
+			<div class="tab-content">
+				<!-- Forms -->
+				<form id="form" action="{:U('import')}" method="post" class="form-horizontal">
+					<!-- Foundation document  -->
+					<div id="tab1" class="tab-pane in tab1">
+						<div class="form-item cf">
+							<label class="item-label">Imported content<span class="check-tips">(Follow the guideEnterOutput formatEnter)</span></label>
+							<div class="controls">
+								<label class="textarea input-large">
+									<textarea name="tree"></textarea>
+								</label>
+							</div>
+							<span class="check-tips">Import format:<br>title|url(Enter key)<br>title|url</span>
+						</div>
+					</div>
+					<div class="form-item cf">
+						<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">Submit</button>
+						<a class="btn btn-return" href="{:U('index?pid='.$pid)}">Back</a>
+						<input type="hidden" name="pid" value="{$pid}"/>
+						<input type="hidden" name="cate_id" value="{$cate_id|default=0}">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<include file="Public:footer" />

@@ -1,0 +1,27 @@
+<include file="Public:header" />
+
+<block name="body">
+<div id="main-content" class="col-sm-10">
+<div id="main" class="main">
+    <div class="main-title-h">
+        <span class="h1-title">Exchange Other Options</span>
+    </div>
+
+    <form action="{:U()}" method="post" class="form-horizontal">
+	<table>
+        {$options_table}
+        <tr class="controls">
+		<td class="item-label"></td>
+		<td>
+            <input type="hidden" name="csrf" value="{$token|default=''}">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">Update</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">Back</button>
+		</td>
+        </tr>
+	</table>
+    </form>
+	</div>
+	</div>
+</block>
+
+<include file="Public:footer" />

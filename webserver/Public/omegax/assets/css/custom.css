@@ -1,0 +1,111 @@
+.obtext tr td{
+box-sizing:border-box;
+cursor:pointer;
+font-size:11px;
+height:auto;
+
+text-align:left;
+-webkit-box-direction:normal;
+-webkit-font-smoothing:antialiased;
+padding-top:0px !important;
+padding-bottom:0px !important;
+}
+.activeMiddleBar {
+   padding: 1px 0;
+    text-align: center;
+    font-size: 12px;
+    color: #F7F7F7;
+    font-weight: 800;
+}
+
+.obtable{
+	margin-bottom:0px !important;
+}
+.obtable td{
+	width:33%;
+}
+.buyselltable{
+	margin-bottom:0px !important;
+}
+.crypt-down{color:#e5494d !important;}
+.crypt-up{color:#5a81ea !important;}
+.buy{color:#5a81ea !important;}
+.sell{color:#e5494d !important;}
+.pairname a{
+	    text-transform: uppercase;
+    color: #fff !important;
+}
+
+a.btn.get-btn{padding:11px 24px; 
+    background: #5a81ea;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+.inputHintBox {
+    color: #797777;
+    font-size: 12px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+
+#choosetype li.crypt-up.active a{
+	border-bottom:2px solid #5a81ea !important;
+}
+#choosetype li.crypt-down.active a{
+	border-bottom:2px solid #e5494d !important;
+}
+.hideme{display:none;}
+#lang-menu li{padding: 0px !important;
+    margin-bottom: 0px !important;}
+#lang-menu li a{
+	padding-top: 6px;
+    padding-left: 1px;
+    padding-right: 0px;
+    width: auto !important;
+    cursor: pointer;
+    padding-bottom: 0px !important;}
+
+#widgetselected{
+background: #292f3c;
+    border: 0;
+    box-shadow: none;
+    color: #fff;
+	height:27px;
+}
+div#depthchart {
+height: 292px;
+margin-bottom: 10px !important;
+margin-left:-14px !important;
+}
+.tpwd li{
+list-style:none;
+}
+#depthbuttons{
+position:absolute !important;
+margin-top:-29px !important
+}
+#depthbuttons button{   margin-right: 4px !important;
+    background: #19202e;
+    color: #fff;
+    border: 1px solid #fff;
+	    padding: 1px 1px;
+    font-size: 12px;
+    border-radius: 0px;
+	}
+#widgetselected {
+    background: #292f3c !important;
+    border: 0;
+    color: #fff;
+    width: 90px;
+    padding: 2px 5px;
+}
+#widgetselected li{
+cursor:pointer;
+background:#292f3c;}

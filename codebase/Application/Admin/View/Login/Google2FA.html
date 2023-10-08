@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Backend Login </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="__PUBLIC__/Admin/images/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/login.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/default_color.css" media="all">
+</head>
+<body id="login-page">
+<div id="main-content" class="col-sm-10">
+
+    <div class="login-body">
+        <div class="login-main pr">
+            <form action="{:U('Login/check2fa')}" method="post" class="login-form">
+                <h3 class="welcome">Backend</h3>
+
+                <div id="itemBox" class="item-box">
+                    <div class="item">
+                        <i class="icon-login-user"></i> <input type="text" name="gacode" placeholder="Enter 2FA"
+                                                               autocomplete="off"/>
+                    </div>
+                    <span class="placeholder_copy placeholder_un">Enter Google 2FA</span>
+
+                   
+                </div>
+                <div class="login_btn_panel">
+                    <button class="login-btn" type="submit">
+                        <span class="in"><i class="icon-loading"></i>Loading ...</span> <span class="on">Confirm</span>
+                    </button>
+                    <div class="check-tips"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(".login-form").on("focus", "input", function () {
+        $(this).closest('.item').addClass('focus');
+    }).on("blur", "input", function () {
+        $(this).closest('.item').removeClass('focus');
+    });
+
+    //Form submission
+    $(document).ajaxStart(function () {
+        $("button:submit").addClass("log-in").attr("disabled", true);
+    }).ajaxStop(function () {
+        $("button:submit").removeClass("log-in").attr("disabled", false);
+    });
+
+    $("form").submit(function () {
+        var self = $(this);
+        $.post(self.attr("action"), self.serialize(), success, "json");
+        return false;
+
+        function success(data) {
+            if (data.status) {
+                window.location.href = data.url;
+            } else {
+                self.find(".check-tips").text(data.info);
+            }
+        }
+    });
+
+    $(function () {
+        //Initialization electioninUsernameloseEnterframe
+        $("#itemBox").find("input[name=username]").focus();
+
+        function isPlaceholer() {
+            var input = document.createElement('input');
+            return "placeholder" in input;
+        }
+
+        //If it does not
+        if (!isPlaceholer()) {
+            $(".placeholder_copy").css({
+                display: 'block'
+            })
+            $("#itemBox input").keydown(function () {
+                $(this).parents(".item").next(".placeholder_copy").css({
+                    display: 'none'
+                })
+            })
+            $("#itemBox input").blur(
+                    function () {
+                        if ($(this).val() == "") {
+                            $(this).parents(".item").next(
+                                    ".placeholder_copy").css({
+                                display: 'block'
+                            })
+                        }
+                    })
+
+        }
+    });
+</script>
+</body>
+</html>

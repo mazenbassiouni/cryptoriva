@@ -1,0 +1,223 @@
+<include file="Public:header" />
+		<!-- Page content -->
+
+		<main class="wrapper grey-bg affiliate-page">
+			<!-- Account Heading Start -->
+			<div class="page-top-banner">
+				<div class="filter" style="background-image: url('__EPSILON__/img/redesign/slider/filter2-min.png');">
+					<div class="container">
+						<div class="row align-items-center justify-content-between">
+							<div class="col-md-8 col-lg-7 col-xl-7">
+								<h1>{$title}</h1>
+								<h2>Invite your friends, earn commission on {:SHORT_NAME}!</h2>
+							</div>
+							<div class="col-8 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+								<img src="__EPSILON__/img/redesign/affiliate-banner-img.png" alt="" class="img-fluid">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Account Heading End -->
+			<!-- Account Content Start -->
+			<div class="container">
+				<div class="row mt-3 ">
+					<include file="User:top_bar" />
+					<div class="col-12 col-md-6 order-1 order-md-2 float-right">
+					  <ul class="text-right breadcrumbs list-unstyle">
+						<li>
+						  <a class="btn btn-warning btn-sm" href="{:U('/')}">Home</a>
+						</li>
+						<li>
+						  <a href="{:U('/finance/index')}" class="btn btn-warning btn-sm"
+							>Finance</a
+						  >
+						</li>
+						<li class="btn btn-warning btn-sm active">Invite</li>
+					  </ul>
+					</div>
+				  </div>
+				<div class="row align-items-stretch m-t-30">
+					<div class="col-xl-6">
+						<div class="card invite-earning-wrapper">
+							<div class="card-header">
+								<h4 class="card-title">My Invitation Earnings</h4>
+							</div>
+								<div class="row filter-wrapper">
+								
+								<div class="col-md-6 col-lg-8">
+									<div class="filter-buttons align-items-center">
+										<ul class="list-inline">
+											<li class="list-inline-item active"><a href="#!">All Time</a></li>
+
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="card-body">
+								<ul>
+									<li>
+										<span class="text"><i class="fa fa-database m-r-5"></i>Your Earnings</span>
+										<span class="number">{$stats['earning']['total']} {$stats['earning']['coin']}</span>
+										
+									</li>
+									<li>
+										<span class="text"><i class="fa fa-user-plus m-r-5"></i>Directly Referred Users</span>
+										<span class="number">{$stats['invit_1']}</span>
+
+									</li>
+									<if condition="$stats['indirect'] gt 0">
+									<li>
+										<span class="text"><i class="fa fa-user m-r-5"></i>Indirectly Referred Users</span>
+										<span class="number">$stats['indirect']</span>
+										
+									</li>
+								</if>
+								</ul>
+							</div>
+						</div>
+					</div>			
+					<div class="col-xl-6">
+						<div class="card invite-code-wrapper">
+							<div class="card-header">
+								<h4 class="card-title">My Invite Link</h4>
+							</div>
+							<div class="card-body">
+								<div class="row justify-content-between">
+									
+									<eq name="is_ref_award" value="1">
+									<div class="col-12">	
+										<div class="form-group">
+											<label for="">Commission You Will Get</label>
+											<span class="badge btn-3 f-s-16">{$ref_award_num} {$ref_award_coin}</span> Bonus per signup!!
+										</div>
+									</div>
+									</eq>
+									<div class="form-group col-12">
+										<label>{:l('Invite Code')}</label>
+										<div class="input-group">
+											<input type="text" class="form-control copy-code-input" value="{$user['invit']}" readonly>
+											<div class="input-group-append">
+												<span class="input-group-text border-0 copy-code-btn"><i class="fa fa-copy"></i></span>
+											</div>
+										</div>
+									</div>
+		
+									<div class="form-group col-12">
+										<label>{:l('Share link')}</label>
+										<div class="input-group">
+											<input type="text" class="form-control copy-input" value="{:SITE_URL}Login/register?invite={$user['invit']}" readonly>
+											<div class="input-group-append">
+												<span class="input-group-text border-0 copy-btn"><i class="fa fa-copy"></i></span>
+											</div>
+										</div>
+									</div>
+		
+									<div class="col-xl-12">
+										<div class="form-group m-0">
+										<a href="#!" data-toggle="modal" data-target="#qrModal" role="button" class="btn-3 m-0">Show QR Code</a>
+										</div>
+									</div>
+		
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+						<div class="col-xl-12 m-t-30">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title"><i class="fa fa-database m-r-5"></i>Your Commission History </h4>
+								</div>
+								<div class="card-body">	
+									<div class="col-12 filter-buttons align-items-center">
+										<ul class="list-inline">
+											<li class="list-inline-item active"><a href="#!">All Accounts</a></li>
+												
+										</ul>
+									</div>
+									<notempty name="records">
+								
+									<div class="col-12">
+										<table class="table  table-striped table-hover">
+											<thead>
+											<tr>
+												<th>Bonus</th>
+												<th>Time</th>
+												<th>Commission Earned</th>
+												<th>Status</th>
+											</tr>
+											</thead>
+											<tbody>
+											<volist name="records" id="entry">
+												
+												<tr>
+												<td class="col-2">{$entry.coin|strtoupper} {$entry['fee']|NumToStr}</td>
+												<td class="col-2">{$entry.addtime|addtime}</td>
+												<td class="col-2 text-small">{$entry.type}</td>
+												<td class="col-2"><if condition="$entry['status'] eq 1">Credited<else/>Pending</if></td>
+												</if>
+											</tr>
+										</volist>
+											</tbody>
+										</table>
+									</div>
+									<else/>
+									<div class="col-12">	
+										<div class="no-data">
+											<i class="ion ion-md-document"></i>
+											<p>No Records Found..</p>
+										</div>
+		
+									</div>
+								</notempty>	
+								
+								</div>
+							</div>
+						</div>
+		
+				</div>
+			</div>
+			<!-- Account Content End -->
+		</main>
+<!-- qr modal start -->
+<div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="{:l('YOUR_EXCLUSIVE_PROMOTION_OF_TW')}" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header  d-flex align-items-center">
+				<h5 class="modal-title">
+					<div class="coin-title d-flex align-items-center">
+						<div class="title">{:l('YOUR_EXCLUSIVE_PROMOTION_OF_TW')}</span>
+						</div>
+					</div>
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="card">
+					<div class="card-body row static-white-bg">
+						
+						<saon  class="img-fluid m-auto" id="codeaa"></saon>
+					</div>
+				</div><!--/row-->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn-2" data-dismiss="modal">{:l('Close')}</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--qr modal end -->
+    <script type="text/javascript" src="__PUBLIC__/Home/js/jquery.qrcode.min.js"></script>
+       <script type="text/javascript" >
+       $('#codeaa').qrcode({
+         render: "table", //table
+         size:300,
+         text: "{:SITE_URL}Login/register?invite={$user['invit']}" ////Any content
+       }); //ANY_STRING
+       </script>
+	
+<include file="Public:footer_minimal"/>

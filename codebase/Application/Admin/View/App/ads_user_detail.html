@@ -1,0 +1,53 @@
+<include file="Public:header" />
+<div id="main-content" class="col-sm-10">
+ <div id="top-alert" class="fixed alert alert-error" style="display: none;">
+  <button class="close fixed" style="margin-top: 4px;">&times;</button>
+  <div class="alert-content">Warnings</div>
+ </div>
+ <div id="main" class="main">
+     <div class="main-title-h">
+         <span class="h1-title"><a href="{:U('App/ads_user')}">member list</a> >></span>
+         <span class="h1-title"><font color="green">Click on the ad details</span>
+     </div>
+  <div class="data-table table-striped">
+   <table class="">
+    <thead>
+     <tr>
+      <th class="row-selected row-selected"><input class="check-all" type="checkbox" /></th>
+      <th class="">ID</th>
+      <th class="">UserId</th>
+      <th class="">Username</th>
+      <th class="">Types of</th>
+      <th class="">content</th>
+      <th class="">Operating time</th>
+     </tr>
+    </thead>
+    <tbody>
+     <notempty name="list"> <volist name="list" id="vo">
+      <tr>
+       <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+       <td>{$vo.id}</td>
+       <td>{$vo.uid}</td>
+       <td>{$vo.uid}</td>
+       <td>{$vo.type}</td>
+       <td>{$vo.content}</td>
+       <td>{$vo.addtime|addtime}</td>
+     </volist> <else />
+     <td colspan="12" class="text-center">No contents!</td>
+     </notempty>
+    </tbody>
+   </table>
+   <div class="page">
+    <div>{$page}</div>
+   </div>
+  </div>
+ </div>
+</div>
+<script type="text/javascript">
+	//Highlight the main navigation
+//	$('.Appads-box').addClass('current');
+//	//Highlight side navigation
+//	$('.Appads-index').addClass('current');
+</script>
+<!-- /Content Area -->
+<include file="Public:footer" />

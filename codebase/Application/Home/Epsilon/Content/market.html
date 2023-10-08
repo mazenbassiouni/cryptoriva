@@ -1,0 +1,21 @@
+<include file="Public:header" />
+<include file="Index:home_pricing_ticker" />
+<div class="container">
+  <div class="row">
+    <include file="User:top_bar" />
+    <div class="col-12 col-md-6 order-1 order-md-2 float-right">
+      <ul class="text-right breadcrumbs list-unstyle">
+        <li>
+          <a class="btn btn-warning btn-sm" href="{:U('/')}">Home</a>
+        </li>
+        <li>
+          <a href="{:U('/')}" class="btn btn-warning btn-sm">Content</a>
+        </li>
+        <li class="btn btn-warning btn-sm active">Market</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<include file="Content:widget_markets" />
+<include file="Content:widget_info_modal" />
+<include file="Public:footer_minimal" />

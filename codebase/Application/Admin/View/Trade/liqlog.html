@@ -1,0 +1,173 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+			<div class="main-title-h">
+			<span class="h1-title col-sm-4">Liquidity Matched records</span>
+			<small class="col-sm-8 text-right">Total {$codono_count} Records : Amount :{:L('SITE_CURRENCY')}{$codono_getSum|default="0"}</small>
+		</div>
+
+		<div class="cf">
+				<div class="fl">
+				<a class="btn btn-xs btn-info " href="{:U('Trade/download_liqlog')}" target="_blank">Export Excel</a>
+				<a class="btn btn-xs btn-info " href="{:U('Trade/log')}">Non-Liquidity Matched Logs</a>
+			</div>
+	
+			<div class="search-form fr cf">
+				<div class="sleft">
+					<form name="formSearch" id="formSearch" method="get" name="form1">
+						<select style="width: 160px; float: left; margin-right: 10px;" name="market" class="form-control">
+							<option value=""
+							<empty name="Think.get.market">selected</empty>
+							>Market</option>
+							<volist name="C['market']" id="vo">
+								<option value="{$vo['name']}"
+								<eq name="vo['name']" value="$Think.get.market">selected</eq>
+								>{$vo['title']}</option>
+							</volist>
+						</select>
+						<select style="width: 160px; float: left; margin-right: 10px;" name="fill" class="form-control">
+							<option value=""
+							<empty name="Think.get.fill">selected</empty>
+							>-Select Fill Status-</option>
+							<option value="1" <eq name="Think.get.fill" value="1">selected</eq>>Filled</option>
+							<option value="0" <eq name="Think.get.fill" value="0">selected</eq>>Unfilled</option>
+						</select>
+						
+						
+						<select style="width: 160px; float: left; margin-right: 10px;" name="type" class="form-control">
+							<option value=""
+							<empty name="Think.get.type">selected</empty>
+							>Transaction Type</option>
+							<option value="1" <eq name="Think.get.type" value="1">selected</eq>>Buy</option>
+							<option value="2" <eq name="Think.get.type" value="2">selected</eq>>Sell</option>
+						</select>
+						
+						
+						<select style=" width: 160px; float: left; margin-right: 10px;" name="field" class="form-control">
+							<option value="username"
+							<eq name="Think.get.field" value="username">selected</eq>
+							>Buyer's Username</option>
+							<option value="peername"
+							<eq name="Think.get.field" value="peername">selected</eq>
+							>Seller's Username</option>
+						</select>
+						<input type="text" name="name" class="search-input form-control  " value="{$Think.get.name}" placeholder="Enter text to search" style="">
+						<a class="sch-btn" href="javascript:;" id="search"> <i class="btn-search"></i> </a>
+					</form>
+					<script>
+						//Search function
+						$(function () {
+							$('#search').click(function () {
+								$('#formSearch').submit();
+							});
+						});
+						//Enter search
+						$(".search-input").keyup(function (e) {
+							if (e.keyCode === 13) {
+								$("#search").click();
+								return false;
+							}
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+		
+		<div class="data-table table-striped">
+			<table class="">
+				<thead>
+				
+				<tr>
+					<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+					<th class="">ID</th>
+					<th class="">Buyer</th>
+					<th class="">Seller</th>
+					<th class="">Type</th>
+					<th class="">Market</th>
+					<th class="">@Price</th>
+					<th class="">Quantity</th>
+					<th class="">Total</th>
+					<th class="">Buyers Fee</th>
+					<th class="">Sellers Fee</th>
+					<th class="">Time</th>
+					<th class="">Fill</th>
+					<th class="">Option</th>
+				</tr>
+				</thead>
+				<tbody>
+				<notempty name="list">
+					<volist name="list" id="vo">
+						<tr>
+							<td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+							<td>{$vo.id}</td>
+
+							<td><if condition="$vo['userid']">{$vo['userid'] | username} [{$vo['userid']}]<else/><i style='color:red'>LiqTool</i></if></td>
+							<td><if condition="$vo['peerid']">{$vo['peerid'] | username} [{$vo['peerid']}]<else/><i style='color:red'>LiqTool</i></if></td>
+							<td>
+								<eq name="vo.type" value="1">Buy
+									<else/>
+								                             Sell
+								</eq>
+							</td>
+							<td>{$vo['market']}</td>
+							<td>{$vo['price']|NumToStr}</td>
+							<td>{$vo['num']|NumToStr}</td>
+							<td>{$vo['mum']|NumToStr}</td>
+							<td>{$vo['fee_buy']|NumToStr}</td>
+							<td>{$vo['fee_sell']|NumToStr}</td>
+							
+							<td>{$vo.addtime|addtime}</td>
+							<td>
+								<eq name="vo.fill" value="0">To be filled</eq>
+								<eq name="vo.fill" value="1">Filled</eq>
+								
+							</td>
+							<td>
+								<eq name="vo.fill" value="0">
+									<a href="{:U('Trade/fill?id='.$vo['id'])}" class="ajax-get btn btn-primary btn-xs">Mark as filled </a>
+								</eq>
+								<eq name="vo.fill" value="1">
+									<span onclick="showtable({$vo.fill_id})" class="ajax-get btn btn-info btn-xs">View </a>
+								</eq>
+							</td>
+						</tr>
+					</volist>
+					<else/>
+					<td colspan="12" class="text-center">No contents!</td>
+				</notempty>
+				</tbody>
+			</table>
+			<div class="page">
+				<div>{$page}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/>
+<script>
+function showtable(fill_id){
+		$.get("/Admin/Trade/getFillId?fill_id="+fill_id,function(data){
+//   				layer.alert(data.data, {title: "Change info",btn: ['Ok']});
+  layer.open({
+                            type: 1,
+                            skin: 'default', //styleclassname
+                            closeBtn: 1, //Close button does not show
+                            shift: 2,
+							area: ['743px', '584px'],
+                            shadeClose: true, //Open mask Close
+                            content: data.data
+                        });
+				console.log('ok');
+				console.log(data.data);
+   			},'json');
+}</script>
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		//Highlight navigation
+		highlight_subnav("{:U('Trade/log')}");
+	</script>
+</block>

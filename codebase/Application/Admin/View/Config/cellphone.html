@@ -1,0 +1,63 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="alert alert-info no-border">
+									<button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+									<span class="text-semibold">Heads up!</span> Currently using Nexmo SMS, It can be switched to other SMS gateway too.
+							    </div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">SMS Configuration</span>
+		</div>
+		<div class="tab-wrap">
+			<div class="tab-content">
+				<form id="form" action="{:U('Config/cellphoneEdit')}" method="post" class="form-horizontal">
+					<div id="tab" class="tab-pane in tab">
+						<div class="form-item cf">
+							<table>
+								<td class="item-label">From Number:</td>
+									<td>
+										<input type="text" class="form-control input-10x" id="cellphone_url" name="cellphone_url" value="{$C['cellphone_url']}">
+									</td>
+									<td class="item-note">Nexmo Signup: <a href="https://dashboard.nexmo.com/sign-up" target="_blank">Get €2.00 SMS Credit</a>
+									</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Key :</td>
+									<td>
+										<input type="text" class="form-control input-10x" id="cellphone_user" name="cellphone_user" value="{$C['cellphone_user']}">
+									</td>
+									<td class="item-note">Nexmo Key {<a href="https://dashboard.nexmo.com/getting-started-guide" target="_blank">Check Here</a>}</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Secret :</td>
+									<td>
+										<input type="password" class="form-control input-10x" id="cellphone_pwd" name="cellphone_pwd" value="{$C['cellphone_pwd']}">
+									</td>
+									<td class="item-note">Nexmo Secret {<a href="https://dashboard.nexmo.com/getting-started-guide" target="_blank">Check Here</a>}</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label"></td>
+									<td>
+										<div class="form-item cf">
+											<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">Save</button>
+											<a class="btn btn-return" href="{$Think.server.HTTP_REFERER}">Back</a>
+											<notempty name="data.id"><input type="hidden" name="id" value="{$data.id}"/>
+											</notempty>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</form>
+				<script type="text/javascript">
+					//submit Form
+					$('#submit').click(function () {
+						$('#form').submit();
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/>

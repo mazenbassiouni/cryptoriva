@@ -1,0 +1,182 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title col-sm-4">Spot Trades</span>
+			<small class="col-sm-8 text-right">Total {$codono_count} Records : Amount :{:L('SITE_CURRENCY')}{$codono_getSum|default="0"}</small>
+		</div>
+		
+		<div class="cf">
+			<div class="fl">
+			<a class="btn btn-sm btn-info " href="{:U('Trade/liqindex')}" >Liquidity Orders</a>
+			<a class="btn btn-sm btn-warning " href="{:U('Trade/stoporders')}" >Stop Orders</a>
+			</div>
+			<div class="search-form fr cf">
+				<div class="sleft">
+					<form name="formSearch" id="formSearch" method="get" name="form1">
+						<select style="width: 160px; float: left; margin-right: 10px;" name="market" class="form-control">
+							<option value=""
+							<empty name="Think.get.market">selected</empty>
+							>Market</option>
+							<volist name="C['market']" id="vo">
+								<option value="{$vo['name']}"
+								<eq name="vo['name']" value="$Think.get.market">selected</eq>
+								>{$vo['title']}</option>
+							</volist>
+						</select>
+						<select style="width: 160px; float: left; margin-right: 10px;" name="status" class="form-control">
+							<option value=""
+							<empty name="Think.get.status">selected</empty>
+							>All states</option>
+                            <option value="0" <eq name="Think.get.status" value="0">selected</eq>>In Transaction</option>
+							<option value="1" <eq name="Think.get.status" value="1">selected</eq>>Completed</option>
+							<option value="2" <eq name="Think.get.status" value="2">selected</eq>>Revoked</option>
+						</select>
+						
+						
+						
+						<select style="width: 160px; float: left; margin-right: 10px;" name="type" class="form-control">
+							<option value=""
+							<empty name="Think.get.type">selected</empty>
+							>Transaction Type</option>
+							<option value="1" <eq name="Think.get.type" value="1">selected</eq>>Buy</option>
+							<option value="2" <eq name="Think.get.type" value="2">selected</eq>>Sell</option>
+						</select>
+						
+						
+						
+						
+						<select style=" width: 160px; float: left; margin-right: 10px;" name="field" class="form-control">
+							<option value="username"
+							<eq name="Think.get.field" value="username">selected</eq>
+							>Username</option>
+						</select>
+						<input type="text" name="name" class="search-input form-control  " value="{$Think.get.name}" placeholder="Enter text to search" style="">
+						<a class="sch-btn" href="javascript:;" id="search"> <i class="btn-search"></i> </a>
+					</form>
+					<script>
+						//Search function
+						$(function () {
+							$('#search').click(function () {
+								$('#formSearch').submit();
+							});
+						});
+						//Enter search
+						$(".search-input").keyup(function (e) {
+							if (e.keyCode === 13) {
+								$("#search").click();
+								return false;
+							}
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	
+		<div class="data-table table-striped">
+			<table class="">
+				<thead>
+				
+				<tr>
+					<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+					<th class="">ID</th>
+					<th class="">Username</th>
+					<th class="">Market</th>
+					<th class="">Price</th>
+					<th class="">QTY</th>
+					<th class="">Deal done</th>
+					<th class="">Total</th>
+					<th class="">Types</th>
+					<th class="">Time</th>
+					<th class="">Status</th>
+					<th class="">Option</th>
+				</tr>
+				</thead>
+				<tbody>
+				<notempty name="list">
+					<volist name="list" id="vo">
+						<tr>
+							<td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+							<td>{$vo.id}</td>
+							<td><?php if(!$vo['username']){ echo "<i style='color:red'>LiqTool</i>";}else{ echo $vo['username'];}?> [{$vo.userid}]</td>
+							<td>{$vo['market']}</td>
+							<td>{$vo['price']|Num}</td>
+							<td>{$vo['num']|Num}</td>
+							<td>{$vo['deal']|Num}</td>
+							<td>{$vo['mum']|Num}</td>
+							<td>
+								<eq name="vo.type" value="1">
+									Buy
+									<else/>
+									Sell
+								</eq>
+							</td>
+							<td>{$vo.addtime|addtime}</td>
+							<td>
+								<eq name="vo.status" value="0">Running</eq>
+								<eq name="vo.status" value="1">Deal done</eq>
+								<eq name="vo.status" value="2">Revoked</eq>
+							</td>
+							<td>
+								<eq name="vo.status" value="0">
+									<a href="{:U('Trade/reject?id='.$vo['id'])}" class="ajax-get btn btn-primary btn-xs">Undo </a>
+									<button class="btn btn-danger btn-xs" onclick="resolve({$vo.id},{$vo.type},'{$vo.market}','{$vo.price}');">Force Match with Liquidity</button>
+								</eq>
+							</td>
+						</tr>
+					</volist>
+					<else/>
+					<td colspan="12" class="text-center">No contents!</td>
+				</notempty>
+				</tbody>
+			</table>
+			<div class="page">
+				<div>{$page}</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<include file="Public:footer"/>
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		//Highlight navigation
+	function resolve(id,type,market,price)
+	{
+	
+	var res = market.split("_");
+	var xnb=res[0];
+	var rmb=res[1];
+	if(type==1){
+	var msg = 'User is trying to buy '+xnb+' at price '+price+' '+rmb+' , do you Confirm?';
+	}else{
+	var msg = 'User is trying to sell '+xnb+' at price '+price+' '+rmb+',  do you Confirm?';
+	}
+	
+	
+     layer.confirm(msg, {
+         btn: ['Confirm','Cancel'] //PUSH_BUTTON
+   	}, function(){
+        $.post("/Admin/Trade/forcematch/",{id:id} , function (data) {
+            layer.closeAll('loading');
+            trans_lock = 0;
+            if (data.status == 1) {
+
+                layer.msg(data.info, {icon: 1});
+				location.reload();
+            } else {
+                layer.msg(data.info, {icon: 2});
+            }
+			   setTimeout(function(){return true;},30000);
+			
+        }, 'json');
+		});
+    }
+
+		highlight_subnav("{:U('Trade/index')}");
+	</script>
+</block>

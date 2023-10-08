@@ -1,0 +1,110 @@
+<include file="Public:header" />
+<script src="__PUBLIC__/Home/js/datepicker.min.js"></script>
+<div class="autobox">
+ <div class="now">
+  <a href="/" class="orange">{:l('HOME')}</a> &gt; <a href="/Money/index" class="orange">{:l('APPLICATION_CENTER')}</a> &gt; <p>{:l('COMPOUND_DETAIL')}
+ </div>
+ <div class="assets_center clear po_re zin70">
+
+  <div class="assets_content w900 right bg_w">
+   <div class="safe_center clear" style="padding-left: 0px; border-bottom: 2px solid #e55600;">
+    <h1 >{:l('COMPOUND_DETAIL')}</h1>
+   </div>
+   <div class="sj" style="top: 40px; left: 60px;"></div>
+   <br>
+   <div class="nav_info" style="padding-left: 26px;">
+    <p>
+     <i></i><span>{:l('SYNTHESIS_OF_EXPENSES_DETAILS')}!</span>
+    </p>
+   </div>
+   <br>
+   <div class="usdin_record">
+    <div class="f_body">
+     <div class="f_body_main">
+      <div class="f_tab_body">
+       <div>
+        <table class="table table-responsive" id="investLog_content">
+						<thead>
+							<tr>
+                                <th id="sublist-grid_c0">{:l('SYNTHESIS_OF_NAME')}</th>
+                                <th id="sublist-grid_c0">{:l('PRINCIPAL_CURRENCY')}</th>
+                                <th id="sublist-grid_c0">{:l('CURRENCY_INTEREST')}</th>
+                                <th id="sublist-grid_c1">{:l('TYPES_OF_FEE')}</th>
+                                <th id="sublist-grid_c2">{:l('VOLUME_COST')}</th>
+                                <th id="sublist-grid_c2">{:l('DETAIL')}</th>
+                                <th id="sublist-grid_c2">{:l('DATE')}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name="list" id="vo">
+							<tr>
+                                <td>{$vo['money']['name']}</td>
+                                <td>{$vo['money']['coinname']}</td>
+                                <td>{$vo['money']['feecoin']}</td>
+                                <td>
+                                    <eq name="vo.type" value="1">
+                                        <font color="green">{:l('INCOME')}</font> <else />
+                                        <font color="red">{:l('EXPENDITURE')}</font>
+                                    </eq>
+                                </td>
+
+                                <td>{$vo['num']|NumToStr}</td>
+                                <td>{$vo['content']}</td>
+								<td>{$vo.addtime|addtime}</td>
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+        <div class="pages">{$page}</div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+<br>
+<br>
+<script>
+
+ function beforeGet(id,fee){
+     var msg = fee ?  'Remove the principal to pay in advance' + fee + '% Interest is determined in advance?' : ' principal known in advance?'
+     layer.confirm(msg, {
+         btn: ['Confirm','Cancel'] //PUSH_BUTTON
+     }, function(){
+         $.post('{:U(\'/Money/beforeGet\')}',{id:id},function(ret){
+                if(ret.status){
+                   layer.msg(ret.info);
+                    window.setTimeout("window.location.reload()",1000);
+                }else{
+                    layer.msg(ret.info);
+                }
+         },'json');
+         layer.closeAll();
+     }, function(){
+         layer.closeAll();
+     });
+ }
+
+
+
+
+
+ $('.unlock').click(function(){
+  $.post("{:U('Issue/unlock')}",{id:$(this).attr('id'),},function(data){
+   if(data.status==1){
+    layer.msg(data.info,{icon:1});
+   window.location="{:U('Issue/log')}";
+   }else{
+    layer.msg(data.info,{icon:2});
+   }
+  });
+ });
+</script>
+<script>
+	//MENU_HIGHLIGHTS
+	$('#game_moneydlog').addClass('active');
+	$('#game_moneydlog i').attr('class','coin_menu_op_7');
+</script>
+<include file="Public:footer_minimal"/>

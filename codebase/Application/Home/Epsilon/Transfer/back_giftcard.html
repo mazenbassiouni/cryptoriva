@@ -1,0 +1,175 @@
+<include file="Public:header"/>
+<!-- Wallet Content Start -->
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-12 m-t-30">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">{:l("Gift Card")}</h4>
+					</div>
+					<div class="card-body text-center gift-card-buttons">
+						<a href="{:U('Transfer/giftcardcreate')}" class="btn-2"> <i class="ion ion-md-cloud-download f-s-24"></i> <span class="clearfix"></span> {:l("Send Card")} </a>
+						<a href="#!" data-toggle="modal" data-target="#getGiftCardModal" role="button" class="btn-2"> <i class="ion ion-md-cloud-upload f-s-24 fa-rotate-180"></i>
+							<span class="clearfix"></span> {:l("Check")} or {:l("Redeem")} </a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-12">
+				<div class="card gift-card-list">
+					<div class="card-header">
+						<h4 class="card-title">{:l("My cards")}</h4>
+					</div>
+					<div class="card-body">
+					
+						<notempty name="mycards">
+						<div class="table-responsive">
+						<table class="table table-bordered table-big">
+						<thead></thead>
+						<tbody>
+						<volist name="mycards" id="mycard">
+						<tr>
+						<td>{$mycard.coin}</td>
+						<td>{$mycard.public_code}</td>
+						<td>{$mycard.value|NumToStr}</td>
+						<td>
+						<if condition="($mycard.status eq 0)">
+						{:l("Inactive")}
+						</if>
+						<if condition="($mycard.status eq 1)">
+						{:l("Active")}
+						</if>
+						<if condition="($mycard.status eq 2)">
+						{:l("Consumed")}
+						</if>
+						</td>
+												<td>
+						<a href="#" class="btn btn-success active" id="redeem">{:l("Redeem")}</a>
+						<a href="#" class="btn btn-danger active" id="share">{:l("Send")}</a>
+						</td>
+						</tr>
+						</volist>
+						</tbody>
+						</table>
+						</div>
+						<else/>
+						<div class="no-data">
+							<i class="ion ion-ios-gift"></i>
+							<p>
+								{:l("There are no cards")}. <br/> {:l("Create one now!")} </p>
+						</div>
+						</notempty>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Wallet Content End -->
+	<!-- get gift card modal start -->
+<div class="modal fade" id="getGiftCardModal" tabindex="-1" role="dialog" aria-labelledby="{:l("Get Card")}" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header  d-flex align-items-center">
+				<h5 class="modal-title">
+					<div class="coin-title d-flex align-items-center">
+						<div class="title">
+							{:l("Get Card")}</span>
+						</div>
+					</div>
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="{:l("Close")}">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<ul class="nav nav-pills nav-fill m-t-40" role="tablist">
+					<li class="nav-item">
+						<a aria-selected="true" class="nav-link" data-toggle="pill" href="#check-value" role="tab"> <i class="ion ion-md-search"></i> {:l("Check Value")}
+							<span class="description">{:l("Enter card number to check card\'s value and status")}</span></a>
+					</li>
+					<li class="nav-item">
+						<a aria-selected="false" class="nav-link" data-toggle="pill" href="#add-card" role="tab"> <i class="ion ion-md-add"></i> {:l("Add Card")}
+							<span class="description">{:l('Enter the gift card code and link the gift card to your account')}</span></a>
+					</li>
+					<li class="nav-item">
+						<a aria-selected="false" class="nav-link" data-toggle="pill" href="#get-crypto" role="tab"> <i class="ion ion-md-card "></i> {:l('Get Crypto')}
+							<span class="description">{:l("Enter the gift card code to have the crypto credited to your account")}</span></a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade p-t-15" role="tabpanel" id="check-value">
+						<form action="#">
+							<div class="form-group">
+								<label for="gift-card-no"></label>
+								<div class="input-group">
+									<input class="form-control" placeholder="{:l('Please enter the gift card number')}" type="text" id="gift-card-no">
+									<div class="input-group-append">
+										<button type="submit" class="input-group-text btn-2">{:l('Check it')}</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="tab-pane fade p-t-15" role="tabpanel" id="add-card">
+						<form action="#">
+							<div class="form-group">
+								<label for="add-gift-card-no"></label>
+								<div class="input-group">
+									<input class="form-control" placeholder="{:l('Please enter the gift card number')}" type="text" id="add-gift-card-no">
+									<div class="input-group-append">
+										<button type="submit" class="input-group-text btn-2">{:l('Redeem')}</button>
+									</div>
+								</div>
+							</div>
+							<p>
+								{:l('We are not responsible for the illegal behavior or fraud of any third party associated with any Gift card; and assumes no liability to you. I accept and accept the Exchange Gift Card Terms')} </p>
+							<p>
+								{:l('To view the full Terms and Conditions for the gift card, please visit the Help Center')} </p>
+						</form>
+					</div>
+					<div class="tab-pane fade p-t-15" role="tabpanel" id="get-crypto">
+						<form action="#">
+							<div class="form-group">
+								<label for="gc-gift-card-no"></label>
+								<div class="input-group">
+									<input class="form-control" placeholder="{:l('Please enter the gift card number')}" type="text" id="gc-gift-card-no">
+									<div class="input-group-append">
+										<button type="submit" class="input-group-text btn-2">{:l('Redeem now')}</button>
+									</div>
+								</div>
+							</div>
+							<p>
+								{:l('We are not responsible for the illegal behavior or fraud of any third party associated with any Gift card; and assumes no liability to you. I accept and accept the Exchange Gift Card Terms')} </p>
+							<p>
+								{:l('To view the full Terms and Conditions for the gift card, please visit the Help Center')} </p>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- get gift card modal end -->
+<style>
+.table-big td,.table-big th{
+font-size:18px !important;
+}
+</style>
+<include file="Public:footer_minimal"/>
+	<script>
+	$('.slider-for').slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		arrows: false,
+		fade: true,
+		asNavFor: '.slider-nav'
+	});
+	$('.slider-nav').slick({
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		asNavFor: '.slider-for',
+		dots: true,
+		arrows: false,
+		centerMode: false,
+		focusOnSelect: true
+	});
+</script>

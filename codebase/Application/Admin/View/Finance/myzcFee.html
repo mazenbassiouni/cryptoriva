@@ -1,0 +1,135 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+    <div id="top-alert" class="fixed alert alert-error" style="display: none;">
+        <button class="close fixed" style="margin-top: 4px;">&times;</button>
+        <div class="alert-content">Warnings</div>
+    </div>
+    <div id="main" class="main">
+        <div class="main-title-h">
+            <span class="h1-title">WIthdrawal Fees Earning</span>
+        </div>
+
+        <div class="cf">
+            <div class="search-form fr cf">
+                <div class="sleft">
+                    <form name="formSearch" id="formSearch" method="get" name="form1">
+                        <select style="width: 160px; float: left; margin-right: 10px;" name="coinname" class="form-control">
+                            <option value=""
+                            <empty name="Think.get.coinname">selected</empty>
+                            >Coin</option>
+                            <volist name="C['coin']" id="vo">
+                                <option value="{$vo['name']}"
+                                <eq name="vo['name']" value="$Think.get.coinname">selected</eq>
+                                >{$vo['title']}</option>
+                            </volist>
+                        </select>
+                        <select style=" width: 160px; float: left; margin-right: 10px;" name="field" class="form-control">
+                            <option value="username"
+                            <eq name="Think.get.field" value="username">selected</eq>
+                            >Username</option>
+                        </select>
+                        <input type="text" name="name" class="search-input form-control  " value="{$Think.get.name}" placeholder="Enter text to search" style="">
+                        <a class="sch-btn" href="javascript:;" id="search"> <i class="btn-search"></i> </a>
+                    </form>
+                    <script>
+                        //Search function
+                        $(function () {
+                            $('#search').click(function () {
+                                $('#formSearch').submit();
+                            });
+                        });
+                        //Enter search
+                        $(".search-input").keyup(function (e) {
+                            if (e.keyCode === 13) {
+                                $("#search").click();
+                                return false;
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-table table-striped">
+            <table class="">
+                <thead>
+                <tr>
+                    <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+                    <th class="">ID</th>
+                    <th class="">Receiver</th>
+                    <th class="">Coin</th>
+                    <th width="">Time</th>
+                    <th width="">To Address</th>
+                    <th width="">Amount</th>
+                    <th class="">Fee Earned</th>
+                    <th width="">Status</th>
+					<th width="">WithdrawalID</th>
+                    
+
+                </tr>
+                </thead>
+                <tbody>
+                <notempty name="list">
+                    <volist name="list" id="vo">
+                        <tr>
+                            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+                            <td>{$vo.id}</td>
+                            <td>{$vo['usernamea']} </td>
+                            <td>{$vo.coinname}</td>
+                            <td>
+                                <empty name="vo['addtime']">
+                                        ---
+                                <else />
+                                    {$vo.addtime|addtime}
+                                </empty>
+                            </td>
+                            <td><if condition="$vo['username']"><button class="btn btn-info btn-sm" onclick='showtx("{$vo['username']}")'>{$vo.username|msubstr=0,10}</button><else/>--</if></td>
+
+                            <empty name="vo['num']">
+                                    <td style="color: yellowgreen">({$vo['num']})Fee</td>
+                                <else />
+                                    <td>{$vo['num']}</td>
+                            </empty>
+
+                            <empty name="vo['num']">
+                                <td style="color: yellowgreen">Accounted for:{$vo['fee']}</td>
+                                <else />
+                                <td>{$vo['fee']}</td>
+                            </empty>
+
+                            <td>
+                                <eq name="vo.status" value="0">Pending
+                                </eq>
+
+                                <eq name="vo.status" value="1">Success
+                                </eq>
+								 <eq name="vo.status" value="2">Cancelled
+                                </eq>
+                            </td>
+							<td><if condition="$vo['txid']"><a class="btn btn-info btn-sm" href="{:U('Finance/myzc', array('field' => 'id', 'name' => $vo['txid']))}">Check Withdrawal</button><else/>--</if></td>
+                    
+                        </tr>
+                    </volist>
+                    <else/>
+                    <td colspan="12" class="text-center">No contents!</td>
+                </notempty>
+                </tbody>
+            </table>
+            <div class="page">
+                <div>{$page}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function showtx(tx){
+	layer.alert(tx, {title: "Withdrawal information",btn: ['Ok']});
+	}
+	</script>
+<include file="Public:footer"/>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+        //Highlight navigation
+        highlight_subnav("{:U('Finance/myzc')}");
+    </script>
+</block>

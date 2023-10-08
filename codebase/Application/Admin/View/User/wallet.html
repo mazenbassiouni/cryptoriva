@@ -1,0 +1,126 @@
+<include file="Public:header"/>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title">Users wallet</span>
+		</div>
+		<div class="cf">
+			<div class="fl">
+				<a class="btn btn-success " href="{:U('User/walletEdit')}">Add</a>
+				<button class="ajax-post btn  btn-info " url="{:U('User/walletStatus',array('type'=>'resume'))}" target-form="ids">Enable</button>
+				<button class="ajax-post btn  btn-warning  ajax-post" url="{:U('User/walletStatus',array('type'=>'forbid'))}" target-form="ids">Disable</button>
+				<button class="btn ajax-post confirm btn-danger " url="{:U('User/walletStatus',array('type'=>'del'))}" target-form="ids">Delete</button>
+			</div>
+			<div class="search-form fr cf">
+				<div class="sleft">
+					<form name="formSearch" id="formSearch" method="get" name="form1">
+						<select style="width: 160px; float: left; margin-right: 10px;" name="coinname" class="form-control">
+							<option value=""
+							<empty name="Think.get.coinname">selected</empty>
+							>Currencies</option>
+							<volist name="C['coin']" id="vo">
+								<option value="{$vo['name']}"
+								<eq name="vo['name']" value="$Think.get.coinname">selected</eq>
+								>{$vo['title']}</option>
+							</volist>
+						</select>
+						<select style="width: 160px; float: left; margin-right: 10px;" name="status" class="form-control">
+							<option value=""
+							<empty name="Think.get.status">selected</empty>
+							>All states</option>
+							<option value="1"
+							<eq name="Think.get.status" value="1">selected</eq>
+							>Frozen state</option>
+							<option value="2"
+							<eq name="Think.get.status" value="2">selected</eq>
+							>normal status</option>
+						</select>
+						<select style=" width: 160px; float: left; margin-right: 10px;" name="field" class="form-control">
+							<option value="username"
+							<eq name="Think.get.field" value="username">selected</eq>
+							>Username</option>
+						</select>
+						<input type="text" name="name" class="search-input form-control  " value="{$Think.get.name}" placeholder="Enter text to search" style="">
+						<a class="sch-btn" href="javascript:;" id="search"> <i class="btn-search"></i> </a>
+					</form>
+					<script>
+						//Search function
+						$(function () {
+							$('#search').click(function () {
+								$('#formSearch').submit();
+							});
+						});
+						//Enter search
+						$(".search-input").keyup(function (e) {
+							if (e.keyCode === 13) {
+								$("#search").click();
+								return false;
+							}
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+		<div class="data-table table-striped">
+			<table class="">
+				<thead>
+				<tr>
+					<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+					<th class="">ID</th>
+					<th class="">Username</th>
+					<th class="">Currencies</th>
+					<th class="">Wallet tag</th>
+					<th class="">Wallet address</th>
+					<th class="">Operating time</th>
+					<th class="">Status</th>
+					<th class="">Option</th>
+				</tr>
+				</thead>
+				<tbody>
+				<notempty name="list">
+					<volist name="list" id="vo">
+						<tr>
+							<td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+							<td>{$vo.id}</td>
+							<td>{$vo['username']}</td>
+							<td>{$vo.coinname}</td>
+							<td>{$vo.name}</td>
+								<td><if condition="$vo['addr']"><button class="btn btn-info btn-xs" onclick='showtx("{$vo['addr']}")'>{$vo.addr|msubstr=0,40}</button><else/>--</if></td>
+							<td>{$vo.addtime|addtime}</td>
+							<td>
+								<eq name="vo.status" value="1">Available
+									<else/>
+								                               Disable
+								</eq>
+							</td>
+							<td><a href="{:U('User/walletEdit?id='.$vo['id'])}" class="btn btn-primary btn-xs">Edit</a>
+							</td>
+						</tr>
+					</volist>
+					<else/>
+					<td colspan="12" class="text-center">No contents!</td>
+				</notempty>
+				</tbody>
+			</table>
+			<div class="page">
+				<div>{$page}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/>
+<script>
+function showtx(content){
+	layer.alert(content, {title: "External wallet",btn: ['Ok']});
+	}</script>
+
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		//Highlight navigation
+		highlight_subnav("{:U('User/wallet')}");
+	</script>
+</block>

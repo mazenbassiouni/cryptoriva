@@ -1,0 +1,170 @@
+<include file="Public:header"/>
+<script type="text/javascript" src="__PUBLIC__/layer/laydate/laydate.js"></script>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+	<div id="main" class="main">
+		<div class="main-title-h">
+			<span class="h1-title"><a href="{:U('Faucet/index')}">Faucet Management</a> >></span> <span class="h1-title"><empty name="data">Add Faucet
+			<else/>
+			                                                                                                                  Edit Faucet
+		</empty></span>
+		</div>
+		<div class="tab-wrap">
+			<div class="tab-content">
+				<form id="form" action="{:U('Faucet/save')}" method="post" class="form-horizontal">
+					<div id="tab" class="tab-pane in tab">
+						<div class="form-item cf">
+							<table>
+								<tr class="controls">
+									<td class="item-label">Faucet name:</td>
+									<td>
+										<input type="text" class=" form-control input-10x " name="name" value="{$data.name}">
+									</td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Faucet currency:</td>
+									<td><select name="coinname" class="form-control input-10x">
+										<volist name="C['coin_list']" id="v">
+											<option value="{$v['name']}"
+											<eq name="data['coinname']" value="$v['name']">selected</eq>
+											>{$v['title']}</option>
+										</volist>
+									</select></td>
+									<td class="item-note">User buy owned</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Sort:</td>
+									<td>
+									<input type="text" class="form-control input-10x " name="paixu" value="{$data['paixu']*1}">
+									
+									</td>
+									<td class="item-note">Higher the value , more the forward</td>
+								</tr>
+								
+								
+								<tr class="controls">
+									<td class="item-label">Total Times:</td>
+									<td>
+										<input type="text" class="form-control input-10x " name="num" value="{$data['num']*1}">
+									</td>
+									<td class="item-note">Consumption Times[Times x Faucet Price= Total Coins]</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Consumed :</td>
+									<td>
+										<input type="text" class="form-control  input-10x " name="deal" value="{$data['deal']*1}">
+									</td>
+									<td class="item-note">How many consumption has been made yet</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Faucet price :</td>
+									<td>
+										<input type="text" class="form-control  input-10x " name="price" value="{$data['price']*1}">
+									</td>
+									<td class="item-note">Coin Amount to be claimed every time</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Limit Per User :</td>
+									<td>
+										<input type="text" class="form-control input-10x " name="ulimit" value="{$data['ulimit']*1}">
+									</td>
+									<td class="item-note">How much coin a user can consume</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Start Date :</td>
+									<td>
+										<input type="text" class="form-control  input-10x " name="time" value="{$data['time']}" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+									</td>
+									<td class="item-note">Faucet Start Date</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">End Date :</td>
+									<td>
+										<input type="text" class="form-control  input-10x " name="endtime" value="{$data['endtime']|addtime}" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+									</td>
+									<td class="item-note">Faucet End Date</td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label">Faucet period :</td>
+									<td>
+										<input type="text" class="form-control  input-10x " name="tian" value="{$data['tian']}">
+									</td>
+									<td class="item-note">Hours: When a user can reclaim Faucet </td>
+								</tr>
+								<tr class="controls" style="display:none;">
+									<td class="item-label">Time :</td>
+									<td>
+										<input type="text" class="form-control  input-10x " name="ci" value="0">
+									</td>
+									<td class="item-note">Secondary</td>
+								</tr>
+
+								<tr class="controls">
+									<td class="item-label">Status :</td>
+									<td><select name="status" class="form-control  input-10x">
+										<option value="1"
+										<eq name="data.status" value="1">selected</eq>
+										>Available</option>
+										<option value="0"
+										<eq name="data.status" value="0">selected</eq>
+										>Disable</option>
+									</select></td>
+									<td class="item-note"></td>
+								</tr>
+								<tr class="controls">
+									<td class="item-label"></td>
+									<td>
+										<div class="form-item cf">
+											<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">Submit</button>
+											<a class="btn btn-return" href="{$Think.server.HTTP_REFERER}">Back</a>
+											<notempty name="data.id"><input type="hidden" name="id" value="{$data.id}"/>
+											</notempty>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</form>
+				<script type="text/javascript">
+					//submit Form
+					$('#submit').click(function () {
+						$('#form').submit();
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript">
+	var editor;
+	KindEditor.ready(function (K) {
+		editor = K.create('textarea[name="content"]', {
+			width: '500px',
+			height: '250px',
+			allowPreviewEmoticons: false,
+			allowImageUpload: true,
+			items: [
+				'source', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+				'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+				'insertunorderedlist', '|', 'emoticons',  'link', 'fullscreen'],
+			afterBlur: function () {
+				this.sync();
+			}
+		});
+	});
+	
+	
+</script>
+<include file="Public:footer"/>
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		//Highlight navigation
+		highlight_subnav("{:U('Faucet/index')}");
+	</script>
+</block>

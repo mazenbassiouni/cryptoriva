@@ -1,0 +1,404 @@
+<include file="Public:header" />
+<div class="page-jumbotron grey-bg">
+		<div class="container">
+			<div class="row align-items-center">
+				<h1 class="title">{:l('Withdrawals')}</h1>
+				<a href="{:l('Finance/index')}" class="btn-1 float-right mr-2">{:l('Wallet')}<i class="ion ion-md-arrow-forward ml-2"></i> </a>
+				<a href="{:l('Transfer')}" class="btn-1 float-right mr-2">{:l('Transfer')}<i class="ion ion-md-arrow-forward ml-2"></i> </a>
+				<a href="#" class="btn-1 mr-2">{:l('Activities')}<i class="ion ion-md-arrow-forward ml-2"></i></a>
+				
+				</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row justify-content-center">			
+			<div class="col-12">
+				<ul id="withdraw-money-tabs" class="nav nav-pills" role="tablist">
+					<li class="nav-item">
+						<a aria-selected="true" class="nav-link " data-toggle="pill" href="#money" data-target=".money" role="tab">{:l("Fiat")} </a>
+					</li>
+					<li class="nav-item">
+						<a aria-selected="false" class="nav-link active" data-toggle="pill" href="#crypto" data-target=".crypto" role="tab">{:l('Crypto')}</a>
+					</li>
+				</ul>
+				<div class="tab-content withdraw-tab">
+					<div class="tab-pane fade money " role="tabpanel" id="money">
+							<div class="row">
+								<div class="col-12 title">Bank Transfer</div>
+								<div class="col-lg-7">
+									<div class="card">
+										<ul class="money-limit">
+											<li>Remaining Draw Limit <span>TRY</span><span class="m-r-5">1,000,000</span><label class="m-r-5">Daily:</label></li>
+											<li><span>TRY</span><span class="m-r-5">5,000,000</span><label class="m-r-5">Monthly:</label></li>
+										</ul>
+										<ul class="account-info">
+											<li class="address">Requested pick up address:</li>
+											<li class="name">Süleyman Koroglu</li>
+										</ul>
+										<div class="form-group">
+											<label for="iban">IBAN</label>
+											<input class="form-control iban-mask" placeholder="____ ____ ____ ____ ____ __" type="text" id="iban" pattern="^TR\d{2}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{2}|TR\d{20}$" required="" maxlength="27">
+										</div>
+										
+										<div class="form-group">
+											<label for="tl_amount">Quantity</label> 
+											<div class="input-group">
+												<input class="form-control" placeholder="" type="text" id="tl_amount" required="">
+												  <div class="input-group-append">
+												    <span class="input-group-text" id="max">available <span class="m-l-5 green">0.865565</span><span class="m-l-5 green">TRY</span></span>
+												  </div>												  
+											</div>
+											<small>Minimum Withdrawal Amount <strong>4 <span>ZAR</span></strong> 'd</small>
+										</div>
+										<ul class="summary">
+											<li>Transaction Fee: <span>0.00 </span><span>TRY</span></li>
+											<li>Amount You Will Get: <span>0.00 </span><span>TRY</span></li>
+										</ul>
+										<button class="btn btn-4 text-center">Approve</button>
+
+									</div>
+								</div>
+								<div class="col-lg-5">
+									<div class="alert alert-warning">
+										<h5 class="alert-heading">Please note before towing:</h5>
+										<ul class="description-box-rules">
+											<li>1. You can only withdraw Turkish Lira to your bank account registered in your name.</li>
+											<li>2. You can make withdrawals 24/7 to Ziraat Bank and VakıfBank.</li>
+											<li>3. You can make withdrawals to other banks during bank working hours. </font>EFT transactions made between 9.00 and 16.45 on weekdays are processed on the same day, and withdrawals on weekends and public holidays are processed on the first business day following.</li>
+										</ul>
+									</div>					
+								</div>
+							</div>
+					</div>
+
+					<div class="tab-pane fade show active p-t-15 crypto" role="tabpanel" id="crypto">
+								
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label> Select Coin</label>
+						<select id="withdrawCyrpto" class="bootstrap-select" data-live-search="true" data-live-search-placeholder={:l("Search")} data-width="100%">
+						<volist name="coin_list" id="kolist">
+											<eq name="xnb" value="$key">
+												<option selected="selected" value="{$kolist['name']}" data-value="{$kolist['name']}" data-content="<img src='{$kolist['img']}' height='20px'/> {$kolist['name'] |strtoupper}"></option>
+											<else/>
+													<option value="{$kolist['name']}" data-value="{$kolist['name']}" data-content="<img src='{$kolist['img']}' height='20px'/> {$kolist['name'] |strtoupper}"></option>
+											</eq>
+								
+							</volist>
+							
+						</select>
+											</div>
+											<ul class="coin-info">
+												<li>Total: <span>{$user_coin[$xnb]|Num}</span><span>{$xnb|strtoupper}</span></li>
+												<li>In the process: <span>{$user_coin[$xnb]|Num}</span><span>{$xnb|strtoupper}</span></li>
+												<li>Available balance: <span>{$user_coin[$xnb]|Num}</span><span>{$xnb|strtoupper}</span></li>
+											</ul>
+											<div class="alert alert-warning">
+												<ul class="description-box-rules">
+													<li>Do not crowdfund or directly withdraw to ICO addresses as tokens from such sales will not be credited to your account.</li>
+													<li>Note: Transfers between {:SHORT_NAME} accounts are internal transfers, there is no transaction fee for internal transfers and the entire amount you enter in the amount section is sent to the recipient.</li>
+												</ul>
+											</div>
+										</div>
+
+										<div class="col-lg-6">
+											<div class="form-group">
+			<label>Network</label>
+						
+						<select id="selectNetwork" class="bootstrap-select" data-live-search="true" data-live-search-placeholder={:l("Search")} data-width="100%">
+						<option value="" selected="selected">Please select network</option>	
+						<volist name="infocoin" id="network">
+							<eq name="selectednetwork" value="$key">
+							<option selected="selected" value="{$network.name}" data-value="{$network.name}" data-content="{$network.name|strtoupper} <span>{$network.title}</span>"></option>
+							<else/>
+							<option value="{$network.name}" data-value="{$network.name}" data-content="{$network.name|strtoupper} <span>{$network.title}</span>"></option>
+							</eq>
+						</volist>
+						</select>
+						
+												<small>Make sure the network you choose for the deposit matches the withdrawal network or your assets may be lost.</small>
+											</div>
+
+										<div class="form-group">
+											<label for="">{$xnb |strtoupper} {:L('OUT_ADDRESS')}</label>
+								
+											<select id="crypto-address" class="bootstrap-select" data-live-search="true" data-live-search-placeholder="Search" data-width="100%" title="{:l('SELECT_WITHDRAWALS_ADDRESS')}">
+												 <volist name="userWalletList" id="vo">
+                                            <option data-value="{$vo.addr}" data-dest="{$vo.dest_tag}" data-content="{$vo.dest_tag} <span class='m-r-5'>[ {$vo.addr} ] [{$vo.name}]</span>">{$vo.name}</option>
+                                        </volist>
+											
+												<option value="new-address" class="green">{:l('ADD_A_NEW_ADDRESS_TO_CASH')}</option>		
+											</select>
+										</div>
+										
+											<div class="form-group">
+												<label>Amount</label> 
+												<input class="form-control" placeholder="" type="number" id="usdout_num" required="">												  
+											</div>
+											<eq name="is_ga" value="1">
+					<div class="form-group">
+						<label >{:l('Google 2FA Code')}:</div>
+						<div  >
+							<input type="text" class="form-control" id="gacode"  value="" name="gacode">
+						</div>
+					</div>
+					</eq>
+											<div class="form-group">
+												<label>{:l('TRANSACTION_PASSWORD')} </label> <input type="password" id="usdout_paypassword" name="fundpassword" class="form-control" required>
+												<a href="{:U('findpwd/findpwd')}" class="green m-t-5 d-inline-block">I forgot my password?</a>
+											</div>
+												<div class="form-group">
+												<label >{:l('OTP Code')}:</label>
+													<input type="text" class="form-control" id="otp"  value="">
+						
+														<button onclick="requestOTP()" class="btn btn-info">{:l('Request OPT')}</button>
+												</div>
+											<ul class="limit-info">
+												<li>Available balance<span class="green">{$user_coin[$xnb]|Num}</span><span class="green">{$user_coin['converted']} {$user_coin['conversion_coin']}</span></li>
+												<li>Maximum Draw Amount<span>0.001</span><span>{$xnb|strtoupper}</span></li>
+											</ul>
+											<ul class="summary">
+												<li>{:l('OUT_OF_COMMISSION')}<span id="perfee">{$coin_list[$xnb]['zc_fee']}</span>%<eq name="coin_list[$xnb]['type']" value="coinpay">+ network fees</eq>
+							<if condition="$coin_list[$xnb]['zc_flat_fee']">+ <span id="flatfee">{$coin_list[$xnb]['zc_flat_fee']*1}</span> </if></li>
+												<li>Amount You Will Get: <span>0.00 </span><span>TRY</span></li>
+											</ul>
+											<empty name="zc_jz">
+											<button class="btn btn-4 text-center" onclick="coinout_up()">Send</button>
+											<else/>
+											<button class="btn btn-4 text-center">Withdrawals are disabled </button>
+											</empty>
+										</div>
+									</div>
+							
+
+				</div>
+			</div>						
+			</div>
+
+
+		</div>
+	</div>
+	<!-- add payment method modal start -->
+<div class="modal fade" id="addPaymentMethodModal" tabindex="-1" role="dialog" aria-labelledby="{:l('Add new payment method')}" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header  d-flex align-items-center">
+				<h5 class="modal-title">
+					<div class="coin-title d-flex align-items-center">
+						<div class="title">Add your withdrawal address</div>
+					</div>
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-12 col-md-12">
+
+								
+									<div class="row">
+										<div class="col-12 col-sm-6">
+											<div class="form-group">
+												<label>Crypto</label>
+												<span id="selectedCoin" class="form-control"></span>
+											</div>
+										</div>
+										<div class="col-12 col-sm-6">
+											<div class="form-group">
+												<label>Network</label>
+												<span id="selectedChain" class="form-control"></span>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												<label>{:l('OUT_ADDRESS')}</label> <input id="wallet_addr" type="text" class="form-control" placeholder="Please enter the withdrawal address">
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												<label>Dest Tag [if any] </label> <input type="text" id="wallet_dest_tag" class="form-control" placeholder="Enter the Dest tag if any">
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												<label>Funding Password </label> <input type="password" id="wallet_paypassword" class="form-control" placeholder="Enter the Dest tag if any">
+											</div>
+										</div>
+										
+										<div class="col-12">
+											<div class="form-group">
+												<label>Address Label </label> <input type="text" id="wallet_name" class="form-control" placeholder="Enter the address label">
+											</div>
+										</div>
+
+									</div>
+								
+					</div><!--/col-md-6-->
+				</div><!--/row-->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn-1" data-dismiss="modal">Cancel</button>
+				<button onclick="wallet_up();" class="btn-2">Approve</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--add payment method modal end -->
+	<script>
+	document.querySelector('select#withdrawCyrpto').onchange = function(){   
+   var value=this.selectedOptions[0].getAttribute('data-value'); 
+	var prefix="coin";
+	var location=window.location.href;
+	var url = new URL(location);
+	url.searchParams.append(prefix, value);
+	url.searchParams.set(prefix, value);
+    window.location.href =url;
+};
+document.querySelector('select#selectNetwork').onchange = function(){   
+   var value=this.selectedOptions[0].getAttribute('data-value'); 
+	var prefix="network";
+	var location=window.location.href;
+	var url = new URL(location);
+	url.searchParams.append(prefix, value);
+	url.searchParams.set(prefix, value);
+    window.location.href =url;
+};
+
+	$('#crypto-address').change(function() {
+    var opval = $(this).val();
+	let selected_type=$("#crypto-address option:selected").val();
+	var coinname =document.querySelector('select#withdrawCyrpto').selectedOptions[0].getAttribute('data-content');
+	var network =document.querySelector('select#selectNetwork').selectedOptions[0].getAttribute('data-content');
+	if (network == "" || network == null) {
+			layer.tips('Please choose network', '#selectNetwork', {tips: 2});
+			return false;
+	}
+	$("#selectedCoin").html(coinname);
+	$("#selectedChain").html(network);
+    if(opval=="new-address" || selected_type=="new-address" ){
+		console.log('OK');
+        $('#addPaymentMethodModal').modal("show");
+    }
+});
+function wallet_up() {
+		var coinname    = document.querySelector('select#selectNetwork').selectedOptions[0].getAttribute('data-value');
+		var name        = $('#wallet_name').val();
+		var addr        = $('#wallet_addr').val();
+		var dest_tag        = $('#wallet_dest_tag').val();
+		var paypassword = $('#wallet_paypassword').val();
+		if (coinname == "" || coinname == null) {
+			layer.tips('Select Currency', '#selectedCoin', {tips: 2});
+			return false;
+		}
+		if (name == "" || name == null) {
+			layer.tips('Enter Wallet label', '#wallet_name', {tips: 2});
+			return false;
+		}
+		if (addr == "" || addr == null) {
+			layer.tips('Enter wallet address', '#wallet_addr', {tips: 2});
+			return false;
+		}
+		if (paypassword == "" || paypassword == null) {
+			layer.tips('Provide Trans Password', '#wallet_paypassword', {tips: 2});
+			return false;
+		}
+		$.post("/User/upwallet", {
+			coin: coinname,
+			name: name,
+			addr: addr,
+			dest_tag:dest_tag,
+			paypassword: paypassword
+		}, function (data) {
+			if (data.status == 1) {
+				layer.msg(data.info, {icon: 1});
+				location.reload();
+			} else {
+				layer.msg(data.info, {icon: 2});
+				if (data.url) {
+					window.location = data.url;
+				}
+			}
+		}, "json");
+	}
+/* Withdrawal function */
+	function coinout_up() {
+		var otp         = $("#otp").val();
+		var num          = $("#usdout_num").val();
+		var gacode          = $("#gacode").val();
+		var paypassword  = $("#usdout_paypassword").val();
+		var cellphone_verify = $("#usdout_cellphone_verify").val();
+		var bank         = document.querySelector('select#crypto-address').selectedOptions[0].getAttribute('data-value');
+		var dest_tag =document.querySelector('select#crypto-address').selectedOptions[0].getAttribute('data-dest');
+		var coin         = document.querySelector('select#withdrawCyrpto').selectedOptions[0].getAttribute('data-value');
+		var network =	document.querySelector('select#selectNetwork').selectedOptions[0].getAttribute('data-value');
+		if (num == "" || num == null) {
+			layer.tips('Enter the amount for transfer', '#usdout_num', {
+				tips: 2
+			});
+			return false;
+		}
+		if (otp == "" || otp == null) {
+			layer.tips('Enter the OTP you received on email', '#otp', {
+				tips: 2
+			});
+			return false;
+		}
+		if (bank == "" || bank == null) {
+			layer.tips('Transfer Address', '#usdout_bank', {
+				tips: 2
+			});
+			return false;
+		}
+		if (paypassword == "" || paypassword == null) {
+			layer.tips('Provide Trans Password', '#usdout_paypassword', {
+				tips: 2
+			});
+			return false;
+		}
+		if (coin == "" || coin == null) {
+			layer.tips('Select Currency', '#coin-select', {
+				tips: 2
+			});
+			return false;
+		}
+		var goole ="0";
+	
+	layer.load(0, {shade: [0.5,'#8F8F8F']});
+        setTimeout(function () {
+            layer.closeAll('loading');
+            trans_lock = 0;
+        }, 10000);
+			$.post("{:U('wallet/upCryptoWithdrawal')}", {
+				coin:coin,
+				network:network,
+				otp:otp,
+				num: num,
+				paypassword: paypassword,
+				cellphone_verify: cellphone_verify,
+				addr: bank,
+				dest_tag:dest_tag,
+				gacode:gacode
+			}, function (data) {
+			  layer.closeAll('loading');
+            trans_lock = 0;
+				if (data.status == 1) {
+					layer.msg(data.info, {
+						icon: 1
+					});
+					window.location = "{:U('Finance/coinoutlog')}/coin/"+coin;
+				} else {
+					layer.msg(data.info, {
+						icon: 2
+					});
+					if (data.url) {
+						window.location = data.url;
+					}
+				}
+			}, "json");
+		
+	}
+
+</script>
+	<include file="Public:footer_minimal"/>

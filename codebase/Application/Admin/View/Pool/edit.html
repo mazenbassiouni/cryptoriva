@@ -1,0 +1,222 @@
+<include file="Public:header"/>
+<script type="text/javascript" src="__PUBLIC__/layer/laydate/laydate.js"></script>
+<div id="main-content" class="col-sm-10">
+	<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">Warnings</div>
+	</div>
+<div id="main" class="main">
+        <div class="main-title-h" style="font-size: 24px;">
+            <span class="h1-title">Mining Machine Edit/Add</span>
+                        <i class="ca"></i>[<a href="/Admin/Pool/index"> List</a> ]        </div>
+        <div class="tab-wrap">
+            <div class="tab-content">
+                <form id="form" action="/Admin/Pool/edit" method="post" class="form-horizontal">
+                    <div id="tab" class="tab-pane in tab">
+                        <div class="form-item cf">
+                            <table>
+                                <tbody><tr class="controls">
+                                                <td class="item-label">ID :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="id" value="{$id}" disabled="disabled" style="background-color: #ECECEC;min-width: 400px;color: red;">
+													
+                                                </td>
+                                                <td class="item-note"></td>
+                                            </tr><input type="hidden" name="id" value="{$id}" class="text input-large">
+											
+											<tr class="controls">
+                                                <td class="item-label">Mine Title :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="name" value="{$name}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Name of Mining Machines</td>
+                                            </tr>
+											<tr class="controls">
+                                    <td class="item-label">Image :</td>
+                                    <td>
+                                        <div id="addpicContainer">
+
+                                            <notempty name="data.ico">
+                                                <!--Noimagedisplaydefaultimage-->
+                                                <img id="up_img" onclick="getElementById('inputfile').click()" style="cursor:pointer;max-width:500px;" title="Click Add Picture" alt="Click Add Picture" src="/Upload/pool/{$data.ico}">
+                                                <else/>
+                                                <!--Noimagedisplaydefaultimage-->
+                                                <img id="up_img" onclick="getElementById('inputfile').click()" style="cursor:pointer;max-width:500px;" title="Click Add Picture" alt="Click Add Picture" src="__PUBLIC__/Admin/images/addimg.png">
+                                            </notempty>
+                                            <input type="hidden" id="ico" name="ico" value="{$data.ico}">
+                                            <input type="file" id="inputfile" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;" value=""/>
+                                        </div>
+                                    </td>
+                                    <td class="item-note">80px*80px</td>
+                                </tr>
+											
+											<tr class="controls">
+											    <td class="item-label">Purchase Currency :</td>
+                                                  <td><select name="coinname" class="form-control input-10x">
+										<volist name="C['coin_list']" id="v">
+										
+											<option value="{$v['name']}"
+											<eq name="data['coinname']" value="$v['name']">selected</eq>
+											>{$v['title']}</option>
+										</volist>
+									</select></td>
+                                                
+                                                <td class="item-note">Purchase Currency</td>
+                                            </tr>
+									<tr class="controls">
+											    <td class="item-label">Reward Coin :</td>
+                                                  <td><select name="getcoin" class="form-control input-10x">
+										<volist name="C['coin_list']" id="v">
+										
+											<option value="{$v['name']}"
+											<eq name="data['getcoin']" value="$v['name']">selected</eq>
+											>{$v['title']}</option>
+										</volist>
+									</select></td>
+                                                
+                                                <td class="item-note">Reward Coin</td>
+                                            </tr>
+											
+											
+											
+											<tr class="controls">
+                                                <td class="item-label">Profit :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="daily_profit" value="{$daily_profit}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Daily profit in Reward Coin quantity</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Price :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="price" value="{$price}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Price in Purchase currency</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Days :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="days" value="{$days}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Renting Period in days</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Total machines :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="quantity" value="{$quantity}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Total Machines</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Inventory :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="stocks" value="{$stocks}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Available Machines</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">User Buy Limit :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="user_limit" value="{$user_limit}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Per User Buy Limit</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Power Hash :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="power" value="{$power}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Hash in ghz ex. 1.2ghz [For marketing only]</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Sort :</td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="sort" value="{$sort}" style="min-width: 400px;">
+                                                </td>
+                                                <td class="item-note">Higher the top listed</td>
+                                            </tr>
+											<tr class="controls">
+                                                <td class="item-label">Popular :</td>
+                                                <td>
+                                                    <select name="is_popular" class="form-control" style="min-width: 400px;">
+                                                        <option value="0"  <eq name="data.is_popular" value="0">selected</eq>>No</option><option value="1"  <eq name="data.is_popular" value="1">selected</eq>>Yes</option> </select>
+                                                </td>
+                                                <td class="item-note">Popular</td>
+                                            </tr
+												<tr class="controls">
+                                                <td class="item-label">Status :</td>
+                                                <td>
+                                                    <select name="status" class="form-control" style="min-width: 400px;">
+                                                        <option value="0"  <eq name="data.status" value="0">selected</eq>>Inactive</option><option value="1"  <eq name="data.status" value="1">selected</eq>>Active</option> </select>
+                                                </td>
+                                                <td class="item-note">status</td>
+                                            </tr>
+											
+											<tr class="controls" style="margin: 10px 0px;height: 80px;">
+                                    <td class="item-label"></td>
+                                    <td>
+                                        <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal" autocomplete="off">Submit</button>
+                                        <a class="btn btn-return" href="{:U('Admin/Pool/')}">Back</a>
+                                    </td>
+                                    <td class="item-note"></td>
+                                </tr>
+                            </tbody></table>
+                        </div>
+                    </div>
+                </form>
+                <script type="text/javascript">
+                    //submit Form
+                    $('#submit').click(function () {
+                        $('#form').submit();
+                    });
+                </script>
+            </div>
+        </div>
+    	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		//The response fileAdd tosuccessevent
+		$("#inputfile").change(function () {
+			//createFormDataObjects
+			var data = new FormData();
+			//forFormDataAdding Data Object
+			$.each($('#inputfile')[0].files, function (i, file) {
+				data.append('upload_file' + i, file);
+			});
+
+
+			//send data
+			$.ajax({
+				url: '/Admin/Pool/mineImage',
+				type: 'POST',
+				data: data,
+				cache: false,
+				contentType: false,		//Essential parameters
+				processData: false,		//Essential parameters
+				success: function (data) {
+					if (data) {
+						$('#up_img').attr("src", '/Upload/pool/' + data);
+						$('#ico').val(data);
+						$('#up_img').show();
+					}
+				},
+				error: function () {
+					alert('Upload error');
+					$(".loading").hide();	//plus Upload failedshiftexceptplusLoadimage
+				}
+			});
+
+		});
+	});
+	
+	
+</script>
+<include file="Public:footer"/>
+<block name="script">
+	<script type="text/javascript" charset="utf-8">
+		//Highlight navigation
+		highlight_subnav("{:U('Invest/index')}");
+	</script>
+</block>
