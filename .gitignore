@@ -1,1 +1,5 @@
 /webserver/Runtime
+/webserver/.htaccess
+
+/codebase/pure_config.php
+/codebase/other_config.php
