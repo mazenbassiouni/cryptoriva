@@ -95,6 +95,7 @@
 					<th class="">Sellers Fee</th>
 					<th class="">Time</th>
 					<th class="">Fill</th>
+					<th class="">Profit</th>
 					<th class="">Option</th>
 				</tr>
 				</thead>
@@ -126,6 +127,7 @@
 								<eq name="vo.fill" value="1">Filled</eq>
 								
 							</td>
+							<td>{$vo.percent}%</td>
 							<td>
 								<eq name="vo.fill" value="0">
 									<a href="{:U('Trade/fill?id='.$vo['id'])}" class="ajax-get btn btn-primary btn-xs">Mark as filled </a>

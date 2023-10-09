@@ -1579,5 +1579,109 @@ class TradeModel extends Model
             return array('0', 'Undo failed4|' . implode('|', $rs));
         }
     }
+
+    function manual($id = NULL,$percentage=0)
+    {
+
+        if (!check($id, 'd')) {
+            return array('0', 'Incorrect ID``');
+        }
+
+        $trade = M('Trade')->where(array('id' => $id))->find();
+
+        if (!$trade) {
+            return array('0', 'Order does not exist');
+        }
+
+        if ($trade['status'] != 0) {
+            return array('0', 'Orders can not be undone');
+        }
+        $market = $trade['market'];
+        $xnb = explode('_', $market)[0];
+        $rmb = explode('_', $market)[1];
+        
+        
+        
+        if($percentage>=0){
+            $calc_price=bcdiv(bcmul($trade['price'], bcadd(100,$percentage),8),100,8);
+        }else{
+            $calc_price=bcdiv(bcmul($trade['price'], bcadd(100,$percentage),8),100,8);
+        }
+        
+        
+        
+        $price=$trade['price'];
+        $price = $calc_price;
+        $type = $trade['type'];
+        if($type==1){
+            $num=bcmul($trade['num'],bcdiv(bcadd(100,$percentage,8),100,8),8);
+            $mum=$trade['mum'];
+            $price=bcmul($trade['price'],bcdiv(100,bcadd(100,$percentage,8),8),8);
+        }else{
+            $num=$trade['num'];
+            $mum=bcmul($trade['mum'],bcdiv(bcadd(100,$percentage,8),100,8),8);
+            $price=bcmul($trade['price'],bcdiv(bcadd(100,$percentage,8),100,8),8);
+        }
+
+        $fee_buy = C('market')[$trade['market']]['fee_buy'];
+        $fee_sell = C('market')[$trade['market']]['fee_sell'];
+
+        if (!$xnb) {
+            return array('0', 'Sell market error');
+        }
+
+        if (!$rmb) {
+            return array('0', 'Buy market error');
+        }
+        if ($trade['userid'] == 0) {
+            return array('0', 'You can undo this order as its Liquidity Order , not required to match');
+        }
+
+        $mo = M();
+        $user_coin = $mo->table('codono_user_coin')->where(array('userid' => $trade['userid']))->find();
+        $mo->startTrans();
+        $rs = array();
+        if ($type == 1) {
+            $amount = bcsub($num, $trade['deal'], 8);
+            $remaining_locked = bcmul($amount, $price, 8);
+            $fee_for_remaining = bcmul(bcdiv($trade['fee'], $num, 8), $amount, 8);
+
+            $remove_from_freeze = bcadd($remaining_locked, $fee_for_remaining, 8);
+
+            $rs[] = $mo->table('codono_user_coin')->where(array('userid' => $trade['userid']))->setInc($xnb, $amount);
+            $rs[] = $mo->table('codono_user_coin')->where(array('userid' => $trade['userid']))->setDec($rmb . 'd', $remove_from_freeze);
+            $rs[] = $mo->table('codono_trade')->where(array('id' => $trade['id']))->setInc('deal', $amount);
+
+            $rs[] = $mo->table('codono_trade')->where(array('id' => $trade['id']))->save(array('status' => 1, 'percent' => $percentage));
+            $rs[] = $mo->table('codono_trade_log')->add(array('userid' => $trade['userid'], 'peerid' => 0, 'market' => $market, 'price' => $price, 'num' => $amount, 'mum' => $remaining_locked, 'type' => $type, 'fee_buy' => $fee_for_remaining, 'fee_sell' => 0, 'addtime' => time(), 'status' => 1,'percent'=>$percentage));
+
+        } else if ($type == 2) {
+            $amount = bcsub($num, $trade['deal'], 8);
+            $remaining_locked = bcsub($num, $trade['deal'], 8);
+
+            $effective_price = bcdiv($mum, $num, 8);
+            $credit_rmb = bcmul($amount, $effective_price, 8);
+            $sell_fee = bcdiv(bcmul($credit_rmb, $fee_sell, 8), 100, 8);
+            $rs[] = $mo->table('codono_user_coin')->where(array('userid' => $trade['userid']))->setInc($rmb, $credit_rmb);
+            $rs[] = $mo->table('codono_user_coin')->where(array('userid' => $trade['userid']))->setDec($xnb . 'd', $remaining_locked);
+
+            $rs[] = $mo->table('codono_trade')->where(array('id' => $trade['id']))->setInc('deal', $amount);
+
+            $rs[] = $mo->table('codono_trade')->where(array('id' => $trade['id']))->save(array('status' => 1, 'percent' => $percentage));
+            $rs[] = $mo->table('codono_trade_log')->add(array('userid' => 0, 'peerid' => $trade['userid'], 'market' => $market, 'price' => $price, 'num' => $amount, 'mum' => $credit_rmb, 'type' => $type, 'fee_buy' => 0, 'fee_sell' => $sell_fee, 'addtime' => time(), 'status' => 1,'percent'=>$percentage));
+
+        }
+        if (check_arr($rs)) {
+            S('getDepth', null);
+            S('getActiveDepth' . $market, null);
+            S('getActiveDepth', null);
+            S('getDepthNew', null);
+            $mo->commit();
+            return array('1', 'Order has been Force Executed');
+        } else {
+            $mo->rollback();
+            return array('0', 'Execution failed|' . implode('|', $rs));
+        }
+    }
 }
 

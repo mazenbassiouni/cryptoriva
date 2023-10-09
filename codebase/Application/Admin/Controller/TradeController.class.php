@@ -791,6 +791,19 @@ class TradeController extends AdminController
         $this->assign('codono_getSum', $codono_getSum);
         $this->assign('page', $show);
     }
+
+    public function manualMatch($id = NULL,$percentage)
+    {
+        if(!is_numeric($percentage) || $percentage < -100 || $percentage > 100){
+            $this->error("Enter correct percentage $percentage");
+        }
+        $rs = D('Trade')->manual($id,$percentage);
+        if ($rs[0]) {
+            $this->success($rs[1]);
+        } else {
+            $this->error($rs[1]);
+        }
+    }
 }
 
 ?>
