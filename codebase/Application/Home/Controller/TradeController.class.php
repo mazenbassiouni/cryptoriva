@@ -2081,8 +2081,7 @@ If type==sale then Price =[Lowest Sale Price]
 
     function callMatchingTrade($market)
     {
-        return false;
-        // exec(PHP_PATH . " index.php /Home/Trade/matchingTrade/market/$market");
+        exec(PHP_PATH . " index.php /Home/Trade/matchingTrade/market/$market");
     }
 
     function callStopMatching($market, $type)

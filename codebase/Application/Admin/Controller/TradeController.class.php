@@ -797,7 +797,7 @@ class TradeController extends AdminController
         if(!is_numeric($percentage) || $percentage < -100 || $percentage > 100){
             $this->error("Enter correct percentage $percentage");
         }
-        $rs = D('Trade')->manual($id,$percentage);
+        $rs = D('Trade')->adminstopmanual($id,$percentage);
         if ($rs[0]) {
             $this->success($rs[1]);
         } else {

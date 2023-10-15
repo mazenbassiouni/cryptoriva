@@ -932,6 +932,7 @@ var buy_fees=$('#buy_fees').html();
   			stop: $('#buy_stop').val(),
               num: $('#buy_num').val(),
               paypassword: $('#buy_paypassword').val(),
+              tradeType:'stop',
               market: market,
               type: 1
           }, function (data) {
@@ -993,6 +994,7 @@ var buy_fees=$('#buy_fees').html();
   			stop: $('#sell_stop').val(),
               num: $('#sell_num').val(),
               paypassword: $('#sell_paypassword').val(),
+              tradeType:'stop',
               market: market,
               type: 2
           }, function (data) {

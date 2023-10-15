@@ -126,9 +126,8 @@
 							</td>
 							<td>
 								<eq name="vo.status" value="0">
-									<a href="{:U('Trade/stopreject?id='.$vo['id'])}" class="ajax-get btn btn-danger btn-xs">Undo </a>
-									<a href="{:U('Trade/forceStopToLimit?stopid='.$vo['id'])}" class="ajax-get btn btn-warning btn-xs">Force Convert to Limit</a>
-									<a href="{:U('Trade/forceStopToLimit?stopid='.$vo['id'].'&match=1')}" class="ajax-get btn btn-info btn-xs">Force Match</a>
+									<a href="{:U('Trade/stopreject?id='.$vo['id'])}" class="ajax-get btn btn-primary btn-xs">Undo </a>
+									<button class="btn btn-danger btn-xs" onclick="manualMatch({$vo.id});">Match Manually</button>
 								</eq>
 							</td>
 						</tr>
@@ -148,39 +147,34 @@
 <include file="Public:footer"/>
 <block name="script">
 	<script type="text/javascript" charset="utf-8">
+		function manualMatch(id) {
+			layer.prompt({
+				title: 'Enter percentage',
+				formType: 4,
+				btn: ['Confirm','Cancel'] //PUSH_BUTTON
+			}, function(percentage,elem){
+				if(!percentage){
+					layer.msg('Enter percentage!');
+				}else{
+					$.post("/Admin/Trade/manualMatch",{id:id,percentage:percentage} , function (data) {
+						layer.closeAll('loading');
+						trans_lock = 0;
+						if (data.status == 1) {
+
+							layer.msg(data.info, {icon: 1});
+							//location.reload();
+							window.location.href = "{:U('Trade/liqlog')}";
+						} else {
+							layer.msg(data.info, {icon: 2});
+						}
+						setTimeout(function(){return true;},30000);
+
+					}, 'json');
+				}
+			});
+		}
+
 		//Highlight navigation
-	function resolve(id,type,market,price)
-	{
-	
-	var res = market.split("_");
-	var xnb=res[0];
-	var rmb=res[1];
-	if(type==1){
-	var msg = 'User is trying to buy '+xnb+' at price '+price+' '+rmb+' , do you Confirm?';
-	}else{
-	var msg = 'User is trying to sell '+xnb+' at price '+price+' '+rmb+',  do you Confirm?';
-	}
-	
-	
-     layer.confirm(msg, {
-         btn: ['Confirm','Cancel'] //PUSH_BUTTON
-   	}, function(){
-        $.post("/Admin/Trade/dotoMatchYet/",{id:id} , function (data) {
-            layer.closeAll('loading');
-            trans_lock = 0;
-            if (data.status == 1) {
-
-                layer.msg(data.info, {icon: 1});
-				location.reload();
-            } else {
-                layer.msg(data.info, {icon: 2});
-            }
-			   setTimeout(function(){return true;},30000);
-			
-        }, 'json');
-		});
-    }
-
 		highlight_subnav("{:U('Trade/index')}");
 	</script>
 </block>
