@@ -1,9 +1,12 @@
 <input class="hide" style="display:none" id="socket_data" value="0">
-<eq name="C['market'][$market]['socket_type']" value="1">
-    <include file="Trade:selfengine_footer_scripts"/>
+    <eq name="C['market'][$market]['socket_type']" value="1">
+        <include file="Trade:selfengine_footer_scripts"/>
     </eq>
     <eq name="C['market'][$market]['socket_type']" value="2">
-    <include file="Trade:ws_footer_scripts"/>
+        <include file="Trade:huobi_ws_footer_scripts"/>
+    </eq>
+    <eq name="C['market'][$market]['socket_type']" value="3">
+        <include file="Trade:binance_ws_footer_scripts"/>
     </eq>
     
 <script>

@@ -1,0 +1,167 @@
+<script src="/Public/assets/js/core/libraries/node-gzip.js"></script>
+<script>
+	const websocketId = 'CR'+Math.floor(Math.random()*1e12);
+	ws = new WebSocket("{:HUOBI_SOCKET_WS_URL}");
+
+	ws.onopen = function(e){
+		ws.send(JSON.stringify({sub: 'market.{$socket_pair}.depth.step0', id: websocketId}));
+		ws.send(JSON.stringify({sub: 'market.{$socket_pair}.trade.detail', id: websocketId}));
+		ws.send(JSON.stringify({sub: 'market.{$socket_pair}.detail', id: websocketId}));
+	}
+	ws.onmessage = function(e){
+		e.data.arrayBuffer().then((ar)=>{
+			ungzip(new Uint8Array(ar)).then((r) => {
+				data = JSON.parse(r.toString());
+				if(data.ping){
+					let reply = {pong: data.ping};
+					ws.send(JSON.stringify(reply));
+				}else if(data.id == websocketId && data.status == "ok" && data.subbed){
+					// console.log('WS:',data.subbed);
+				}else if( data.ch ){
+					wsParseData(data)
+				}
+			}).catch(console.error)
+		});
+	};
+
+	function wsParseData(data){
+		switch(data.ch){
+			case 'market.{$socket_pair}.depth.step0':
+				ws_depth(data.tick)
+				break
+		   case 'market.{$socket_pair}.detail':
+				ws_newprice(data.tick)
+				break	
+			case 'market.{$socket_pair}.trade.detail':
+				ws_tradelog(data.tick.data)
+				break	
+			default :
+			   console.log(data);
+		}
+	}
+	
+	function ws_tradelog(data) {
+		for (var i = 0; i < data.length; i++) {
+			elementupdate("#activexnb",data[i].price);
+			elementupdate("#market_sell_price",data[i].price);
+			if( data[i].direction == 'buy'){
+				var typeclass = 'green';
+				var ttype="Buy";
+				$("#activesign").html("↑");
+			}else{
+				var typeclass = 'red';
+				var ttype = "Sell";
+				$("#activesign").html("↓");
+			}
+			$('#market_sell_price').removeClass();
+			$('#activexnb').removeClass();
+			$('#market_sell_price').addClass(typeclass);
+			$('#activexnb').addClass(typeclass);
+			var total = toNum(data[i].amount*data[i].price,6);
+		
+			data[i].date = unixTime(data[i].ts);
+			$('#dealrecordbody tr:first').before('<tr class="row" id="tl'+data[i].id+'"><td class="pl-2 col-4" span="col"><span class="time">'+data[i].date+'</span></td><td class="'+typeclass+' col-4"><span class="price">'+data[i].price+'</span></td><td class="col-4"><span class="quantity">'+(data[i].amount).toFixed(8)+'</span></td></tr>');
+			$('#recent-orders-list tr:first').before('<tr id="tll'+data[i].id+'"><td>'+data[i].date+'</td><td class="'+typeclass+'">'+ttype+'</td><td class="'+typeclass+'">'+data[i].price+'</td><td>'+(data[i].amount).toFixed(8)+'</td><td>'+(total).toFixed(8)+'</td></tr>');
+			if($('#dealrecordbody tr').length>30){
+				$('#dealrecordbody tr:last').remove();
+			}
+			if($('#recent-orders-list tr').length>30){
+				$('#recent-orders-list tr:last').remove();
+			}
+			justblinkme('#tl'+data[i].id);
+		}					
+	}
+
+	function justblinkme(idselector){
+		$(idselector).hide(300);
+		$(idselector).show(1000);
+	}	
+	
+	function randomrange(start,end){
+		return (Math.floor(Math.random() * end) + start) ;
+	}
+
+	function ws_depth(data) {
+		$('input#socket_data').val(1);
+		var decimals=6;
+		
+		var list = [];
+		var previous_sell_vol = 0;
+		var previous_buy_vol = 0;
+		if (data.bids) {
+			data.sell = data.bids.reverse();
+			var sellvol = data.sell.reduce((x, y) => {return x + y[1];},0);
+			for (i = 0; i < data.sell.length; i++) {
+				previous_sell_vol = previous_sell_vol + data.sell[i][1];
+				list[i]= '<tr title="Buy at this price" class="topmost pl-1" id="activesell'+i+'" style="background:linear-gradient(to left, rgba(240, 80, 110, 0.2) '+(data.sell[i][1] * 100 / sellvol)+'%, transparent 0%); flex-shrink: 0;" onclick="autotrust(this,\'sell\',1)"><td class="red col-4">' + data.sell[i][0] + '</td><td >' + (data.sell[i][1]).toFixed(decimals) + '</td><td>' + (data.sell[i][0]*data.sell[i][1]).toFixed(decimals) + '</td></tr>';
+			}
+		}
+		$("#sellorderlist").html(list);
+
+		list = [];
+		if (data.asks) {
+			data.buy = data.asks;
+			var buyvol = data.buy.reduce((x, y) => {return x + y[1];},0);
+			for (i = 0; i < data.buy.length; i++) {
+				previous_buy_vol = previous_buy_vol + data.buy[i][1];
+				list [i]= '<tr title="Sell at this price" class="topmost pl-1" id="activebuy'+i+'" style="background:linear-gradient(to left, rgba(103, 153, 1, 0.2) '+(data.buy[i][1] * 100 / buyvol)+'%, transparent 0%)" onclick="autotrust(this,\'buy\',1)"><td class="green col-4"  >' + data.buy[i][0] + '</td><td class="col-4">' + (data.buy[i][1]).toFixed(decimals)+ '</td><td class="col-4">' + (data.buy[i][0]*data.buy[i][1]).toFixed(decimals) + '</td></tr>';
+			}
+		}
+		$("#buyorderlist").html(list);
+			
+		// blinkme('#activebuy');
+		// blinkme('#activebuy');
+		// blinkme('#activesell');
+		// blinkme('#activesell');
+				
+	}
+	
+	function ws_newprice(data) {
+		if(decimals == null){
+			var decimals=6;
+		}
+
+		var oldPrice = Number($("#activexnb").html());
+		var change = (data.open-data.close)/data.open*100;
+		elementupdate("#market_sell_price",data.open);
+		elementupdate("#market_buy_price",data.close);
+		elementupdate("#market_change",change.toFixed(3)+"%");
+		elementupdate("#market_max_price",data.high);
+		elementupdate("#market_min_price",data.low);
+		elementupdate("#market_volume",toNum(data.vol,2));
+		elementupdate("#activexnb", data.close);
+		elementupdate("#activermb",data.close);
+
+		if(change < 0){
+			$("#market_change").attr('class', 'red')
+		}else{
+			$("#market_change").attr('class', 'green')
+		}
+	}
+
+	function unixTime(unixtime) {
+
+		// var u = new Date(unixtime*1000);
+		var u = new Date(unixtime);
+		return ('0' + u.getUTCMonth()).slice(-2) +
+		'-' + ('0' + u.getUTCDate()).slice(-2) + 
+		' ' + ('0' + u.getUTCHours()).slice(-2) +
+		':' + ('0' + u.getUTCMinutes()).slice(-2) +
+		':' + ('0' + u.getUTCSeconds()).slice(-2) 
+	}
+		
+
+	
+	function blinkme(idselector){
+		var randselect=randomrange(1,19);
+		var actualselector=idselector+randselect;
+		$(actualselector).css("background-color","#F0B90B");
+		$(actualselector).hide(1500);
+		$(actualselector).show(1500);
+		$(actualselector).css("background-color","none");
+	}
+
+	function elementupdate(idselector,content){
+		$(idselector).html(content);
+	}
+</script>
