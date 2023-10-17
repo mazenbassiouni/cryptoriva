@@ -15,10 +15,81 @@
   else{
     const colorshade = "Dark";
   }
+  $(document).ready(function(){	
+	$('.mob_scr_orders').find('.sellMobtbody').attr('id','sellorderlist1');
+	$('.mob_scr_orders').find('.buyMobtbody').attr('id','buyorderlist1');
+	$('.mob_scr_trades').find('.tradeMobtbody').attr('id','dealrecordbody1');
+	
+	$('.customm_tabs ul li').on('click',function(){
+		$('.customm_tabs ul li').removeClass('active');
+		$(this).addClass('active');
+		let attr = $(this).attr('attr');
+		$('.mob_scr_orders').hide();
+		$('.mob_scr_chart').hide();
+		$('.mob_scr_trades').hide();
+		$('.mob_scr_'+attr).show();
+	});
+	$('.market-order ul li').on('click',function(){
+		if(window.innerWidth <= 768){
+			$('.market-order ul li a').removeClass('active');
+			$('.market-order ul li a').attr('aria-selected','false');
+			$(this).find('a').addClass('active');
+			$(this).find('a').attr('aria-selected','true');
+			if($(this).find('a').attr('href')=='#closed-orders'){
+				$('#opened-orders').removeClass('active show');
+				$('#closed-orders').addClass('active show');
+			}else{
+				$('#closed-orders').removeClass('active show');
+				$('#opened-orders').addClass('active show');
+			}
+		}
+	});
+	if(window.innerWidth <= 768){
+		$('.market-order ul li:nth-child(2) a').addClass('active');
+		$('.market-order ul li:nth-child(2) a').attr('aria-selected','true');
+		$('#closed-orders').addClass('active show');
+		
+		$('.mob_scr_orders').find('.sellMobtbody').attr('id','sellorderlist');
+		$('.mob_scr_orders').find('.buyMobtbody').attr('id','buyorderlist');
+		$('.mob_scr_trades').find('.tradeMobtbody').attr('id','dealrecordbody');
+	}
+  });
 </script>
 <style>
-	#sellorderlist, #buyorderlist {
+#sellorderlist, #buyorderlist {
     min-height: 326px;
+}
+body, html{
+    overflow-x: hidden;
+}
+.customm_tabs, .mob_scr_trades, .mob_scr_orders{
+	display: none;
+}
+@media only screen and (max-width: 768px){
+	.mobscrno{
+		display: none;
+	}
+	.customm_tabs{
+		display: block;
+	}
+	.customm_tabs ul {
+		display: flex;
+		background: black;
+		padding: 5px 12px;
+		font-size: 16px;
+	}
+	.customm_tabs ul li.active {
+		color: white;
+		border-bottom: 2px solid;
+	}
+
+	.customm_tabs ul li {
+		cursor: pointer;
+		margin-right: 20px;
+	}
+	.market-order ul li:first-child, .market-order .tab-content .tab-pane:first-child {
+		display: none;
+	}
 }
 </style>
 <div class="trade trade-pro common-bg">
@@ -28,7 +99,14 @@
 				<div class="row no-gutters">
 					<div class="col-xl-9">
 						<include file="Trade:mid_stats_pro" />
-						<div class="tab-content" id="v-pills-tabContent">
+						<div class="customm_tabs">
+							<ul>
+								<li class="active" attr="chart">Chart</li>
+								<li attr="orders">Orders</li>
+								<li attr="trades">Trades</li>
+							</ul>
+						</div>
+						<div class="tab-content mob_scr_chart" id="v-pills-tabContent">
 							<div class="tab-pane fade show active" id="v-pills-tradingview" role="tabpanel" aria-labelledby="v-pills-tradingview-tab">
 								<div class="main-chart">
 									<!-- TradingView Widget Start -->
@@ -44,11 +122,18 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="mob_scr_orders">
+							<include file="Trade:left_orderbook" />
+						</div>
+						<div class="mob_scr_trades">
+							<include file="Trade:right_historyPro" />
+						</div>
 						<div class="p-0 order-history market-order">
 							<include file="Trade:bottom_history" />	
 						</div>
 					</div>
-					<div class="col-xl-3">
+					<div class="col-xl-3 mobscrno">
 						<!-- Order Book Start -->
 						<include file="Trade:left_orderbook" />
 						

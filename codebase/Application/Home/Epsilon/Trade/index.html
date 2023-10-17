@@ -1,6 +1,23 @@
 <include file="Public:header" />
 
-
+<style>
+body, html{
+    overflow-x: hidden;
+}
+.sm_screen{
+	display: none;
+}
+@media only screen and (max-width: 768px){
+	.lg_screen{
+		display: none;
+	}.sm_screen{
+		display: flex;
+	}
+	.outflexboxx {
+		display: block !important;
+	}
+}
+</style>
 <script type="text/javascript">
      let market = "{$market}";
      let market_round = "{$C['market'][$market]['round']}";
@@ -17,16 +34,20 @@
   else{
     const colorshade = "Dark";
   }
+  $(document).ready(function(){
+	if(window.innerWidth <= 768){
+		$('.lg_screen').remove();
+	}
+  });
 </script>
 
 <div class="container-fluid mtb15 no-fluid">
-  <div class="row sm-gutters">
+  <div class="row sm-gutters lg_screen">
     <div class="col-md-3">
       <include file="Trade:left_orderbook" />
       <include file="Trade:left-margin" />
     </div>
     <div class="col-md-6">
-      <include file="Trade:mid_stats" />
       <include file="Trade:mid_charts" />
       <include file="Trade:mid_tradebox" />
     </div>
@@ -36,6 +57,26 @@
     </div>
     <div class="col-md-12">
       <include file="Trade:bottom_history" />
+    </div>
+  </div>
+  <div class="row sm-gutters sm_screen">
+	<div class="col-md-12 middd_stats_s1">
+      <include file="Trade:mid_stats" />
+	</div>
+	<div class="col-md-12 search_s2">      
+      <include file="Trade:right_pairs" />
+	</div>
+	<div class="col-md-12 chart_s3">
+      <include file="Trade:mid_charts" />
+	</div>
+	<div class="col-md-12 buysell_s4">
+		<include file="Trade:mid_tradebox" />	
+	</div>
+    <div class="col-md-12 tradehistory_s5">
+      <include file="Trade:bottom_history" />
+    </div>
+    <div class="col-md-12 order_s6">
+      <include file="Trade:left_orderbook" />
     </div>
   </div>
 </div>

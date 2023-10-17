@@ -2529,7 +2529,7 @@ a:not([href]):hover {
   background-color: #f7f7f7;
   border-color: #f7f7f7;
   font-weight: 500 !important;
-  padding: 10px 15px;
+  padding: 5px 10px;
 }
 
 .transfer-form-wrapper .transfer-from-to,
@@ -6066,4 +6066,7 @@ a:not([href]):hover {
   margin-left: 8px;
   margin-right: 8px;
   color: #707A8A;
+}
+.filter-option-inner-inner img{
+	width: 40px;
 }

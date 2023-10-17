@@ -136,12 +136,14 @@
 	}
 	function renderPage(ary) {
 		var html = '';
+		console.log(ary.length);
 		for (var i in ary) {
-		
-			var coinfinance = 0;
-			if (typeof FINANCE == 'object') coinfinance = parseFloat(FINANCE.data[ary[i][8] + '_balance']);
-			let total_24=ary[i][4] * ary[i][6];
-			html += '<tr id="m_' + ary[i][8] + '"><td><a href="/trade/index/market/' + ary[i][8] + '/">'+ary[i][12]+'</a></td><td class="tc-warning">' + ary[i][1] + '</td><td >' + ary[i][2] + '</td><td >' + ary[i][3] + '</td><td >' + formatCount(ary[i][6]) + '</td><td >' + formatCount(total_24) + '</td><td class="' + (ary[i][7] >= 0 ? 'green' : 'red') + '" >' + (parseFloat(ary[i][7]) < 0 ? '' : '') + ((parseFloat(ary[i][7]) < 0.01 && parseFloat(ary[i][7]) > -0.01) ? "0.00" : (parseFloat(ary[i][7])).toFixed(2)) + '%</td><td class="text-right"><a href=\'/trade/index/market/' + ary[i][8] + '/\'" class="btn-2"> {:l('TO_TRADE')}</a></td></tr>'
+			if(i<7){
+				var coinfinance = 0;
+				if (typeof FINANCE == 'object') coinfinance = parseFloat(FINANCE.data[ary[i][8] + '_balance']);
+				let total_24=ary[i][4] * ary[i][6];
+				html += '<tr id="m_' + ary[i][8] + '"><td><a href="/trade/index/market/' + ary[i][8] + '/">'+ary[i][12]+'</a></td><td class="tc-warning">' + ary[i][1] + '</td><td >' + ary[i][2] + '</td><td >' + ary[i][3] + '</td><td >' + formatCount(ary[i][6]) + '</td><td >' + formatCount(total_24) + '</td><td class="' + (ary[i][7] >= 0 ? 'green' : 'red') + '" >' + (parseFloat(ary[i][7]) < 0 ? '' : '') + ((parseFloat(ary[i][7]) < 0.01 && parseFloat(ary[i][7]) > -0.01) ? "0.00" : (parseFloat(ary[i][7])).toFixed(2)) + '%</td><td class="text-right"><a href=\'/trade/index/market/' + ary[i][8] + '/\'" class="btn-2"> {:l('TO_TRADE')}</a></td></tr>'
+			}
 		}
 		$('#price_today_ul').html(html);
 	}

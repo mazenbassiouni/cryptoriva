@@ -1,6 +1,9 @@
 <head>
   <link rel="stylesheet" href="/Public/template/epsilon/css/icon-park.css" />
   <style>
+	.banner-section{
+		height: 514px !important;
+	}
     .nav__item a {
       text-decoration: none;
       cursor: pointer;
@@ -223,6 +226,33 @@
         margin-left: 24px;
       }
     }
+    .nav-mobile .wallet_mob_dropdown.dropdown-menu.show,.nav-mobile .dropdown-menu.show {
+      width: 100%;
+      top: 40px !important;
+    }
+    .nav-mobile .dropdown-menu.show .dropdown-body{
+      border: 1px solid;
+      border-radius: 9px;
+    }
+    .WalletNav, .nav__item{
+      position: relative;
+    }
+	.mob_dark_mode{
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 1;
+		cursor: pointer;
+	}
+	span.mob_dark_mode a i {
+		font-size: 20px;
+	}
+	.pl0{
+		padding-left: 0;
+	}
+	.logout_a{
+		padding: 6px 0;
+	}
   </style>
 </head>
 
@@ -453,32 +483,15 @@
 
 <div class="mobile-mask"></div>
 <div class="nav-mobile pt-2">
+	<span class="mob_dark_mode">
+		<a class="nav-icon changeThemeLight bg-transparent" href="#!">
+		  <i class="icon-size moon"></i>
+		</a>
+    </span>
   <div class="">
-    <gt name="Think.session.userId" value="0">
-      <p class="text-white w-100 text-center mb-0">
-        {:l("Welcome")}, <span> {$Think.session.userName}!</span>
-      </p>
-      <div class="nav__item">
-        <i class="fa fa-cog" aria-hidden="true"></i>
-        <a href="{:U('/user/index')}">Account settings</a>
-      </div>
-      <div class="nav__item">
-        <a
-          class="btn btn-outline-warning btn-sm text-dark"
-          href="{:U('Login/loginout')}"
-          >{:l("Logout")}</a
-        >
-      </div>
-    </gt>
     <div class="nav__item">
       <i class="fa fa-language" aria-hidden="true"></i>
-      <a
-        aria-expanded="false"
-        aria-haspopup="true"
-        data-toggle="dropdown"
-        href="#"
-        role="button"
-      >
+      <a class="nav-link dropdown-toggle pl0" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
         English
       </a>
       <div class="dropdown-menu">
@@ -488,6 +501,58 @@
         </div>
       </div>
     </div>
+    <gt name="Think.session.userId" value="0">
+      <p class="text-white w-100 text-center mt-2">
+        {:l("Welcome")}, <span class="text-white"> {$Think.session.userName}!</span>
+      </p>
+      <div class="nav__item">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+        <a href="{:U('/user/index')}">Account settings</a>
+      </div>
+      <neq name="Think.session.userId" value="0">
+        <div class="nav__item WalletNav">
+          <i class="fa fa-money" aria-hidden="true"></i>
+          <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle pl0" data-toggle="dropdown" href="#" role="button">Wallet</a>
+          <div class="dropdown-menu wallet_mob_dropdown">
+            <div class="dropdown-body">
+              <a class="dropdown-item" href="{:U('Finance/index')}">
+                <div class="icon">
+                  <i class="fa fa-history"></i>
+                </div>
+                <div class="content">
+                  {:l('Spot Wallet')}  
+                </div>
+              </a>
+
+              <a class="dropdown-item" href="{:U('Wallet/cryptodeposit')}">
+                <div class="icon">
+                  <i class="fa fa-download"></i>
+                </div>
+                <div class="content">
+                  {:l('Deposit')}
+                </div>
+              </a>
+              <a class="dropdown-item" href="{:U('Wallet/cryptowithdrawal')}">
+                <div class="icon">
+                  <i class="fa fa-upload"></i>
+                </div>
+                <div class="content">
+                  {:l('Withdraw')} 
+                </div>
+              </a>
+  
+            </div>
+          </div>
+        </div>
+      </neq>
+      <!--div class="nav__item">
+        <a
+          class="btn btn-outline-warning btn-sm text-dark"
+          href="{:U('Login/loginout')}"
+          >{:l("Logout")}</a
+        >
+      </div-->
+    </gt>
     <div class="d-flex justify-content-around align-items-center w-100">
       <eq name="Think.session.userId" value="0">
         <div class="nav__item">
@@ -512,31 +577,55 @@
     <a href="/">Home</a>
   </div>
   <volist name="navigation" id="vo">
+    <div class="nav__item">
     <if condition="$vo.dropdown eq 1">
       <if condition="$vo['title'] neq ' '">
-        <label class="nav__label">{:l($vo['title'])}</label>
+        <!--label class="nav__label lbl_dropdown">{:l($vo['title'])}</label-->
+        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{:l($vo['title'])}</a>
+        <else/>
+        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">More</a>
       </if>
-      <volist name="vo.submenu" id="submenu">
-        <div class="nav__item">
-          <if condition="$submenu['ico']">
-            <i class="fa fa-{$submenu['mobile_ico']}" aria-hidden="true"></i>
-            <else />
-            <i class="fa fa-power-off" aria-hidden="true"></i>
-          </if>
-          	<if condition="$submenu['is_external']">
-							<a href="{$submenu.url}">
-							<else/>
-							<a href="/{$submenu.url}">
-							</if>
-            {$submenu.title}</a>
+      <div class="dropdown-menu">
+        <div class="dropdown-body">          
+          <volist name="vo.submenu" id="submenu">
+            <if condition="$submenu['is_external']">
+              <a class="dropdown-item" href="{$submenu.url}">
+            <else/>
+              <a class="dropdown-item" href="/{$submenu.url}">
+            </if>
+              <div class="icon">
+                <if condition="$submenu['ico']">
+                  <i class="fa fa-{$submenu['mobile_ico']}" aria-hidden="true"></i>
+                  <else />
+                  <i class="fa fa-power-off" aria-hidden="true"></i>
+                </if>
+              </div>
+              <div class="content">
+                {$submenu.title}
+              </div>
+            </a> 
+            <!--div class="nav__item">
+              <if condition="$submenu['ico']">
+                <i class="fa fa-{$submenu['mobile_ico']}" aria-hidden="true"></i>
+                <else />
+                <i class="fa fa-power-off" aria-hidden="true"></i>
+              </if>
+              <if condition="$submenu['is_external']">
+                <a href="{$submenu.url}">
+              <else/>
+                <a href="/{$submenu.url}">
+              </if>
+              {$submenu.title}</a>
+            </div-->
+          </volist>
         </div>
-      </volist>
+      </div>
       <else />
-      <div class="nav__item">
+      <div class="nav__item elseifnav">
         <if condition="$vo['ico']">
           <i class="fa fa-{$vo['ico']}" aria-hidden="true"></i>
-          <else />
-          <i class="fa fa-power-off" aria-hidden="true"></i>
+          <!--else />
+          <i class="fa fa-power-off" aria-hidden="true"></i-->
         </if>
         <if condition="$vo['is_external']">
           <a href="{$vo['url']}">
@@ -545,7 +634,13 @@
           </if>{:l($vo['title'])}</a>
       </div>
     </if>
+    </div>
   </volist>
+  <neq name="Think.session.userId" value="0">
+	<div class="nav__item">
+		<a class="logout_a btn btn-outline-warning btn-sm text-dark w-100" href="{:U('Login/loginout')}">{:l("Logout")}</a>
+	</div>
+  </neq>
 </div>
 <script>
   //display flyout mobile-menu
