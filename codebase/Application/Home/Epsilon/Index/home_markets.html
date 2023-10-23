@@ -6,15 +6,13 @@
 					<div class="home-markets">
 						<div class="d-flex justify-content-between align-items-center"id="market-tab-box">
 							<ul class="nav nav-pills trade_qu_list" role="tablist">
-								
 								<volist name="codono_jiaoyiqu" id="v">		
-	<li  class=" nav-link trade_moshi trade_qu_pai <eq name="key" value="0">
-	current</eq>" data="{$key}" onclick="trade_qu(this)">
-	<a href="#highlighted-justified-tab1" class="<eq name="key" value="0">active</eq>" data-toggle="tab">{$v}</a>
-	</li>
-	</volist>	
+									<li  class=" nav-link trade_moshi trade_qu_pai <eq name="key" value="0">
+									current</eq>" data="{$key}" onclick="trade_qu(this)">
+										<a href="#highlighted-justified-tab1" class="<eq name="key" value="0">active</eq>" data-toggle="tab">{$v}</a>
+									</li>
+								</volist>	
 							</ul>
-
 						</div>
 						<div class="tab-content">
 							<div class="tab-pane fade show active" id="daily-top-winners" role="tabpanel">
@@ -44,9 +42,19 @@
 					</div>
 				</div>
 			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-12 text-center">
+					<a href="/Content/market" class="btn yellow-bg btn-lg viewall_btn">View all</a>
+				</div>
+			</div>
 		</div>
 	</section>
 	<!-- Home Market End -->
+	<style>
+	.viewall_btn{
+		font-size: 20px;
+	}
+	</style>
 	<script>
 	$('.price_today_ull > .click-sort').each(function () {
 		$(this).click(function () {

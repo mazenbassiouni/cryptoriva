@@ -2,7 +2,7 @@
 <section class="blog">
     <div class="container">
         
-        <h2 class="section-title">{:SHORT_NAME} {:l('Blog')}</h2>
+        <h2 class="section-title Main_headings text-center">{:SHORT_NAME} {:l('Blog')}</h2>
 
         <div class="blog-single-item arrow-black">
             <volist name="index_blog" id="vo" offset="0" length="4">
@@ -14,10 +14,10 @@
                             <img class="img-fluid" src="__UPLOAD__/article/{$vo['img']}" alt="{$vo['title']}">
                         </figure>
                         <div class="card-body">
-                            <div class="blog-categorie"><span>Bitcoin</span><span>News</span></div>
+                            <!--div class="blog-categorie"><span>Bitcoin</span><span>News</span></div-->
                             <h4 class="card-title">{$vo['title']|msubstr=0,100}</h4>
                             <p class="card-text">{$vo['content']|strip_tags|msubstr=0,100}</p>
-                            <span class="date">{$vo.addtime|addtime}</span>
+                            <!--span class="date">{$vo.addtime|addtime}</span-->
                         </div>
                     </a>
                 </div>
