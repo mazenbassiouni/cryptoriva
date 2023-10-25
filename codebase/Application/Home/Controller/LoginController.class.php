@@ -85,7 +85,7 @@ class LoginController extends HomeController
                     $add_user['invit_2']= $invit_2;
                     $add_user['invit_3']= $invit_3;
 
-                    $add_user['username']=$payload['id'];
+                    $add_user['username']=$payload['given_name'];
                     $add_user['email']=$payload['email'];
                     $add_user['firstname']=$payload['given_name'];
                     $add_user['lastname']=$payload['family_name'];

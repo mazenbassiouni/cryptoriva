@@ -17,9 +17,11 @@
 							<div class="col-md-9 col-sm-6 text-right hide-mobile">
 								<a href="{:U('Wallet/cryptodeposit')}" class="btn-2"><i class="fa fa-download"></i> {:l("Deposit")}</a>
 								<a href="{:U('Wallet/cryptowithdrawal')}"  class="btn-1"><i class="fa fa-upload"></i> {:l("Withdraw")}</a>
-								<a href="{:U('Finance/p2p')}" class="btn-1"><i class="fa fa-exchange"></i> P2p {:l("Wallet")}</a>
-							<a href="{:U('Transfer/index')}" class="btn-1"><i class="fa fa-exchange"></i> {:l("Transfer")}</a>
-							<a href="{:U('Transfer/giftcard')}" class="btn-1"><i class="fa fa-gift"></i> {:l("Gift Cards")}</a>
+								<eq name="P2P_TRADING" value="1">
+									<a href="{:U('Finance/p2p')}" class="btn-1"><i class="fa fa-exchange"></i> P2p {:l("Wallet")}</a>
+									<a href="{:U('Transfer/index')}" class="btn-1"><i class="fa fa-exchange"></i> {:l("Transfer")}</a>
+								</eq>
+								<a href="{:U('Transfer/giftcard')}" class="btn-1"><i class="fa fa-gift"></i> {:l("Gift Cards")}</a>
 
 							</div>
 							<div class=" d-lg-none w-100">

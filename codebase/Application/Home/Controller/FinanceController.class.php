@@ -267,6 +267,10 @@ class FinanceController extends HomeController
 
     public function p2p()
     {
+        if(!P2P_TRADING){
+            redirect(U('Finance/index'));
+        }
+        
         $uid = userid();
         if (!$uid) {
             redirect(U('Login/login'));

@@ -66,7 +66,7 @@
         border-color: #ffbe40 !important;
     }
 
-    #dark .contact-form-wrapper .form-group input, #dark .contact-form-wrapper .form-group textarea, #dark .contact-form-wrapper .form-group label[for="files"]{
+    #dark .contact-form-wrapper .form-group input, #dark .contact-form-wrapper .form-group textarea, #dark .contact-form-wrapper .form-group label[for="files"],#dark .contact-form-wrapper #login_verify{
         border-color: #414141;
     }
 
@@ -166,6 +166,15 @@
                 </div>
                 <div id="filesResult"></div>
 
+                <input type="text" hidden name="verify" id="verifyVal">
+                <div class="justify-content-between" style="margin-bottom: 2rem;">
+                    <eq name="RECAPTCHA" value="1">
+                    <include file="Public:recaptcha"/>
+                    <else/>
+                    <include file="Public:image_captcha"/>
+                    </eq>
+                </div>
+
                 <div class="submit-btn-wrapper">
                     <button id="submitBtn" type="button" class="btn btn-2">Submit</button>
                     <div>
@@ -184,6 +193,11 @@
         let btn = e.target;
         btn.disabled = true;
         if(validateForm()){
+            <eq name="RECAPTCHA" value="1">
+                $('#verifyVal').val($("#g-recaptcha-response").val());
+            <else/>
+                $('#verifyVal').val($("#login_verify").val());
+            </eq>
             $.ajax({
                 method: contactForm.method,
                 url: contactForm.action,
@@ -200,6 +214,14 @@
                         files.value = null;
                         filesResult.innerHTML = '';
 
+                        <eq name="RECAPTCHA" value="1">
+                            $("#g-recaptcha-response").val('');
+                            grecaptcha.reset();
+                        <else/>
+                            $("#login_verify").val('');
+                            $("#login_verify_up").click();
+                        </eq>
+
                         showMsg(confirmMsg, res.message);
                         btn.disabled = false;
                     }else if( res.errors ){
@@ -209,6 +231,13 @@
                         })
                         btn.disabled = false;
                     }else if( res.message ){
+                        if(res.type = 'captcha'){
+                            <eq name="RECAPTCHA" value="1">
+                                grecaptcha.reset();
+                            <else/>
+                                $("#login_verify_up").click();
+                            </eq>
+                        }
                         showMsg(confirmMsg, res.message);
                         btn.disabled = false;
                     }

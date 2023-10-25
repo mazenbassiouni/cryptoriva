@@ -1220,8 +1220,18 @@ class AjaxController extends HomeController
      * @param $ajax
      * @return array|mixed|object|void
      */
-    public function contact()
+    public function contact($verify = NULL)
     {
+        if (C('login_verify')) {
+            if (!check_verify($verify, $id = 1, $recap = 1)) {
+                exit(json_encode([
+                    'success' => false,
+		            'message' => L('Incorrect Captcha!'),
+                    'type' => 'captcha'
+                ]));
+            }
+        }
+
         $email = $_POST['email'];
         $issue = $_POST['issue'];
         $subject = $_POST['subject'];
@@ -1269,7 +1279,7 @@ class AjaxController extends HomeController
             if($status){
                 exit(json_encode([
                     'success' => true,
-		    'message' => 'Request received',
+		            'message' => 'Request received',
                 ]));
             }else{
                 exit(json_encode([

@@ -68,6 +68,10 @@ class TransferController extends HomeController
 	}
 	
 	public function index(){
+		if(!P2P_TRADING){
+            redirect(U('Finance/index'));
+        }
+		
 		$from = I('request.from', 'spot', 'text');
 		$to = I('request.from', 'p2p', 'text');
 		 if (!in_array($from, self::allowed_types)) {
