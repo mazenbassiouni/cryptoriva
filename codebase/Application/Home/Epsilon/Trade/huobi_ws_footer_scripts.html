@@ -87,6 +87,7 @@
 
 		const maxOrders = 20;
 		const minOrders = 10;
+		const minOrderAmount = 0.000029;
 		
 		var list = [];
 		var previous_sell_vol = 0;
@@ -95,6 +96,7 @@
 			data.sell = data.bids.reverse();
 			var sellvol = data.sell.reduce((x, y) => {return x + y[1];},0);
 			for (i = 0; i < data.sell.length; i++) {
+				if(data.sell[i][1] < minOrderAmount){continue}
 				previous_sell_vol = previous_sell_vol + data.sell[i][1];
 				list[i]= '<tr title="Buy at this price" class="topmost pl-1" id="activesell'+i+Date.now()+'" style="background:linear-gradient(to left, rgba(240, 80, 110, 0.2) '+(data.sell[i][1] * 100 / sellvol)+'%, transparent 0%);" onclick="autotrust(this,\'sell\',1)"><td class="red col-4">' + data.sell[i][0] + '</td><td >' + (data.sell[i][1]).toFixed(decimals) + '</td><td>' + (data.sell[i][0]*data.sell[i][1]).toFixed(decimals) + '</td></tr>';
 			}
@@ -113,6 +115,7 @@
 			data.buy = data.asks;
 			var buyvol = data.buy.reduce((x, y) => {return x + y[1];},0);
 			for (i = 0; i < data.buy.length; i++) {
+				if(data.buy[i][1] < minOrderAmount){continue}
 				previous_buy_vol = previous_buy_vol + data.buy[i][1];
 				list [i]= '<tr title="Sell at this price" class="topmost pl-1" id="activebuy'+i+Date.now()+'" style="background:linear-gradient(to left, rgba(103, 153, 1, 0.2) '+(data.buy[i][1] * 100 / buyvol)+'%, transparent 0%)" onclick="autotrust(this,\'buy\',1)"><td class="green col-4"  >' + data.buy[i][0] + '</td><td class="col-4">' + (data.buy[i][1]).toFixed(decimals)+ '</td><td class="col-4">' + (data.buy[i][0]*data.buy[i][1]).toFixed(decimals) + '</td></tr>';
 			}
