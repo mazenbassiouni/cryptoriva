@@ -81,8 +81,8 @@
 		$('input#socket_data').val(1);
 		var decimals=6;
 		
-		const maxOrders = 20;
-		const minOrders = 10;
+		const maxOrders = 40;
+		const minOrders = 25;
 		const minOrderAmount = 0.000029;
 
 		var list = [];
@@ -94,12 +94,12 @@
 			for (i = 0; i < data.sell.length; i++) {
 				if(data.sell[i][1] < minOrderAmount){continue}
 				previous_sell_vol = previous_sell_vol + Number(data.sell[i][1]);
-				list[i]= '<tr title="Buy at this price" class="topmost pl-1" id="activesell'+i+Date.now()+'" style="background:linear-gradient(to left, rgba(240, 80, 110, 0.2) '+(data.sell[i][1] * 100 / sellvol)+'%, transparent 0%);" onclick="autotrust(this,\'sell\',1)"><td class="red col-4">' + data.sell[i][0] + '</td><td >' + Number(data.sell[i][1]).toFixed(decimals) + '</td><td>' + (data.sell[i][0]*data.sell[i][1]).toFixed(decimals) + '</td></tr>';
+				list.push('<tr title="Buy at this price" class="topmost pl-1" id="activesell'+i+Date.now()+'" style="background:linear-gradient(to left, rgba(240, 80, 110, 0.2) '+(data.sell[i][1] * 100 / sellvol)+'%, transparent 0%);" onclick="autotrust(this,\'sell\',1)"><td class="red col-4">' + data.sell[i][0] + '</td><td >' + Number(data.sell[i][1]).toFixed(decimals) + '</td><td>' + (data.sell[i][0]*data.sell[i][1]).toFixed(decimals) + '</td></tr>');
 			}
 
-			if(data.sell.length <= minOrders){
+			if(list.length < minOrders){
 				$("#sellorderlist").prepend(list);
-				$("#sellorderlist tr").length > maxOrders ? $(`#sellorderlist tr:nth-last-child( -n + ${data.sell.length})`).remove() : '';
+				$("#sellorderlist tr").length > maxOrders ? $(`#sellorderlist tr:nth-last-child( -n + ${$("#sellorderlist tr").length - maxOrders})`).remove() : '';
 			}else{
 				$("#sellorderlist").html(list);
 			}
@@ -112,12 +112,12 @@
 			for (i = 0; i < data.buy.length; i++) {
 				if(data.buy[i][1] < minOrderAmount){continue}
 				previous_buy_vol = previous_buy_vol + Number(data.buy[i][1]);
-				list [i]= '<tr title="Sell at this price" class="topmost pl-1" id="activebuy'+i+Date.now()+'" style="background:linear-gradient(to left, rgba(103, 153, 1, 0.2) '+(data.buy[i][1] * 100 / buyvol)+'%, transparent 0%)" onclick="autotrust(this,\'buy\',1)"><td class="green col-4"  >' + data.buy[i][0] + '</td><td class="col-4">' + Number(data.buy[i][1]).toFixed(decimals)+ '</td><td class="col-4">' + (data.buy[i][0]*data.buy[i][1]).toFixed(decimals) + '</td></tr>';
+				list.push('<tr title="Sell at this price" class="topmost pl-1" id="activebuy'+i+Date.now()+'" style="background:linear-gradient(to left, rgba(103, 153, 1, 0.2) '+(data.buy[i][1] * 100 / buyvol)+'%, transparent 0%)" onclick="autotrust(this,\'buy\',1)"><td class="green col-4"  >' + data.buy[i][0] + '</td><td class="col-4">' + Number(data.buy[i][1]).toFixed(decimals)+ '</td><td class="col-4">' + (data.buy[i][0]*data.buy[i][1]).toFixed(decimals) + '</td></tr>');
 			}
 			
-			if(data.buy.length <= minOrders){
+			if(list.length < minOrders){
 				$("#buyorderlist").prepend(list);
-				$("#buyorderlist tr").length > maxOrders ? $(`#buyorderlist tr:nth-last-child( -n + ${data.buy.length})`).remove() : '';
+				$("#buyorderlist tr").length > maxOrders ? $(`#buyorderlist tr:nth-last-child( -n + ${$("#buyorderlist tr").length - maxOrders})`).remove() : '';
 			}else{
 				$("#buyorderlist").html(list);
 			}
